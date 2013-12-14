@@ -25,22 +25,23 @@ include_once('./../includes/common.php');
 
 class Manage_Banker extends page_generic {
 	public static function __shortcuts() {
-		$shortcuts = array('user', 'tpl', 'in', 'pdh', 'jquery', 'core', 'config', 'html', 'pm', 'time', 'money' => 'rb_money');
+		$shortcuts = array('user', 'tpl', 'in', 'pdh', 'jquery', 'core', 'config', 'html', 'pm', 'time', 'money' => 'gb_money');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
 	public function __construct(){
 		$this->user->check_auth('a_guildbank_manage');
 		$handler = array(
-			'save'	=> array('process' => 'save', 'csrf'=>true),
-			'g'		=> array('process' => 'edit'),
+			'save'		=> array('process' => 'save',			'csrf'=>true),
+			'saveitem'	=> array('process' => 'saveitem',		'csrf'=>true),
+			'edit'		=> array('process' => 'edit'),
+			'additem'	=> array('process' => 'addedit_item'),
 		);
 		parent::__construct(false, $handler, array('bankers', 'name'), null, 'banker_ids[]');
 		$this->process();
 	}
 
 	public function save() {
-		$noranks = false;
 		$retu = array();
 		$bankers = $this->get_post();
 		if($bankers) {
@@ -62,8 +63,22 @@ class Manage_Banker extends page_generic {
 		$this->display($message);
 	}
 
+	public function saveitem() {
+		$retu			= array();
+		
+		$money			= $this->money->input();
+		$func			= ($this->in->get('item', 0) > 0) ? 'update' : 'add';
+		$retu			= $this->pdh->put('guildbank_items', $func, array(
+		$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $money, $this->in->get('dkp', 0)));
+		if($retu) {
+			$message = array('title' => $this->user->lang('save_nosuc'), 'text' => implode(', ', $names), 'color' => 'red');
+		} elseif(in_array(true, $retu)) {
+			$message = array('title' => $this->user->lang('save_suc'), 'text' => implode(', ', $names), 'color' => 'green');
+		}
+		$this->edit($message);
+	}
+
 	public function delete() {
-		$noranks = false;
 		$banker_ids = $this->in->getArray('banker_ids', 'int');
 		if($banker_ids) {
 			foreach($banker_ids as $id) {
@@ -134,11 +149,6 @@ class Manage_Banker extends page_generic {
 	// Displays a single Group
 	// ---------------------------------------------------------
 	public function edit($messages=false, $banker = false){
-		if($messages) {
-			$this->pdh->process_hook_queue();
-			$this->core->messages($messages);
-		}
-		
 		$bankerID  = ($banker > 0) ? $banker : $this->in->get('g', 0);
 		
 		//init infotooltip
@@ -166,6 +176,37 @@ class Manage_Banker extends page_generic {
 		$this->core->set_vars(array(
 			'page_title'		=> 'Hioer kommz noch nen Titel hon',
 			'template_file'		=> 'admin/manage_banker_items.html',
+			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
+			'display'			=> true)
+		);
+	}
+
+	// ---------------------------------------------------------
+	// Displays add/edit item dialog
+	// ---------------------------------------------------------
+	public function addedit_item(){
+		$bankerID		= $this->in->get('g', 0);
+		$itemID			= $this->in->get('i', 0);
+		$rarity			= $this->pdh->get('guildbank_items', 'rarity', array($itemID));
+		$type			= $this->pdh->get('guildbank_items', 'type', array($itemID));
+		$edit_bankid	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'banker', array($itemID)) : 0;
+		$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
+
+		$this->tpl->assign_vars(array(
+			'S_EDIT'		=> ($itemID > 0) ? true : false,
+			'ITEMID'		=> $itemID,
+			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
+			'RARITY'		=> $this->html->DropDown('rarity', $this->user->lang('gb_a_rarity'), (($itemID > 0) ? $rarity : '')),
+			'TYPE'			=> $this->html->DropDown('type', $this->user->lang('gb_a_type'), $type),
+			'VALUE'			=> ($itemID > 0) ? $itemID : '',
+			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
+			'MONEY'			=> $this->money->editfields($money),
+			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+		));
+
+		$this->core->set_vars(array(
+			'page_title'		=> ($itemID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_item_title'),
+			'template_file'		=> 'admin/manage_banker_add_items.html',
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'display'			=> true)
 		);

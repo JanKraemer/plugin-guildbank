@@ -30,10 +30,10 @@ $systems_guildbank = array(
 			'page_ref'			=> 'guildbank.php',
 			'show_select_boxes'	=> false,
 			'table_presets'		=> array(
-				array('name' => 'rb_iamount',	'sort' => false,	'th_add' => 'align="center width="50px"',	'td_add' => ''),
-				array('name' => 'rb_iname',		'sort' => false,	'th_add' => 'align="center width="100%"',	'td_add' => ''),
-				array('name' => 'rb_itype',		'sort' => false,	'th_add' => 'align="center width="200px"',	'td_add' => ''),
-				array('name' => 'rb_ibanker',	'sort' => false,	'th_add' => 'align="center"',	'td_add' => '')
+				array('name' => 'gb_iamount',	'sort' => false,	'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_iname',		'sort' => false,	'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_itype',		'sort' => false,	'th_add' => 'align="center width="200px"',	'td_add' => ''),
+				array('name' => 'gb_ibanker',	'sort' => false,	'th_add' => 'align="center"',	'td_add' => '')
 			)
 		),
 		'hptt_guildbank_admin_items' => array(
@@ -47,13 +47,13 @@ $systems_guildbank = array(
 			'table_sort_dir'		=> 'desc',
 			'table_sort_col'		=> 1,
 			'table_presets' => array(
-				array('name' => 'rb_iname',		'sort' => true, 'th_add' => '', 'td_add' => 'style="height:21px;"'),
-				array('name' => 'rb_idate',		'sort' => true, 'th_add' => '', 'td_add' => ''),
-				array('name' => 'rb_itype',		'sort' => true, 'th_add' => '', 'td_add' => ''),
-				array('name' => 'rb_irarity',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
-				array('name' => 'rb_iamount',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
-				array('name' => 'rb_ivalue',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
-				array('name' => 'rb_iedit',		'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
+				array('name' => 'gb_iname',		'sort' => true, 'th_add' => '', 'td_add' => 'style="height:21px;"'),
+				array('name' => 'gb_idate',		'sort' => true, 'th_add' => '', 'td_add' => ''),
+				array('name' => 'gb_itype',		'sort' => true, 'th_add' => '', 'td_add' => ''),
+				array('name' => 'gb_irarity',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
+				array('name' => 'gb_iamount',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
+				array('name' => 'gb_ivalue',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
+				array('name' => 'gb_iedit',		'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
 			),
 		),
 	)

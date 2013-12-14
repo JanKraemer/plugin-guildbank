@@ -53,7 +53,7 @@ if (!class_exists('pdh_r_guildbank_banker')){
 			// empty array as default
 			$this->data = array();
 
-			// read all guildrequest_fields entries from db
+			// read all guildbank_fields entries from db
 			$sql = 'SELECT * FROM `__guildbank_banker` ORDER BY banker_id ASC;';
 			$result = $this->db->query($sql);
 			if ($result){
@@ -97,7 +97,7 @@ if (!class_exists('pdh_r_guildbank_banker')){
 			if($raw){
 				return (isset($this->data[$id]) && $this->data[$id]['bankchar'] > 0) ? $this->data[$id]['bankchar'] : 0;
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['bankchar'] > 0) ? $this->pdh->get('member', 'name', array($this->data[$id]['bankchar'])) : $this->user->lang('rb_no_bankchar');
+			return (isset($this->data[$id]) && $this->data[$id]['bankchar'] > 0) ? $this->pdh->get('member', 'name', array($this->data[$id]['bankchar'])) : $this->user->lang('gb_no_bankchar');
 		}
   } //end class
 } //end if class not exists

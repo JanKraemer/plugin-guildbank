@@ -104,7 +104,7 @@ class guildbank extends plugin_generic {
 	private function gen_admin_menu(){
 		$admin_menu = array (array(
 			'name' => $this->user->lang('guildbank'),
-			'icon' => './../../plugins/guildbank/images/rb_icon.png',
+			'icon' => './../../plugins/guildbank/images/gb_icon.png',
 			1 => array (
 				'link'	=> 'plugins/guildbank/admin/manage_settings.php'.$this->SID,
 				'text'	=> $this->user->lang('settings'),
@@ -115,7 +115,7 @@ class guildbank extends plugin_generic {
 				'link'	=> 'plugins/guildbank/admin/manage_banker.php'.$this->SID,
 				'text'	=> $this->user->lang('manage'),
 				'check'	=> 'a_guildbank_manage',
-				'icon'	=> './../../plugins/guildbank/images/rb_icon.png'
+				'icon'	=> './../../plugins/guildbank/images/gb_icon.png'
 			)
 		));
 		return $admin_menu;
@@ -129,7 +129,7 @@ class guildbank extends plugin_generic {
 		$main_menu = array(
 			1 => array (
 				'link'		=> 'plugins/guildbank/guildbank.php'.$this->SID,
-				'text'		=> $this->user->lang('rb_usermenu_guildbank'),
+				'text'		=> $this->user->lang('gb_usermenu_guildbank'),
 				'check'		=> 'u_guildbank_view',
 			),
 		);

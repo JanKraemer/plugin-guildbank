@@ -22,8 +22,8 @@ if(!defined('EQDKP_INC'))
 	exit;
 }
 
-if(!class_exists('rb_money')) {
-	class rb_money extends gen_class {
+if(!class_exists('gb_money')) {
+	class gb_money extends gen_class {
 		public static $shortcuts = array('in', 'config', 'user', 'game', 'html');
 		
 		public function __construct(){

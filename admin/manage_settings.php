@@ -22,9 +22,9 @@ define('IN_ADMIN', true);
 define('PLUGIN', 'guildbank');
 
 $eqdkp_root_path = './../../../';
-include_once($eqdkp_root_path.'common.php');
+include_once('./../includes/common.php');
 
-class guildrequestSettings extends page_generic {
+class guildbankSettings extends page_generic {
 
 	public static function __shortcuts(){
 		$shortcuts = array('user', 'config', 'pdc', 'pfh', 'pdh', 'pm', 'html');
@@ -51,17 +51,17 @@ class guildrequestSettings extends page_generic {
 
 		// take over new values
 		$savearray = array(
-			'rb_hide_banker'    => $this->in->get('rb_hide_banker', 0),
-			'rb_no_bankers'     => $this->in->get('rb_no_bankers', 0),
-			'rb_show_money'     => $this->in->get('rb_show_money', 0),
-			'rb_show_tooltip'   => $this->in->get('rb_show_tooltip', 0),
-			'rb_auto_adjustment'=> $this->in->get('rb_auto_adjustment', 0),
+			//'gb_hide_banker'    => $this->in->get('gb_hide_banker', 0),
+			'gb_no_bankers'     => $this->in->get('gb_no_bankers', 0),
+			'gb_show_money'     => $this->in->get('gb_show_money', 0),
+			'gb_show_tooltip'   => $this->in->get('gb_show_tooltip', 0),
+			//'gb_auto_adjustment'=> $this->in->get('gb_auto_adjustment', 0),
 		);
 
 		// update configuration
 		$this->config->set($savearray, '', 'guildbank');
 		// Success message
-		$messages[] = $this->user->lang('rb_saved');
+		$messages[] = $this->user->lang('gb_saved');
 
 		$this->display($messages);
 	}
@@ -74,11 +74,11 @@ class guildrequestSettings extends page_generic {
 		}
 
 		$this->tpl->assign_vars(array(
-			'R_AUTO_ADJUST'		=> $this->html->RadioBox('rb_auto_adjustment', false, $this->config->get('rb_auto_adjustment', 'guildbank'), 'input'),
-			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('rb_show_tooltip', false, $this->config->get('rb_show_tooltip', 'guildbank'), 'input'),
-			'R_HIDE_BANKER'		=> $this->html->RadioBox('rb_hide_banker', false, $this->config->get('rb_hide_banker', 'guildbank'), 'input'),
-			'R_HIDE_MONEY'		=> $this->html->RadioBox('rb_show_money', false, $this->config->get('rb_show_money', 'guildbank'), 'input'),
-			'R_NO_BANKER'		=> $this->html->RadioBox('rb_no_bankers', false, $this->config->get('rb_no_bankers', 'guildbank'), 'input'),
+			//'R_AUTO_ADJUST'		=> $this->html->RadioBox('gb_auto_adjustment', false, $this->config->get('gb_auto_adjustment', 'guildbank'), 'input'),
+			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('gb_show_tooltip', false, $this->config->get('gb_show_tooltip', 'guildbank'), 'input'),
+			//'R_HIDE_BANKER'		=> $this->html->RadioBox('gb_hide_banker', false, $this->config->get('gb_hide_banker', 'guildbank'), 'input'),
+			'R_HIDE_MONEY'		=> $this->html->RadioBox('gb_show_money', false, $this->config->get('gb_show_money', 'guildbank'), 'input'),
+			'R_NO_BANKER'		=> $this->html->RadioBox('gb_no_bankers', false, $this->config->get('gb_no_bankers', 'guildbank'), 'input'),
 		));
 
 		$this->core->set_vars(array(
@@ -91,6 +91,6 @@ class guildrequestSettings extends page_generic {
 
 }
 
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_guildrequestSettings', guildrequestSettings::__shortcuts());
-registry::register('guildrequestSettings');
+if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_guildbankSettings', guildbankSettings::__shortcuts());
+registry::register('guildbankSettings');
 ?>

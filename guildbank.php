@@ -18,15 +18,15 @@
  
 // EQdkp required files/vars
 define('EQDKP_INC', true);
-define('PLUGIN', 'guildrequest');
+define('PLUGIN', 'guildbank');
 
 $eqdkp_root_path = './../../';
 include_once('./includes/common.php');
 
-class rb_guildbank extends page_generic {
+class gb_guildbank extends page_generic {
 
 	public static function __shortcuts(){
-		$shortcuts = array('pm', 'user', 'core', 'in', 'pdh', 'time', 'tpl', 'html', 'money' => 'rb_money');
+		$shortcuts = array('pm', 'user', 'core', 'in', 'pdh', 'time', 'tpl', 'html', 'money' => 'gb_money');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
@@ -52,7 +52,7 @@ class rb_guildbank extends page_generic {
 			 $this->tpl->assign_block_vars('money_row', array(
 				 'NAME'			=> $monName,
 				 'IMAGE'		=> $this->money->image($monValue),
-				 'VALUE'		=> $this->money->output($rb_summ_all, $monValue),
+				 'VALUE'		=> $this->money->output($gb_summ_all, $monValue),
 				 'LANGUAGE'		=> $monValue['language'],
 			 ));
 		 }
@@ -61,7 +61,7 @@ class rb_guildbank extends page_generic {
 			 $bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
 			 $this->tpl->assign_block_vars('banker_row', array(
 				 'NAME'			=> $this->pdh->get('guildbank_banker', 'name', array($banker_id)),
-				 //'TOOLTIP'		=> $khrml->HTMLTooltip($myTooltip, 'rb_charinfo', '' , $char['rb_char_name']),
+				 //'TOOLTIP'		=> $khrml->HTMLTooltip($myTooltip, 'gb_charinfo', '' , $char['gb_char_name']),
 				 'BANKCHAR'		=> ($bankchar != "") ? "(".addslashes($bankchar).")" : '',
 				 'UPDATE'		=> $this->pdh->get('guildbank_banker', 'refresh_date', array($banker_id)),
 			 ));
@@ -74,8 +74,8 @@ class rb_guildbank extends page_generic {
 			 }
 		 }
 
-		 $dd_type		= array_merge(array(0 => '--'), $this->user->lang('rb_a_type'));
-		 $dd_rarity		= array_merge(array(0 => '--'), $this->user->lang('rb_a_rarity'));
+		 $dd_type		= array_merge(array(0 => '--'), $this->user->lang('gb_a_type'));
+		 $dd_rarity		= array_merge(array(0 => '--'), $this->user->lang('gb_a_rarity'));
 		 $dd_banker 	= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
 
 		 $guildbank_ids = $guildbank_out = array();
@@ -90,9 +90,9 @@ class rb_guildbank extends page_generic {
 		 $footer_text	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
 		
 		 $this->tpl->assign_vars(array(
-			 'SHOW_NO_BANKERS'	=> ($this->config->get('rb_no_bankers', 'guildbank') == 1) ? true : false,
-			 'SHOW_NO_MONEY'	=> ($this->config->get('rb_show_money', 'guildbank') == 1) ? true : false,
-			 'SHOW_INFO_TOOLTIP'=> ($this->config->get('rb_show_tooltip', 'guildbank') == 1 ) ? true : false,
+			 'SHOW_NO_BANKERS'	=> ($this->config->get('gb_no_bankers', 'guildbank') == 1) ? true : false,
+			 'SHOW_NO_MONEY'	=> ($this->config->get('gb_show_money', 'guildbank') == 1) ? true : false,
+			 'SHOW_INFO_TOOLTIP'=> ($this->config->get('gb_show_tooltip', 'guildbank') == 1 ) ? true : false,
 			 'SHOW_LINKS'		=> false,
 
 			 // Zable & pagination
@@ -116,6 +116,6 @@ class rb_guildbank extends page_generic {
  		);
 	 }
 }
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_rb_guildbank', guildrequestAddrequest::__shortcuts());
-register('rb_guildbank');
+if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_gb_guildbank', gb_guildbank::__shortcuts());
+register('gb_guildbank');
 ?>

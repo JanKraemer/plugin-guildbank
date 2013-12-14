@@ -21,9 +21,6 @@ if (!defined('EQDKP_INC'))
   die('Do not access this file directly.');
 }
 
-/*+----------------------------------------------------------------------------
-  | pdh_w_guildrequest_fields
-  +--------------------------------------------------------------------------*/
 if (!class_exists('pdh_w_guildbank_transactions'))
 {
 	class pdh_w_guildbank_transactions extends pdh_w_generic {
@@ -74,19 +71,30 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 			if ($resQuery) return $intBanker;
 			return false;
 		}
-	
+
+		public function update_itemtransaction($intBanker, $intValue, $intDKP){
+			$resQuery = $this->db->query("UPDATE __guildbank_transactions SET :params WHERE ta_item=?", array(
+				'ta_dkp'		=> $intDKP,
+				'ta_value'		=> $intValue,
+				'ta_date'		=> $this->time->time,
+			), $intBanker);
+			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			if ($resQuery) return $intBanker;
+			return false;
+		}
+
 		public function delete($intID){
 			$this->db->query("DELETE FROM __guildbank_transactions WHERE ta_id=?", false, $intID);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
 			return true;
 		}
-	
+
 		public function delete_bybankerid($intID){
 			$this->db->query("DELETE FROM __guildbank_transactions WHERE ta_banker=?", false, $intID);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
 			return true;
 		}
-	
+
 		public function truncate(){
 			$this->db->query("TRUNCATE __guildbank_transactions");
 			$this->pdh->enqueue_hook('guildbank_transactions_update');

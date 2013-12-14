@@ -28,24 +28,19 @@ $lang = array(
 	'guildbank_not_installed'		=> 'Gildenbank ist nicht installiert.',
 
 	// User Menu
-	'rb_usermenu_guildbank'			=> "Gildenbank",
+	'gb_usermenu_guildbank'			=> "Gildenbank",
 
 	// Admin Menu
-	'rb_adminmenu_guildbank'		=> "Gildenbank",
+	'gb_adminmenu_guildbank'		=> "Gildenbank",
 
 	//guildbank
-	'rb_Bank_Items'					=> "Gegenstände auf der Bank",
-	'rb_Banker'						=> "Bankier",
-	'rb_all_Banker'					=> "Alle Bankiers",
-	'rb_not_avail'					=> "n.v.",
-	'rb_Item_Name'					=> "Gegenstand",
-	'rb_Bank_Type'					=> "Art",
-	'rb_Bank_QTY'					=> "Menge",
-	'rb_Bank_Quality'				=> "Qualität",
-	'rb_AllBankers'					=> "Alle Banken",
-	'rb_TotBankers'					=> "Vermögen aller Banken",
-	'rb_mainchar_out'				=> "Hauptcharakter",
-	'rb_no_bankchar'				=> 'Keiner',
+	'gb_banker'						=> "Bankier",
+	'gb_not_avail'					=> "n.v.",
+	'gb_all_bankers'				=> "Alle Banken",
+	'gb_total_bankers'				=> "Vermögen aller Banken",
+	'gb_mainchar_out'				=> "Hauptcharakter",
+	'gb_no_bankchar'				=> 'Keiner',
+	'gb_update'						=> 'Letzte Aktivität',
 
 	// manage_banker
 	'manage_bankers'				=> 'Gilden-Bankiers verwalten',
@@ -53,27 +48,38 @@ $lang = array(
 	'banker_mainchar'				=> 'Bank-Charakter',
 	'money'							=> 'Guthaben',
 
+	// add/edit banker
+	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
+	'gb_edit_item_title'			=> 'Gegenstand bearbeiten',
+	'gb_item_name'					=> "Gegenstand",
+	'gb_rarity'						=> 'Gegenstandslevel',
+	'gb_type'						=> "Gegenstandsart",
+	'gb_dkp'						=> "DKP",
+	'gb_amount'						=> "Menge",
+	'rb_additem_button'				=> 'Gegenstand speichern',
+	'rb_edititem_button'			=> 'Gegenstand ändern',
+
 	// settings
-	'rb_header_global'				=> "Gildenbank Einstellungen",
-	'rb_hide_banker'				=> "Nur aktiven Bankier anzeigen",
-	'rb_hide_banker_help'			=> "Andere Banker nach Auswahl eines Bankers verstecken",
-	'rb_hide_money'					=> "Zeige Bankvermögen",
-	'rb_hide_money_help'			=> "Zeige Bankvermögen (wenn aus: Keine Goldanzeige)",
-	'rb_no_banker'					=> "Alle Banken zusammenfassen",
-	'rb_no_banker_help'				=> "Fasse alle Banken in einer Bank zusammen",
-	'rb_saved'						=> "Die Einstellungen wurden erfolgreich gespeichert",
-	'rb_auto_adjust'				=> "Automatische DKP Korrektur bei Itemvergabe",
-	'rb_auto_adjust_help'			=> "Vergebe eine automatische DKP Korrektur bei Itemvergabe",
-	'rb_show_tooltip'				=> "Zeige Info-Tooltips",
-	'rb_show_tooltip_help'			=> "keine Ahnung was da stut ;)",
+	'gb_header_global'				=> "Gildenbank Einstellungen",
+	'gb_hide_banker'				=> "Nur aktiven Bankier anzeigen",
+	'gb_hide_banker_help'			=> "Andere Banker nach Auswahl eines Bankers verstecken",
+	'gb_hide_money'					=> "Zeige Bankvermögen",
+	'gb_hide_money_help'			=> "Zeige Bankvermögen (wenn aus: Keine Goldanzeige)",
+	'gb_no_banker'					=> "Alle Banken zusammenfassen",
+	'gb_no_banker_help'				=> "Fasse alle Banken in einer Bank zusammen",
+	'gb_saved'						=> "Die Einstellungen wurden erfolgreich gespeichert",
+	'gb_auto_adjust'				=> "Automatische DKP Korrektur bei Itemvergabe",
+	'gb_auto_adjust_help'			=> "Vergebe eine automatische DKP Korrektur bei Itemvergabe",
+	'gb_show_tooltip'				=> "Zeige Info-Tooltips",
+	'gb_show_tooltip_help'			=> "keine Ahnung was da stut ;)",
 
 	//filter translations
-	'rb_filter_banker'				=> "Bankier auswählen",
-	'rb_filter_type'				=> "Gegenstandsart auswählen",
-	'rb_filter_rarity'				=> "Gegenstandslevel auswählen",
+	'gb_filter_banker'				=> "Bankier auswählen",
+	'gb_filter_type'				=> "Gegenstandsart auswählen",
+	'gb_filter_rarity'				=> "Gegenstandslevel auswählen",
 
 	// filters
-	'rb_a_type'						=> array(
+	'gb_a_type'						=> array(
 		'quest'		=> "Quest",
 		'weapon'	=> "Waffe",
 		'reagent'	=> "Reagenz",
@@ -83,7 +89,7 @@ $lang = array(
 		'useable'	=> "Verbrauchbar",
 		'misc'		=> "Verschiedenes"
 	),
-	'rb_a_rarity'					=> array(
+	'gb_a_rarity'					=> array(
 		'5'			=> "Legendär",
 		'4'			=> "Episch",
 		'3'			=> "Rar",

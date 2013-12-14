@@ -30,5 +30,5 @@ if(!version_compare(phpversion(), '5.1.2', '>='))
 if (!registry::register('plugin_manager')->check('guildbank', PLUGIN_INSTALLED) ) {
     message_die($this->user->lang('guildbank_not_installed'));
 }
-require_once($eqdkp_root_path.'plugins/guildbank/includes/rb_money.class.php');
+require_once($eqdkp_root_path.'plugins/guildbank/includes/gb_money.class.php');
 ?>

@@ -21,9 +21,6 @@ if (!defined('EQDKP_INC'))
   die('Do not access this file directly.');
 }
 
-/*+----------------------------------------------------------------------------
-  | pdh_w_guildbank_fields
-  +--------------------------------------------------------------------------*/
 if (!class_exists('pdh_w_guildbank_banker'))
 {
 	class pdh_w_guildbank_banker extends pdh_w_generic {
@@ -43,6 +40,7 @@ if (!class_exists('pdh_w_guildbank_banker'))
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
 			$this->pdh->put('guildbank_transactions', 'add', array(0, $id, $intBankChar, 0, 0, $intMoney, '', $id));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
+			
 			if ($resQuery) return $id;
 			return false;
 		}

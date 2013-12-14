@@ -25,7 +25,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 	class pdh_r_guildbank_items extends pdh_r_generic{
 
 		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time', 'money' => 'rb_money');
+			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time', 'money' => 'gb_money');
 			return array_merge(parent::$shortcuts, $shortcuts);
 		}
 
@@ -36,14 +36,14 @@ if (!class_exists('pdh_r_guildbank_items')){
 		);
 
 		public $presets = array(
-			'rb_idate'		=> array('html_date',	array('%item_id%'), array()),
-			'rb_iname'		=> array('name',		array('%item_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
-			'rb_iamount'	=> array('amount',		array('%item_id%'), array()),
-			'rb_itype'		=> array('type',		array('%item_id%'), array()),
-			'rb_iedit'		=> array('edit',		array('%item_id%'), array()),
-			'rb_ivalue'		=> array('value',		array('%item_id%'), array()),
-			'rb_irarity'	=> array('rarity',		array('%item_id%'), array()),
-			'rb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
+			'gb_idate'		=> array('html_date',	array('%item_id%'), array()),
+			'gb_iname'		=> array('name',		array('%item_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
+			'gb_iamount'	=> array('amount',		array('%item_id%'), array()),
+			'gb_itype'		=> array('type',		array('%item_id%'), array()),
+			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
+			'gb_ivalue'		=> array('value',		array('%item_id%'), array()),
+			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
+			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
 		);
 
 		public function reset(){
@@ -122,18 +122,18 @@ if (!class_exists('pdh_r_guildbank_items')){
 			if($raw){
 				return (isset($this->data[$id]) && $this->data[$id]['rarity'] > 0) ? $this->data[$id]['rarity'] : 0;
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['rarity'] > 0) ? $this->user->lang(array('rb_a_rarity', $this->data[$id]['rarity'])) : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['rarity'] > 0) ? $this->user->lang(array('gb_a_rarity', $this->data[$id]['rarity'])) : 0;
 		}
 
 		public function get_name($id){
-			return (isset($this->data[$id]) && $this->data[$id]['name']) ? $this->data[$id]['name'] : 'None';
+			return (isset($this->data[$id]) && $this->data[$id]['name']) ? $this->data[$id]['name'] : 'none';
 		}
 
 		public function get_type($id, $raw=false){
 			if($raw){
-				return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->data[$id]['type'] : 'None';
+				return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->data[$id]['type'] : 'none';
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->user->lang(array('rb_a_type', $this->data[$id]['type'])) : 'None';
+			return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->user->lang(array('gb_a_type', $this->data[$id]['type'])) : 'none';
 		}
 
 		public function get_edit($id){
