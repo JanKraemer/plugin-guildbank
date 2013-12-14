@@ -1,0 +1,88 @@
+<table width="100%" border="0" cellspacing="1" cellpadding="2" class="borderless">
+	<tr>
+		<td width="65%" valign="top">
+			<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">
+				<tr>
+					<th align="left" width="100%" nowrap="nowrap">{L_rb_Banker}</th>
+					<!-- IF SHOW_NO_MONEY -->
+						<!-- BEGIN money_row -->
+					<th align="center" width="50px">{money_row.IMAGE}</th>
+						<!-- END money_row -->
+					<!-- ENDIF -->
+					<th align="left" width="100%" nowrap="nowrap">{L_rb_Update}</th> 
+				</tr>
+				<!-- IF SHOW_NO_BANKERS -->
+				<tr>
+					<td align="left" nowrap="nowrap">{L_rb_AllBankers}</td>
+					<!-- IF SHOW_NO_MONEY -->
+						<!-- BEGIN money_row -->
+					<td align="center" nowrap="nowrap">{money_row.VALUE}</td>
+						<!-- END money_row -->
+					<!-- ENDIF -->
+					<td align="left" nowrap="nowrap">{L_rb_not_avail}</td>
+				</tr>
+				<!-- ELSE -->
+				<!-- BEGIN banker_row -->
+				<tr>
+					<td align="right" nowrap="nowrap" >
+						<!-- IF SHOW_INFO_TOOLTIP --><a {banker_row.TOOLTIP}><!-- ENDIF -->{banker_row.NAME} {banker_row.BANKCHAR}<!-- IF SHOW_INFO_TOOLTIP --></a><!-- ENDIF -->
+					</td>
+					<!-- IF SHOW_NO_MONEY -->
+						<!-- BEGIN cmoney_row -->
+					<td align="center" nowrap="nowrap">{banker_row.cmoney_row.VALUE}</td>
+						<!-- END cmoney_row -->
+					<!-- ENDIF -->
+					<td align="left" nowrap="nowrap">{banker_row.UPDATE}</td>
+				</tr>
+				<!-- END banker_row -->
+				<tr>
+					<td align="left" nowrap="nowrap">{L_rb_TotBankers}</td>
+					<!-- IF SHOW_NO_MONEY -->
+						<!-- BEGIN money_row -->
+					<td align="center" nowrap="nowrap">{money_row.VALUE}</td>
+						<!-- END money_row -->
+					<!-- ENDIF -->
+					<td align="center" nowrap="nowrap">---</td>
+				</tr>
+				<!-- ENDIF -->
+			</table>
+		</td>
+		<td  width="35%" valign="top">
+			<form method="get" action="{ACTION}">
+				<table width="100%" border="0" cellspacing="1" cellpadding="2"  class="colorswitch">
+					<tr>
+						<th align="left" width="100%" nowrap="nowrap" colspan="2">Filter</th>
+					</tr>
+					<tr>
+						<td align="left" nowrap="nowrap">{L_rb_filter_banker}</td>
+						<td align="left" nowrap="nowrap">{DD_BANKER}</td>
+					</tr>
+					<tr>
+						<td align="left" nowrap="nowrap">{L_rb_filter_type}</td>
+						<td align="left" nowrap="nowrap">{DD_TYPE}</td>
+					</tr>
+					<tr>
+						<td align="left" nowrap="nowrap">{L_rb_filter_rarity}</td>
+						<td align="left" nowrap="nowrap">{DD_RARITY}</td>
+					</tr>
+				</table>
+			</form>
+		</td>
+	</tr>
+</table>
+	<br />
+	<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">
+		<!-- IF PAGINATION -->
+		<tr class="row2">
+			<td class="center" colspan="5">{PAGINATION}</td>
+		</tr>
+		<!-- ENDIF PAGINATION -->
+		{BANKER_TABLE}
+		<!-- IF PAGINATION -->
+		<tr class="row2">
+			<td class="center" colspan="5">{PAGINATION}</td>
+		</tr>
+		<!-- ENDIF PAGINATION -->
+	</table>
+
+<br/><div class="center credits">{CREDITS}</div>
