@@ -44,18 +44,8 @@ class gb_guildbank extends page_generic {
 	}
 	
 	 public function display(){
-
-		 $bankerID = $this->in->get('banker', 0);
-
-		 // the money row
-		 foreach($this->money->get_data() as $monName=>$monValue){
-			 $this->tpl->assign_block_vars('money_row', array(
-				 'NAME'			=> $monName,
-				 'IMAGE'		=> $this->money->image($monValue),
-				 'VALUE'		=> $this->money->output($gb_summ_all, $monValue),
-				 'LANGUAGE'		=> $monValue['language'],
-			 ));
-		 }
+		 $bankerID		= $this->in->get('banker', 0);
+		 require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
 		 foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
 			 $bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
@@ -74,32 +64,52 @@ class gb_guildbank extends page_generic {
 			 }
 		 }
 
+		 // the money row
+		 foreach($this->money->get_data() as $monName=>$monValue){
+			 $this->tpl->assign_block_vars('money_row', array(
+				 'NAME'			=> $monName,
+				 'IMAGE'		=> $this->money->image($monValue),
+				 'VALUE'		=> $this->money->output($this->pdh->get('guildbank_transactions', 'money_summ_all'), $monValue),
+				 'LANGUAGE'		=> $monValue['language'],
+			 ));
+		 }
+
 		 $dd_type		= array_merge(array(0 => '--'), $this->user->lang('gb_a_type'));
 		 $dd_rarity		= array_merge(array(0 => '--'), $this->user->lang('gb_a_rarity'));
 		 $dd_banker 	= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
 
 		 $guildbank_ids = $guildbank_out = array();
-		 // -- display entries -----------------------------------------------------
-		 require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
-		 
-		 $view_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
-		 $hptt			= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_list, $view_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		 // -- display entries ITEMS ------------------------------------------------
+		 $items_list	= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
+		 $hptt_items	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
 		 $page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		 $sort_suffix	= '&amp;sort='.$this->in->get('sort');
-		 $item_count	= count($view_list);
-		 $footer_text	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
-		
+		 $item_count	= count($items_list);
+		 $footer_item	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
+
+		 // -- display entries TRANSACTIONS -----------------------------------------
+		 $ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
+		 $hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		 //$page_suffix	= '&amp;start='.$this->in->get('start', 0);
+		 //$sort_suffix	= '&amp;sort='.$this->in->get('sort');
+		 $ta_count		= count($ta_list);
+		 $footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
+
+		 $this->jquery->Tab_header('guildbank_tab');
 		 $this->tpl->assign_vars(array(
-			 'SHOW_NO_BANKERS'	=> ($this->config->get('gb_no_bankers', 'guildbank') == 1) ? true : false,
-			 'SHOW_NO_MONEY'	=> ($this->config->get('gb_show_money', 'guildbank') == 1) ? true : false,
-			 'SHOW_INFO_TOOLTIP'=> ($this->config->get('gb_show_tooltip', 'guildbank') == 1 ) ? true : false,
-			 'SHOW_LINKS'		=> false,
+			 'SHOW_BANKERS'		=> ($this->config->get('show_bankers',		'guildbank') == 1) ? true : false,
+			 'SHOW_MONEY'		=> ($this->config->get('show_money',		'guildbank') != 1) ? true : false,
+			 'SHOW_TOOLTIP'		=> ($this->config->get('show_tooltip',		'guildbank') == 1 ) ? true : false,
 
-			 // Zable & pagination
-			 'BANKER_TABLE'		=> $hptt->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_text),
+			 // Table & pagination for items
+			 'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_item),
+			 'PAGINATION_ITEM'	=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+
+			 // Table & pagination for transactions
+			 'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
+			 'PAGINATION_TRANSA'=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+
 			 'START'			=> $start,
-			 'PAGINATION'		=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
-
 			 'DD_BANKER'		=> $this->html->DropDown('banker', $dd_banker, $this->in->get('banker'), '', 'onchange="javascript:form.submit();"', 'input'),
 	         'DD_RARITY'		=>  $this->html->DropDown('rarity', $dd_rarity, $this->in->get('rarity'), '', 'onchange="javascript:form.submit();"', 'input'),
 	         'DD_TYPE'			=>  $this->html->DropDown('type', $dd_type, $this->in->get('type'), '', 'onchange="javascript:form.submit();"', 'input'),

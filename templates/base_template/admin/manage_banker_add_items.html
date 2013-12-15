@@ -1,23 +1,52 @@
+<script type='text/javascript'>
+//<![CDATA[
+$(document).ready(function() {
+	$('#selectmode').change(function() {
+		if($(this).val() == '1'){
+			$('.transaction').show();
+			$('.item').hide();
+		}else{
+			$('.transaction').hide();
+			$('.item').show();
+		}
+	}).trigger('change');
+});
+</script>
+
 <form method="post" action="{ACTION}" name="addWC">
 <input type="hidden" name="banker" value="{BANKERID}">
 <input type="hidden" name="item" value="{ITEMID}">
 
 <fieldset class="settings smallsettings">
 	<dl>
-		<dt><label>{L_name}:</label></dt>
+		<dt><label>{L_gb_mode}:</label></dt>
+		<dd>{DD_MODE}</dd>
+	</dl>
+	<dl class="item">
+		<dt><label>{L_item_name}:</label></dt>
 		<dd>
-			<input type="text" name="name" size="20" value="{VALUE}" class="input" />
+			<input type="text" name="name" size="20" value="{V_NAME}" class="input" />
 		</dd>
 	</dl>
-	<dl>
+	<dl class="transaction">
+		<dt><label>{L_gb_subject}:</label></dt>
+		<dd>
+			<input type="text" name="subject" size="20" value="{V_SUBJECT}" class="input" />
+		</dd>
+	</dl>
+	<dl class="item">
+		<dt><label>{L_gb_members}:</label></dt>
+		<dd>{MS_MEMBERS}</dd>
+	</dl>
+	<dl class="item">
 		<dt><label>{L_gb_rarity}:</label></dt>
-		<dd>{RARITY}</dd>
+		<dd>{DD_RARITY}</dd>
 	</dl>
-	<dl>
+	<dl class="item">
 		<dt><label>{L_gb_type}:</label></dt>
-		<dd>{TYPE}</dd>
+		<dd>{DD_TYPE}</dd>
 	</dl>
-	<dl>
+	<dl class="item">
 		<dt><label>{L_gb_amount}:</label></dt>
 		<dd><input type="text" name="amount" size="5" value="{AMOUNT}" class="input" /></dd>
 	</dl>
@@ -25,7 +54,7 @@
 		<dt><label>{L_money}:</label></dt>
 		<dd>{MONEY}</dd>
 	</dl>
-	<dl>
+	<dl class="item">
 		<dt><label>{L_gb_dkp}:</label></dt>
 		<dd><input type="text" name="dkp" size="5" value="{DKP}" class="input" /></dd>
 	</dl>

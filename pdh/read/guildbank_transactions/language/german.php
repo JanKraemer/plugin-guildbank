@@ -16,15 +16,28 @@
  * $Id$
  */
 
-if(!defined('EQDKP_INC'))
-{
-	header('HTTP/1.0 Not Found');
-	exit;
+if (!defined('EQDKP_INC')){
+  header('HTTP/1.0 404 Not Found'); exit;
 }
 
-include_once($eqdkp_root_path.'common.php');
-if (!registry::register('plugin_manager')->check('guildbank', PLUGIN_INSTALLED) ) {
-    message_die(registry::register('user')->lang('guildbank_not_installed'));
-}
-require_once($eqdkp_root_path.'plugins/guildbank/includes/gb_money.class.php');
+$module_lang = array(
+	'date'				=> 'Datum',
+	'item'				=> 'Gegenstand',
+	'char'				=> 'Käufer',
+	'subject'			=> 'Betreff',
+	'banker'			=> 'Bankier',
+	'value'				=> 'Wert',
+	'dkp'				=> 'DKP',
+);
+
+$preset_lang = array(
+	'gb_tdate'			=> 'Datum',
+	'gb_titem'			=> 'Gegenstand',
+	'gb_tbuyer'			=> 'Käufer',
+	'gb_tsubject'		=> 'Betreff',
+	'gb_tbanker'		=> 'Bankier',
+	'gb_tvalue'			=> 'Wert',
+	'gb_tdkp'			=> 'DKP',
+);
+
 ?>

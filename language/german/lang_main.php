@@ -41,12 +41,25 @@ $lang = array(
 	'gb_mainchar_out'				=> "Hauptcharakter",
 	'gb_no_bankchar'				=> 'Keiner',
 	'gb_update'						=> 'Letzte Aktivität',
+	'gb_tab_transactions'			=> 'Transaktionen',
+	'gb_tab_items'					=> 'Gegenstände',
 
 	// manage_banker
 	'manage_bankers'				=> 'Gilden-Bankiers verwalten',
 	'confirm_delete_bankers'		=> "Sollen die Bankiers %s gelöscht werden?",
 	'banker_mainchar'				=> 'Bank-Charakter',
 	'money'							=> 'Guthaben',
+
+	// manage transactions
+	'gb_manage_bank_items_title'	=> "Gegegnstände des Bankiers '%s' bearbeiten",
+	'gb_manage_bank_items'			=> "Bankgegegnstände bearbeiten",
+	'gb_mode'						=> 'Modus',
+	'gb_a_mode'					=> array(
+		'0'			=> 'Gegenstand',
+		'1'			=> 'Transaktion',
+	),
+	'gb_subject'					=> 'Verwendungszweck',
+	'gb_members'					=> 'Empfänger',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
@@ -61,15 +74,11 @@ $lang = array(
 
 	// settings
 	'gb_header_global'				=> "Gildenbank Einstellungen",
-	'gb_hide_banker'				=> "Nur aktiven Bankier anzeigen",
-	'gb_hide_banker_help'			=> "Andere Banker nach Auswahl eines Bankers verstecken",
-	'gb_hide_money'					=> "Zeige Bankvermögen",
-	'gb_hide_money_help'			=> "Zeige Bankvermögen (wenn aus: Keine Goldanzeige)",
-	'gb_no_banker'					=> "Alle Banken zusammenfassen",
-	'gb_no_banker_help'				=> "Fasse alle Banken in einer Bank zusammen",
 	'gb_saved'						=> "Die Einstellungen wurden erfolgreich gespeichert",
-	'gb_auto_adjust'				=> "Automatische DKP Korrektur bei Itemvergabe",
-	'gb_auto_adjust_help'			=> "Vergebe eine automatische DKP Korrektur bei Itemvergabe",
+	'gb_show_money'					=> "Zeige Bankvermögen",
+	'gb_show_money_help'			=> "Zeige Bankvermögen (wenn aus: Keine Goldanzeige)",
+	'gb_merge_banker'				=> "Alle Banken zusammenfassen",
+	'gb_merge_banker_help'			=> "Fasse alle Banken in einer Bank zusammen",
 	'gb_show_tooltip'				=> "Zeige Info-Tooltips",
 	'gb_show_tooltip_help'			=> "keine Ahnung was da stut ;)",
 

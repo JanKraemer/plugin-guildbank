@@ -146,35 +146,48 @@ class Manage_Banker extends page_generic {
 	}
 
 	// ---------------------------------------------------------
-	// Displays a single Group
+	// Displays a single banker
 	// ---------------------------------------------------------
 	public function edit($messages=false, $banker = false){
-		$bankerID  = ($banker > 0) ? $banker : $this->in->get('g', 0);
+		$bankerID 		= ($banker > 0) ? $banker : $this->in->get('g', 0);
+		$banker_name	= $this->pdh->get('guildbank_banker', 'name', array($bankerID));
 		
 		//init infotooltip
 		infotooltip_js();
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
-		// load and init hptt
-		$view_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
-		$hptt			= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_list, $view_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		// -- display entries ITEMS ------------------------------------------------
+		$view_items		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_items, $view_items, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
-		$item_count		= count($view_list);
-		$footer_text	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
+		$item_count		= count($view_items);
+		$item_footer	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
+
+		// -- display entries TRANSACTIONS -----------------------------------------
+		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
+		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		$ta_count		= count($ta_list);
+		$footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
 
 		// start ouptut
+		$this->jquery->Tab_header('guildbank_tab');
 		$this->confirm_delete($this->user->lang('confirm_delete_items'));
 		$this->tpl->assign_vars(array(
-			'BANKID'			=> $bankerID,
-			'SID'				=> $this->SID,
-			'ITEM_LIST'			=> $hptt->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_text),
-			'PAGINATION'		=> generate_pagination('manage_banker.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
-			'HPTT_COLUMN_COUNT'	=> $hptt->get_column_count())
-		);
+			'BANKID'				=> $bankerID,
+			'SID'					=> $this->SID,
+
+			'ITEM_LIST'				=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $item_footer),
+			'PAGINATION_ITEMS'		=> generate_pagination('manage_banker.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'ITEMS_COLUMN_COUNT'	=> $hptt_items->get_column_count(),
+			
+			'TRANSA_LIST'			=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
+			'TRANSA_PAGINATION'		=> generate_pagination('manage_banker.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'TRANSA_COLUMN_COUNT'	=> $hptt_transa->get_column_count(),
+		));
 
 		$this->core->set_vars(array(
-			'page_title'		=> 'Hioer kommz noch nen Titel hon',
+			'page_title'		=> sprintf($this->user->lang('gb_manage_bank_items_title'), $banker_name),
 			'template_file'		=> 'admin/manage_banker_items.html',
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'display'			=> true)
@@ -196,9 +209,12 @@ class Manage_Banker extends page_generic {
 			'S_EDIT'		=> ($itemID > 0) ? true : false,
 			'ITEMID'		=> $itemID,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
-			'RARITY'		=> $this->html->DropDown('rarity', $this->user->lang('gb_a_rarity'), (($itemID > 0) ? $rarity : '')),
-			'TYPE'			=> $this->html->DropDown('type', $this->user->lang('gb_a_type'), $type),
-			'VALUE'			=> ($itemID > 0) ? $itemID : '',
+			'DD_RARITY'		=> $this->html->DropDown('rarity', $this->user->lang('gb_a_rarity'), (($itemID > 0) ? $rarity : '')),
+			'DD_TYPE'		=> $this->html->DropDown('type', $this->user->lang('gb_a_type'), $type),
+			'DD_MODE'		=> $this->html->DropDown('mode', $this->user->lang('gb_a_mode'), $this->in->get('mode', 0), '', '', 'input', 'selectmode'),
+			'MS_MEMBERS'	=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, $this->pdh->get('member', 'id_list')), $this->pdh->get('guildbank_transactions', 'char', array(0))),
+			'V_NAME'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : '',
+			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'subject', array($itemID)) : '',
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'MONEY'			=> $this->money->editfields($money),
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,

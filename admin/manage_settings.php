@@ -51,11 +51,9 @@ class guildbankSettings extends page_generic {
 
 		// take over new values
 		$savearray = array(
-			//'gb_hide_banker'    => $this->in->get('gb_hide_banker', 0),
-			'gb_no_bankers'     => $this->in->get('gb_no_bankers', 0),
-			'gb_show_money'     => $this->in->get('gb_show_money', 0),
-			'gb_show_tooltip'   => $this->in->get('gb_show_tooltip', 0),
-			//'gb_auto_adjustment'=> $this->in->get('gb_auto_adjustment', 0),
+			'merge_bankers'		=> $this->in->get('merge_bankers',	0),
+			'show_money'		=> $this->in->get('show_money',		0),
+			'show_tooltip'		=> $this->in->get('show_tooltip',	0),
 		);
 
 		// update configuration
@@ -74,11 +72,9 @@ class guildbankSettings extends page_generic {
 		}
 
 		$this->tpl->assign_vars(array(
-			//'R_AUTO_ADJUST'		=> $this->html->RadioBox('gb_auto_adjustment', false, $this->config->get('gb_auto_adjustment', 'guildbank'), 'input'),
-			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('gb_show_tooltip', false, $this->config->get('gb_show_tooltip', 'guildbank'), 'input'),
-			//'R_HIDE_BANKER'		=> $this->html->RadioBox('gb_hide_banker', false, $this->config->get('gb_hide_banker', 'guildbank'), 'input'),
-			'R_HIDE_MONEY'		=> $this->html->RadioBox('gb_show_money', false, $this->config->get('gb_show_money', 'guildbank'), 'input'),
-			'R_NO_BANKER'		=> $this->html->RadioBox('gb_no_bankers', false, $this->config->get('gb_no_bankers', 'guildbank'), 'input'),
+			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('show_tooltip',	false, $this->config->get('show_tooltip',	'guildbank'), 'input'),
+			'R_SHOW_MONEY'		=> $this->html->RadioBox('show_money',		false, $this->config->get('show_money',		'guildbank'), 'input'),
+			'R_MERGE_BANKER'	=> $this->html->RadioBox('merge_bankers',	false, $this->config->get('merge_bankers',	'guildbank'), 'input'),
 		));
 
 		$this->core->set_vars(array(

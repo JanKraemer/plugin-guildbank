@@ -30,7 +30,7 @@ if (!class_exists('pdh_w_guildbank_items'))
 			return array_merge(parent::$shortcuts, $shortcuts);
 		}
 
-		public function add($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney){
+		public function add($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $strSubject='gb_item_added'){
 			$resQuery = $this->db->query("INSERT INTO __guildbank_items :params", array(
 				'item_banker'	=> $strBanker,
 				'item_date'		=> $this->time->time,
@@ -41,13 +41,13 @@ if (!class_exists('pdh_w_guildbank_items'))
 			));
 			$id = $this->db->insert_id();
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
-			$this->pdh->put('guildbank_transactions', 'add', array(0, $strBanker, 0, $id, $intDKP, $intMoney, 'Blabla', $id));
+			$this->pdh->put('guildbank_transactions', 'add', array(0, $strBanker, 0, $id, $intDKP, $intMoney, $strSubject, $id));
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $id;
 			return false;
 		}
 
-		public function update($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney){
+		public function update($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $strSubject=''){
 			$resQuery = $this->db->query("UPDATE __guildbank_items SET :params WHERE item_id=?", array(
 				'item_banker'	=> $strBanker,
 				'item_date'		=> $this->time->time,

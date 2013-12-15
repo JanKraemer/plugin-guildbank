@@ -42,8 +42,10 @@ if (!class_exists('pdh_r_guildbank_items')){
 			'gb_itype'		=> array('type',		array('%item_id%'), array()),
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
 			'gb_ivalue'		=> array('value',		array('%item_id%'), array()),
+			'gb_ivalue_a'	=> array('value_a',		array('%item_id%'), array()),
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
 			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
+			'gb_idkp'		=> array('dkp',			array('%item_id%'), array()),
 		);
 
 		public function reset(){
@@ -56,7 +58,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public function init(){
 			// try to get from cache first
 			$this->data			= $this->pdc->get('pdh_guildbank_items_table.items');
-			$this->banker_items	= $this->pdc->get('pdh_guildbank_items_table.items');
+			$this->banker_items	= $this->pdc->get('pdh_guildbank_items_table.banker_items');
 			if($this->data !== NULL && $this->banker_items !== NULL){
 				return true;
 			}
@@ -137,11 +139,19 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_edit($id){
-			return 'Edit';
+			return '<a href="manage_banker.php'.$this->SID.'&amp;additem=true&amp;i='.$id.'"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
 		}
 
 		public function get_value($id){
-			return $this->money->fields($this->pdh->get('guildbank_transactions', 'item_price'. array($id)));
+			return $this->money->fields($this->pdh->get('guildbank_transactions', 'itemvalue', array($id)));
+		}
+
+		public function get_value_a($id){
+			return $this->money->fields($this->pdh->get('guildbank_transactions', 'itemvalue', array($id)));
+		}
+
+		public function get_dkp($id){
+			return $this->pdh->get('guildbank_transactions', 'itemdkp', array($id));
 		}
 
 		public function get_banker($id){

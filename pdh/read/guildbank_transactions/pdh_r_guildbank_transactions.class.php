@@ -25,7 +25,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 	class pdh_r_guildbank_transactions extends pdh_r_generic{
 
 		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time');
+			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time', 'money' => 'gb_money');
 			return array_merge(parent::$shortcuts, $shortcuts);
 		}
 
@@ -39,6 +39,15 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		);
 
 		public $presets = array(
+			'gb_tdate'		=> array('date',		array('%trans_id%'), array()),
+			//'gb_titem'		=> array('item',		array('%trans_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
+			'gb_titem'		=> array('item',		array('%trans_id%'), array()),
+			'gb_tbuyer'		=> array('char',		array('%trans_id%'), array()),
+			'gb_tsubject'	=> array('subject',		array('%trans_id%'), array()),
+			'gb_tbanker'	=> array('banker',		array('%trans_id%'), array()),
+			'gb_tdkp'		=> array('dkp',			array('%trans_id%'), array()),
+			'gb_tvalue'		=> array('value',		array('%trans_id%'), array()),
+			'gb_tedit'		=> array('edit',		array('%trans_id%'), array()),
 		);
 
 		public function reset(){
@@ -126,16 +135,23 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			return (isset($this->data[$id]) && $this->data[$id]['item'] > 0) ? $this->pdh->get('guildbank_items', 'name', array($this->data[$id]['item'])) : '--';
 		}
 
-		public function get_value($id){
-			return (isset($this->data[$id]) && $this->data[$id]['value'] > 0) ? $this->data[$id]['value'] : 0;
+		public function get_value($id, $raw=false){
+			if($raw){
+				return (isset($this->data[$id]) && $this->data[$id]['value'] > 0) ? $this->data[$id]['value'] : 0;
+			}
+			return $this->money->fields($this->data[$id]['value']);
 		}
 
-		public function get_item_price($itemid){
-			return (isset($this->itemcost[$bankid]) && $this->itemcost[$bankid] > 0) ? $this->itemcost[$bankid] : 0;
+		public function get_itemvalue($itemid){
+			return (isset($this->itemcost[$itemid]) && $this->itemcost[$itemid] > 0) ? $this->itemcost[$itemid] : 0;
 		}
 
 		public function get_money_summ($bankid){
 			return (isset($this->summ[$bankid]) && $this->summ[$bankid] > 0) ? $this->summ[$bankid] : 0;
+		}
+
+		public function get_money_summ_all(){
+			return array_sum($this->summ);
 		}
 
 		public function get_money($bankid){
@@ -144,6 +160,16 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 
 		public function get_dkp($id){
 			return (isset($this->data[$id]) && $this->data[$id]['dkp'] > 0) ? $this->data[$id]['dkp'] : 0;
+		}
+
+		public function get_itemdkp($itemid){
+			if(is_array($this->data) && count($this->data) > 0){
+				foreach($this->data as $ta_data){
+					if($ta_data['item'] == $itemid){
+						return (isset($this->data[$ta_data['id']]) && $this->data[$ta_data['id']]['dkp'] > 0) ? $this->data[$ta_data['id']]['dkp'] : 0;
+					}
+				}
+			}
 		}
 
 		public function get_startvalue($id){
@@ -159,6 +185,10 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 
 		public function get_subject($id){
 			return (isset($this->data[$id]) && $this->data[$id]['subject']) ? $this->data[$id]['subject'] : '';
+		}
+
+		public function get_edit($id){
+			return '<a href="manage_banker.php'.$this->SID.'&amp;additem=true&amp;t='.$id.' &mode=1"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
 		}
   } //end class
 } //end if class not exists

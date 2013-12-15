@@ -24,16 +24,40 @@ if (!defined('EQDKP_INC'))
 $systems_guildbank = array(
 	'pages' => array(
 		'hptt_guildbank_items' => array(
-			'name'				=> 'hptt_guildbank_items',
-			'table_main_sub'	=> '%banker_id%',
-			'table_sort_dir'	=> 'desc',
-			'page_ref'			=> 'guildbank.php',
-			'show_select_boxes'	=> false,
-			'table_presets'		=> array(
-				array('name' => 'gb_iamount',	'sort' => false,	'th_add' => 'align="center width="50px"',	'td_add' => ''),
-				array('name' => 'gb_iname',		'sort' => false,	'th_add' => 'align="center width="100%"',	'td_add' => ''),
-				array('name' => 'gb_itype',		'sort' => false,	'th_add' => 'align="center width="200px"',	'td_add' => ''),
-				array('name' => 'gb_ibanker',	'sort' => false,	'th_add' => 'align="center"',	'td_add' => '')
+			'name'					=> 'hptt_guildbank_items',
+			'table_main_sub'		=> '%item_id%',
+			'table_subs'			=> array('%item_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'),
+			'page_ref'				=> 'guildbank.php',
+			'show_numbers'			=> false,
+			'show_select_boxes' 	=> false,
+			'selectboxes_checkall'	=> false,
+			'table_sort_dir'		=> 'desc',
+			'table_sort_col'		=> 1,
+			'table_presets'			=> array(
+				array('name' => 'gb_iname',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_iamount',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_itype',		'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
+				array('name' => 'gb_ibanker',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => '')
+			)
+		),
+		'hptt_guildbank_transactions' => array(
+			'name'					=> 'hptt_guildbank_transactions',
+			'table_main_sub'		=> '%trans_id%',
+			'table_subs'			=> array('%trans_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'),
+			'page_ref'				=> 'guildbank.php',
+			'show_numbers'			=> false,
+			'show_select_boxes' 	=> false,
+			'selectboxes_checkall'	=> false,
+			'table_sort_dir'		=> 'desc',
+			'table_sort_col'		=> 1,
+			'table_presets'			=> array(
+				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_tsubject',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_titem',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_tbuyer',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_tbanker',	'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
+				array('name' => 'gb_tvalue',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_tdkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => '')
 			)
 		),
 		'hptt_guildbank_admin_items' => array(
@@ -47,14 +71,36 @@ $systems_guildbank = array(
 			'table_sort_dir'		=> 'desc',
 			'table_sort_col'		=> 1,
 			'table_presets' => array(
-				array('name' => 'gb_iname',		'sort' => true, 'th_add' => '', 'td_add' => 'style="height:21px;"'),
-				array('name' => 'gb_idate',		'sort' => true, 'th_add' => '', 'td_add' => ''),
-				array('name' => 'gb_itype',		'sort' => true, 'th_add' => '', 'td_add' => ''),
-				array('name' => 'gb_irarity',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
-				array('name' => 'gb_iamount',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
-				array('name' => 'gb_ivalue',	'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
-				array('name' => 'gb_iedit',		'sort' => true, 'th_add' => 'align="center"', 'td_add' => ''),
+				array('name' => 'gb_iname',		'sort' => true,		'th_add' => '',								'td_add' => 'style="height:21px;"'),
+				array('name' => 'gb_idate',		'sort' => true,		'th_add' => '',								'td_add' => ''),
+				array('name' => 'gb_itype',		'sort' => true,		'th_add' => '',								'td_add' => ''),
+				array('name' => 'gb_irarity',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_iamount',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_ivalue',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_idkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_iedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
 			),
+		),
+		'hptt_guildbank_admin_transactions' => array(
+			'name'					=> 'hptt_guildbank_admin_transactions',
+			'table_main_sub'		=> '%trans_id%',
+			'table_subs'			=> array('%trans_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'),
+			'page_ref'				=> 'manage_banker.php',
+			'show_numbers'			=> true,
+			'show_select_boxes' 	=> true,
+			'selectboxes_checkall'	=> true,
+			'table_sort_dir'		=> 'desc',
+			'table_sort_col'		=> 1,
+			'table_presets'			=> array(
+				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_tsubject',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_titem',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_tbuyer',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_tbanker',	'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
+				array('name' => 'gb_tvalue',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_tdkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_tedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => '')
+			)
 		),
 	)
 );
