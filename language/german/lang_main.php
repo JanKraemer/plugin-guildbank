@@ -60,6 +60,9 @@ $lang = array(
 	),
 	'gb_subject'					=> 'Verwendungszweck',
 	'gb_members'					=> 'Empfänger',
+	'gb_manage_bank_transa'			=> 'Transaktionen verwalten',
+	'gb_item_added'					=> 'Gegenstand hinzugefügt',
+	'add_transaction'				=> 'Transaktion hinzufügen',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
@@ -71,6 +74,8 @@ $lang = array(
 	'gb_amount'						=> "Menge",
 	'rb_additem_button'				=> 'Gegenstand speichern',
 	'rb_edititem_button'			=> 'Gegenstand ändern',
+	'gb_ta_head_transaction'		=> 'Transaktion verwalten',
+	'gb_ta_head_item'				=> 'Gegenstand verwalten',
 
 	// settings
 	'gb_header_global'				=> "Gildenbank Einstellungen",

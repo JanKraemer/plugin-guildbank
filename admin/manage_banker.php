@@ -33,7 +33,7 @@ class Manage_Banker extends page_generic {
 		$this->user->check_auth('a_guildbank_manage');
 		$handler = array(
 			'save'		=> array('process' => 'save',			'csrf'=>true),
-			'saveitem'	=> array('process' => 'saveitem',		'csrf'=>true),
+			'tasave'	=> array('process' => 'saveitem',		'csrf'=>true),
 			'edit'		=> array('process' => 'edit'),
 			'additem'	=> array('process' => 'addedit_item'),
 		);
@@ -64,12 +64,27 @@ class Manage_Banker extends page_generic {
 	}
 
 	public function saveitem() {
-		$retu			= array();
+		$retu		= array();
+		$edit		= $this->in->get('edit', 0);
+		$mode		= $this->in->get('mode', 0);
+		$money		= $this->money->input();
+		$char		= $this->in->get('char', 0);
+		$func		= ($edit > 0 && ($mode == 0 && $this->in->get('item', 0) > 0) || ($mode == 1 && $this->in->get('mode', 0) > 0)) ? 'update' : 'add';
+		die($func);
+		// transactions
+		if($mode == 1){
+			$retu		= $this->pdh->put('guildbank_transactions', $func, array(
+				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
+				$this->in->get('transaction', 0), $this->in->get('banker', 0), $char, 0, 0, 0, $this->in->get('subject', ''), 0
+			));
+
+		// items
+		}else{
+			$retu		= $this->pdh->put('guildbank_items', $func, array(
+			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $strSubject='gb_item_added'
+			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char));
+		}
 		
-		$money			= $this->money->input();
-		$func			= ($this->in->get('item', 0) > 0) ? 'update' : 'add';
-		$retu			= $this->pdh->put('guildbank_items', $func, array(
-		$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $money, $this->in->get('dkp', 0)));
 		if($retu) {
 			$message = array('title' => $this->user->lang('save_nosuc'), 'text' => implode(', ', $names), 'color' => 'red');
 		} elseif(in_array(true, $retu)) {
@@ -200,24 +215,44 @@ class Manage_Banker extends page_generic {
 	public function addedit_item(){
 		$bankerID		= $this->in->get('g', 0);
 		$itemID			= $this->in->get('i', 0);
+		$transactionID	= $this->in->get('t', 0);
+		$mode_select	= $this->in->get('mode', 0);
+		$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array(0));
+		$edit_mode		= false;
+		$edit_charID	= 0;
+		$money			= 0;
+		
+		if($itemID > 0){
+			$mode_select	= 0;
+			$edit_mode		= true;
+			$edit_bankid	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'banker', array($itemID)) : 0;
+			$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
+			$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
+		}elseif($transactionID > 0){
+			$mode_select	= 1;
+			$edit_mode		= true;
+			$money			= $this->pdh->get('guildbank_transactions', 'value', array($transactionID, true));
+			$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array($transactionID, true));
+		}
+
 		$rarity			= $this->pdh->get('guildbank_items', 'rarity', array($itemID));
 		$type			= $this->pdh->get('guildbank_items', 'type', array($itemID));
-		$edit_bankid	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'banker', array($itemID)) : 0;
-		$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
-
 		$this->tpl->assign_vars(array(
-			'S_EDIT'		=> ($itemID > 0) ? true : false,
+			'S_EDIT'		=> $edit_mode,
+			'EDITMODE'		=> ($edit_mode) ? '1' : '0',
+			'MODE'			=> $mode_select,
 			'ITEMID'		=> $itemID,
-			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
+			'TAID'			=> $transactionID,
+			'MONEY'			=> $this->money->editfields($money),
 			'DD_RARITY'		=> $this->html->DropDown('rarity', $this->user->lang('gb_a_rarity'), (($itemID > 0) ? $rarity : '')),
 			'DD_TYPE'		=> $this->html->DropDown('type', $this->user->lang('gb_a_type'), $type),
-			'DD_MODE'		=> $this->html->DropDown('mode', $this->user->lang('gb_a_mode'), $this->in->get('mode', 0), '', '', 'input', 'selectmode'),
-			'MS_MEMBERS'	=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, $this->pdh->get('member', 'id_list')), $this->pdh->get('guildbank_transactions', 'char', array(0))),
+			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
 			'V_NAME'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : '',
-			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'subject', array($itemID)) : '',
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
-			'MONEY'			=> $this->money->editfields($money),
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
+			'MS_MEMBERS'	=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), $edit_charID),
+			'DD_MODE'		=> $this->html->DropDown('mode', $this->user->lang('gb_a_mode'), $mode_select, '', '', 'input', 'selectmode', array(), $edit_mode),
 		));
 
 		$this->core->set_vars(array(

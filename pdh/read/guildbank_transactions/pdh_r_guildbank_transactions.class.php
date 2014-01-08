@@ -146,6 +146,17 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			return (isset($this->itemcost[$itemid]) && $this->itemcost[$itemid] > 0) ? $this->itemcost[$itemid] : 0;
 		}
 
+		public function get_transaction_id($itemid){
+			if(is_array($this->data) && count($this->data) > 0){
+				foreach($this->data as $ta_data){
+					if($ta_data['item'] == $itemid){
+						return $itemid;
+					}
+				}
+			}
+			return 0;
+		}
+
 		public function get_money_summ($bankid){
 			return (isset($this->summ[$bankid]) && $this->summ[$bankid] > 0) ? $this->summ[$bankid] : 0;
 		}
@@ -184,11 +195,13 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		}
 
 		public function get_subject($id){
-			return (isset($this->data[$id]) && $this->data[$id]['subject']) ? $this->data[$id]['subject'] : '';
+			return (isset($this->data[$id]) && $this->data[$id]['subject']) ? (($this->user->lang($this->data[$id]['subject'])) ? $this->user->lang($this->data[$id]['subject']) : $this->data[$id]['subject']) : '';
 		}
 
 		public function get_edit($id){
-			return '<a href="manage_banker.php'.$this->SID.'&amp;additem=true&amp;t='.$id.' &mode=1"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
+			$link	 = 'manage_banker.php'.$this->SID.'&amp;additem=true';
+			$link 	.= ($this->get_item($id, true) > 0) ? '&amp;mode=0&amp;i='.$this->get_item($id, true) : '&amp;mode=1&amp;t='.$id;
+			return '<a href="'.$link.'"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
 		}
   } //end class
 } //end if class not exists

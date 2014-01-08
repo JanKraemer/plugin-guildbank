@@ -5,19 +5,26 @@ $(document).ready(function() {
 		if($(this).val() == '1'){
 			$('.transaction').show();
 			$('.item').hide();
+			$('#header_name').text('{L_gb_ta_head_transaction}');
 		}else{
 			$('.transaction').hide();
 			$('.item').show();
+			$('#header_name').text('{L_gb_ta_head_item}');
 		}
 	}).trigger('change');
 });
 </script>
 
 <form method="post" action="{ACTION}" name="addWC">
+<input type="hidden" name="tasave" value="true">
 <input type="hidden" name="banker" value="{BANKERID}">
 <input type="hidden" name="item" value="{ITEMID}">
+<input type="hidden" name="transaction" value="{TAID}">
+<input type="hidden" name="edit" value="{EDITMODE}">
+<input type="hidden" name="mode" value="{MODE}">
 
 <fieldset class="settings smallsettings">
+	<legend id="header_name">{L_gb_ta_head_item}</legend>
 	<dl>
 		<dt><label>{L_gb_mode}:</label></dt>
 		<dd>{DD_MODE}</dd>
@@ -34,7 +41,7 @@ $(document).ready(function() {
 			<input type="text" name="subject" size="20" value="{V_SUBJECT}" class="input" />
 		</dd>
 	</dl>
-	<dl class="item">
+	<dl>
 		<dt><label>{L_gb_members}:</label></dt>
 		<dd>{MS_MEMBERS}</dd>
 	</dl>

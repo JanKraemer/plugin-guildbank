@@ -31,6 +31,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		}
 
 		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
+			die($intID.' -- '.$intBanker.' -- '.$intChar.' -- '.$intItem.' -- '.$intDKP.' -- '.$intValue.' -- '.$strSubject.' -- '.$intStartvalue);
 			$resQuery = $this->db->query("INSERT INTO __guildbank_transactions :params", array(
 				'ta_banker'		=> $intBanker,
 				'ta_char'		=> $intChar,
