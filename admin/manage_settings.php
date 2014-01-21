@@ -71,10 +71,15 @@ class guildbankSettings extends page_generic {
 				$this->core->message($name, $this->user->lang('guildbank'), 'green');
 		}
 
+		// stored config settings
+		$show_tooltip	= $this->config->get('show_tooltip',	'guildbank');
+		$show_money		= $this->config->get('show_money',		'guildbank');
+		$merge_banker	= $this->config->get('merge_bankers',	'guildbank');
+
 		$this->tpl->assign_vars(array(
-			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('show_tooltip',	false, $this->config->get('show_tooltip',	'guildbank'), 'input'),
-			'R_SHOW_MONEY'		=> $this->html->RadioBox('show_money',		false, $this->config->get('show_money',		'guildbank'), 'input'),
-			'R_MERGE_BANKER'	=> $this->html->RadioBox('merge_bankers',	false, $this->config->get('merge_bankers',	'guildbank'), 'input'),
+			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('show_tooltip',	false, (($show_tooltip) ? $show_tooltip : 0), 'input'),
+			'R_SHOW_MONEY'		=> $this->html->RadioBox('show_money',		false, (($show_money) ? $show_money : 0), 'input'),
+			'R_MERGE_BANKER'	=> $this->html->RadioBox('merge_bankers',	false, (($merge_banker) ? $merge_banker : 0), 'input'),
 		));
 
 		$this->core->set_vars(array(

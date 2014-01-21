@@ -5,15 +5,15 @@
  * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
  * Began:       2005
- * Date:        $Date: 2014-01-08 23:41:56 +0100 (Wed, 08 Jan 2014) $
+ * Date:        $Date$
  * -----------------------------------------------------------------------
- * @author      $Author: wallenium $
+ * @author      $Author$
  * @copyright   2005-2014 Wallenium
  * @link        http://eqdkp-plus.com
  * @package     guildbank
- * @version     $Rev: 13893 $
+ * @version     $Rev$
  *
- * $Id: manage_banker.php 13893 2014-01-08 22:41:56Z wallenium $
+ * $Id$
  */
 
 define('EQDKP_INC', true);
