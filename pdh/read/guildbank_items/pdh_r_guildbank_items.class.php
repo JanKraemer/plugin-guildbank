@@ -139,7 +139,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_edit($id){
-			return '<a href="manage_banker.php'.$this->SID.'&amp;additem=true&amp;i='.$id.'"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
+			return '<a href="javascript:edit_item(\''.$id.'\');"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
 		}
 
 		public function get_value($id){

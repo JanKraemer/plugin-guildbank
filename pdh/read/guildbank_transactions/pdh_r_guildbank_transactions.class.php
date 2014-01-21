@@ -199,9 +199,9 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		}
 
 		public function get_edit($id){
-			$link	 = 'manage_banker.php'.$this->SID.'&amp;additem=true';
-			$link 	.= ($this->get_item($id, true) > 0) ? '&amp;mode=0&amp;i='.$this->get_item($id, true) : '&amp;mode=1&amp;t='.$id;
-			return '<a href="'.$link.'"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
+			$mode	= ($this->get_item($id, true) > 0) ? 'edit_item' : 'edit_transaction';
+			$myid 	= ($this->get_item($id, true) > 0) ? $this->get_item($id, true) : $id;
+			return '<a href="javascript:'.$mode.'(\''.$myid.'\');"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
 		}
   } //end class
 } //end if class not exists

@@ -31,7 +31,6 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		}
 
 		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
-			die($intID.' -- '.$intBanker.' -- '.$intChar.' -- '.$intItem.' -- '.$intDKP.' -- '.$intValue.' -- '.$strSubject.' -- '.$intStartvalue);
 			$resQuery = $this->db->query("INSERT INTO __guildbank_transactions :params", array(
 				'ta_banker'		=> $intBanker,
 				'ta_char'		=> $intChar,
@@ -43,6 +42,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 				'ta_startvalue'	=> $intStartvalue,
 			));
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $this->db->insert_id();
 			return false;
 		}
@@ -59,6 +59,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 				'ta_startvalue'	=> $intStartvalue,
 			), $intID);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intID;
 			return false;
 		}
@@ -69,6 +70,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 				'ta_date'		=> $this->time->time,
 			), $intBanker);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intBanker;
 			return false;
 		}
@@ -80,6 +82,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 				'ta_date'		=> $this->time->time,
 			), $intBanker);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intBanker;
 			return false;
 		}
@@ -87,18 +90,21 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		public function delete($intID){
 			$this->db->query("DELETE FROM __guildbank_transactions WHERE ta_id=?", false, $intID);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
 
 		public function delete_bybankerid($intID){
 			$this->db->query("DELETE FROM __guildbank_transactions WHERE ta_banker=?", false, $intID);
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
 
 		public function truncate(){
 			$this->db->query("TRUNCATE __guildbank_transactions");
 			$this->pdh->enqueue_hook('guildbank_transactions_update');
+			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
 	} //end class

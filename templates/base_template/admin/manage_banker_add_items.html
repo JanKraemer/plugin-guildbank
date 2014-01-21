@@ -16,11 +16,10 @@ $(document).ready(function() {
 </script>
 
 <form method="post" action="{ACTION}" name="addWC">
-<input type="hidden" name="tasave" value="true">
 <input type="hidden" name="banker" value="{BANKERID}">
 <input type="hidden" name="item" value="{ITEMID}">
 <input type="hidden" name="transaction" value="{TAID}">
-<input type="hidden" name="edit" value="{EDITMODE}">
+<input type="hidden" name="editmode" value="{EDITMODE}">
 <input type="hidden" name="mode" value="{MODE}">
 
 <fieldset class="settings smallsettings">
@@ -66,6 +65,6 @@ $(document).ready(function() {
 		<dd><input type="text" name="dkp" size="5" value="{DKP}" class="input" /></dd>
 	</dl>
 </fieldset>
-<input type="submit" name="saveitem" value="<!-- IF S_EDIT -->{L_rb_edititem_button}<!-- ELSE -->{L_rb_additem_button}<!-- ENDIF -->" class="mainoption bi_ok" />
+<input type="submit" name="save" value="<!-- IF S_EDIT -->{L_rb_edititem_button}<!-- ELSE -->{L_rb_additem_button}<!-- ENDIF -->" class="mainoption bi_ok" />
 {CSRF_TOKEN}
 </form>
