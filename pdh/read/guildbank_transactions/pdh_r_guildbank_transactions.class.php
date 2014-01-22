@@ -35,12 +35,12 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		private $itemcost;
 
 		public $hooks = array(
-			'guildbank_transactions_update'
+			'guildbank_items_update'
 		);
 
 		public $presets = array(
 			'gb_tdate'		=> array('date',		array('%trans_id%'), array()),
-			//'gb_titem'		=> array('item',		array('%trans_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
+			'gb_titem_itt'	=> array('item_itt',	array('%trans_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
 			'gb_titem'		=> array('item',		array('%trans_id%'), array()),
 			'gb_tbuyer'		=> array('char',		array('%trans_id%'), array()),
 			'gb_tsubject'	=> array('subject',		array('%trans_id%'), array()),
@@ -133,6 +133,13 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 				return (isset($this->data[$id]) && $this->data[$id]['item'] > 0) ? $this->data[$id]['item'] : 0;
 			}
 			return (isset($this->data[$id]) && $this->data[$id]['item'] > 0) ? $this->pdh->get('guildbank_items', 'name', array($this->data[$id]['item'])) : '--';
+		}
+
+		public function get_item_itt($id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
+			if(isset($this->data[$id]) && $this->data[$id]['item'] > 0){
+				return $this->pdh->get('guildbank_items', 'itt_itemname', array($this->data[$id]['item'], $lang, $direct, $onlyicon, $noicon, $in_span));
+			}
+			return '--';
 		}
 
 		public function get_value($id, $raw=false){

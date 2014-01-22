@@ -47,6 +47,9 @@ class gb_guildbank extends page_generic {
 		 $bankerID		= $this->in->get('banker', 0);
 		 require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
+ 		//init infotooltip
+ 		infotooltip_js();
+
 		 foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
 			 $bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
 			 $this->tpl->assign_block_vars('banker_row', array(

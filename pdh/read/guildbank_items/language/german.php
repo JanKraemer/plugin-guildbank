@@ -22,7 +22,8 @@ if (!defined('EQDKP_INC')){
 
 $module_lang = array(
 	'html_date'			=> 'Datum',
-	'name'				=> 'Name',
+	'name'				=> 'Gegenstand',
+	'name_itt'			=> 'Gegenstand',
 	'amount'			=> 'Anzahl',
 	'type'				=> 'Typ',
 	'edit'				=> '',
@@ -35,7 +36,8 @@ $module_lang = array(
 
 $preset_lang = array(
 	'gb_idate'			=> 'Datum',
-	'gb_iname'			=> 'Name',
+	'gb_iname'			=> 'Gegenstand',
+	'gb_iname_itt'		=> 'Gegenstand',
 	'gb_iamount'		=> 'Anzahl',
 	'gb_itype'			=> 'Typ',
 	'gb_iedit'			=> 'Bearbeiten',

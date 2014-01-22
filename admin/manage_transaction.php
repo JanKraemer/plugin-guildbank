@@ -65,7 +65,10 @@ class Manage_Transaction extends page_generic {
 		} elseif(in_array(true, $retu)) {
 			$message = array('title' => $this->user->lang('save_suc'), 'text' => implode(', ', $names), 'color' => 'green');
 		}
-		$this->display($message);
+		$this->pdh->process_hook_queue();
+
+		// close the dialog
+		$this->tpl->add_js('jQuery.FrameDialog.closeDialog();');
 	}
 
 	public function delete() {

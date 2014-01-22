@@ -21,24 +21,24 @@ if (!defined('EQDKP_INC')){
 }
 
 $module_lang = array(
-	'date'				=> 'Datum',
-	'item'				=> 'Gegenstand',
-	'item_itt'			=> 'Gegenstand',
-	'char'				=> 'Käufer',
-	'subject'			=> 'Betreff',
-	'banker'			=> 'Bankier',
-	'value'				=> 'Wert',
+	'date'				=> 'Date',
+	'item'				=> 'Item',
+	'item_itt'			=> 'Item',
+	'char'				=> 'Buyer',
+	'subject'			=> 'Purpose',
+	'banker'			=> 'Banker',
+	'value'				=> 'Value',
 	'dkp'				=> 'DKP',
 );
 
 $preset_lang = array(
-	'gb_tdate'			=> 'Datum',
-	'gb_titem'			=> 'Gegenstand',
-	'gb_titem_itt'		=> 'Gegenstand',
-	'gb_tbuyer'			=> 'Käufer',
-	'gb_tsubject'		=> 'Betreff',
-	'gb_tbanker'		=> 'Bankier',
-	'gb_tvalue'			=> 'Wert',
+	'gb_tdate'			=> 'Date',
+	'gb_titem'			=> 'Item',
+	'gb_titem_itt'		=> 'Item',
+	'gb_tbuyer'			=> 'Buyer',
+	'gb_tsubject'		=> 'Purpose',
+	'gb_tbanker'		=> 'Banker',
+	'gb_tvalue'			=> 'Value',
 	'gb_tdkp'			=> 'DKP',
 );
 
