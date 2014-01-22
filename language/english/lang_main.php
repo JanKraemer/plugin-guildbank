@@ -37,7 +37,7 @@ $lang = array(
 	'gb_banker'						=> "banker",
 	'gb_not_avail'					=> "n.a.",
 	'gb_all_bankers'				=> "All banker",
-	'gb_total_bankers'				=> "Vermögen aller Banken",
+	'gb_total_bankers'				=> "Asset of all bankers",
 	'gb_mainchar_out'				=> "Main character",
 	'gb_no_bankchar'				=> 'None',
 	'gb_update'						=> 'Last activity',
@@ -48,7 +48,7 @@ $lang = array(
 	'manage_bankers'				=> 'Manage guild banker',
 	'confirm_delete_bankers'		=> "Should the banker(s) %s be removed?",
 	'banker_mainchar'				=> 'Bank-character',
-	'money'							=> 'Guthaben',
+	'money'							=> 'Balance',
 
 	// manage transactions
 	'gb_manage_bank_items_title'	=> "Edit items of banker '%s'",
