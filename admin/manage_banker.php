@@ -35,7 +35,7 @@ class Manage_Banker extends page_generic {
 			'save'		=> array('process' => 'save',			'csrf'=>true),
 			'details'	=> array('process' => 'details'),
 		);
-		parent::__construct(false, $handler, array('bankers', 'name'), null, 'banker_ids[]');
+		parent::__construct(false, $handler, array('guildbank_banker', 'name'), null, 'banker_ids[]');
 		$this->process();
 	}
 
