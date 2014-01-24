@@ -23,7 +23,7 @@ define('PLUGIN', 'guildbank');
 $eqdkp_root_path = './../../../';
 include_once('./../includes/common.php');
 
-class Manage_Transaction extends page_generic {
+class Manage_BankDetails extends page_generic {
 	public static function __shortcuts() {
 		$shortcuts = array('user', 'tpl', 'in', 'pdh', 'jquery', 'core', 'config', 'html', 'pm', 'time', 'money' => 'gb_money');
 		return array_merge(parent::$shortcuts, $shortcuts);
@@ -33,8 +33,9 @@ class Manage_Transaction extends page_generic {
 		$this->user->check_auth('a_guildbank_manage');
 		$handler = array(
 			'save'		=> array('process' => 'save',			'csrf'=>true),
+			'addedit'	=> array('process' => 'display_add'),
 		);
-		parent::__construct(false, $handler, array('bankers', 'name'), null, 'banker_ids[]');
+		parent::__construct(false, $handler, array('guildbank_items', 'name'), null, 'content_ids[]');
 		$this->process();
 	}
 
@@ -72,13 +73,85 @@ class Manage_Transaction extends page_generic {
 	}
 
 	public function delete() {
+		/*$banker_ids = $this->in->getArray('banker_ids', 'int');
+		if($banker_ids) {
+			foreach($banker_ids as $id) {
+				$names[] = $this->pdh->get('guildbank_banker', 'name', ($id));
+				$retu[] = $this->pdh->put('guildbank_banker', 'delete', array($id));
+			}
+			if(in_array(false, $retu)) {
+				$message = array('title' => $this->user->lang('del_no_suc'), 'text' => implode(', ', $names), 'color' => 'red');
+			} else {
+				$message = array('title' => $this->user->lang('del_suc'), 'text' => implode(', ', $names), 'color' => 'green');
+			}
+		} else {
+			$message = array('title' => '', 'text' => $this->user->lang('no_calendars_selected'), 'color' => 'grey');
+		}
+		$this->display($message);*/
+	}
+
+	public function display($messages=false, $banker = false){
+		$bankerID 		= ($banker > 0) ? $banker : $this->in->get('g', 0);
+		$banker_name	= $this->pdh->get('guildbank_banker', 'name', array($bankerID));
 		
+		//init infotooltip
+		infotooltip_js();
+		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
+
+		// -- display entries ITEMS ------------------------------------------------
+		$view_items		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_items, $view_items, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
+		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
+		$item_count		= count($view_items);
+		$item_footer	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
+
+		// -- display entries TRANSACTIONS -----------------------------------------
+		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
+		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		$ta_count		= count($ta_list);
+		$footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
+
+		// start ouptut
+		$this->jquery->Tab_header('guildbank_tab');
+		
+		// build the url for the dialogs
+		$redirect_url		= 'manage_bank_details.php'.$this->SID.'&g='.$bankerID.'&details=true';
+		$transactions_url	= 'manage_bank_details.php'.$this->SID.'&simple_head=true&addedit=true&g='.$bankerID;
+		
+		$this->jquery->dialog('add_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url.'&mode=1', 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
+		$this->jquery->dialog('edit_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url."&mode=1&t='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
+		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		
+		$this->confirm_delete($this->user->lang('confirm_delete_items'));
+		$this->tpl->assign_vars(array(
+			'BANKID'				=> $bankerID,
+			'SID'					=> $this->SID,
+
+			'BANKNAME'				=> $this->pdh->get('guildbank_banker', 'name', array($bankerID)),
+
+			'ITEM_LIST'				=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $item_footer),
+			'PAGINATION_ITEMS'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'ITEMS_COLUMN_COUNT'	=> $hptt_items->get_column_count(),
+			
+			'TRANSA_LIST'			=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
+			'TRANSA_PAGINATION'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'TRANSA_COLUMN_COUNT'	=> $hptt_transa->get_column_count(),
+		));
+
+		$this->core->set_vars(array(
+			'page_title'		=> sprintf($this->user->lang('gb_manage_bank_items_title'), $banker_name),
+			'template_file'		=> 'admin/manage_banker_items.html',
+			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
+			'display'			=> true)
+		);
 	}
 
 	// ---------------------------------------------------------
 	// Displays add/edit item dialog
 	// ---------------------------------------------------------
-	public function display(){
+	public function display_add(){
 		$bankerID		= $this->in->get('g', 0);
 		$itemID			= $this->in->get('i', 0);
 		$transactionID	= $this->in->get('t', 0);
@@ -130,6 +203,6 @@ class Manage_Transaction extends page_generic {
 		);
 	}
 }
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_Manage_Transaction', Manage_Transaction::__shortcuts());
-registry::register('Manage_Transaction');
+if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_Manage_BankDetails', Manage_BankDetails::__shortcuts());
+registry::register('Manage_BankDetails');
 ?>

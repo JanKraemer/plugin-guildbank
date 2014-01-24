@@ -71,7 +71,7 @@ class gb_guildbank extends page_generic {
 		 foreach($this->money->get_data() as $monName=>$monValue){
 			 $this->tpl->assign_block_vars('money_row', array(
 				 'NAME'			=> $monName,
-				 'IMAGE'		=> $this->money->image($monValue),
+				 'IMAGE'		=> $this->money->image($monValue, true, '22'),
 				 'VALUE'		=> $this->money->output($this->pdh->get('guildbank_transactions', 'money_summ_all'), $monValue),
 				 'LANGUAGE'		=> $monValue['language'],
 			 ));

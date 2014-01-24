@@ -40,7 +40,8 @@ if(!class_exists('gb_money')) {
 		public function output($input, $variables){
 			if($input){
 				$outp = floor($input/$variables['factor']);
-				return ($variables['size'] == 'unlimited') ? $outp : substr($outp, -2);
+				//echo 'test: '.$input.'/'.$variables['factor'].'='.$outp.'<br/>';
+				return ($variables['size'] == 'unlimited') ? $outp : substr($outp, ((isset($variables['size']) && is_int($variables['size']) && $variables['size'] > 0) ? -$variables['size'] : -2));
 			}
 			return '0';
 		}
@@ -66,8 +67,9 @@ if(!class_exists('gb_money')) {
 			return implode(" ", $monvalue);
 		}
 
-		public function image($monValue){
-			return '<img src="'.$this->root_path.'plugins/guildbank/games/'.$monValue['image'].'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'" />';
+		public function image($monValue, $large=false, $size=false){
+			$imgsize	= ($size) ? ' width="'.$size.'"' : '';
+			return '<img src="'.$this->root_path.'plugins/guildbank/games/'.(($large) ? ((isset($monValue['image_large'])) ? $monValue['image_large'] : $monValue['image']) : $monValue['image']).'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'"'.$imgsize.' />';
 		}
 
 		public function editfields($mymoney=0, $name='money_{ID}'){

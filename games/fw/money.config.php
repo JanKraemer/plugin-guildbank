@@ -18,30 +18,34 @@
 
 	// The array with the images
 	$money_data = array(
+		'diamond'		=> array(
+			'image'			=> 'default/images/gold.png',
+			'factor'		=> 1000000,
+			'size'			=> 'unlimited',
+			'language'		=> $user->lang['lang_diamond'],
+			'short_lang'	=> $user->lang['lang_d'],
+		),
 		'gold'		=> array(
 			'image'			=> 'default/images/gold.png',
-			'image_large'	=> 'default/images/gold_large.png',
 			'factor'		=> 10000,
-			'size'			=> 'unlimited',
-			'language'		=> $this->user->lang('lang_gold'),
-			'short_lang'	=> $this->user->lang('lang_g'),
+			'size'			=> 2,
+			'language'		=> $user->lang['lang_gold'],
+			'short_lang'	=> $user->lang['lang_g'],
 		),
 		'silver'	=> array(
 			'image'			=> 'default/images/silver.png',
-			'image_large'	=> 'default/images/silver_large.png',
 			'factor'		=> 100,
 			'size'			=> 2,
-			'language'		=> $this->user->lang('lang_silver'),
-			'short_lang'	=> $this->user->lang('lang_s'),
+			'language'		=> $user->lang['lang_silver'],
+			'short_lang'	=> $user->lang['lang_s'],
 		),
 		'copper'	=> array(
 			'image'			=> 'default/images/copper.png',
-			'image_large'	=> 'default/images/copper_large.png',
 			'factor'		=> 1,
 			'size'			=> 2,
-			'language'		=> $this->user->lang('lang_copper'),
-			'short_lang'	=> $this->user->lang('lang_c'),
+			'language'		=> $user->lang['lang_copper'],
+			'short_lang'	=> $user->lang['lang_c'],
 		)
-  );
+	);
 
  ?>
