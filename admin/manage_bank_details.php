@@ -60,8 +60,8 @@ class Manage_BankDetails extends page_generic {
 		// items
 		}else{
 			$retu		= $this->pdh->put('guildbank_items', $func, array(
-			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $strSubject='gb_item_added'
-			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char));
+			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'
+			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char,  $this->in->get('sellable', 0)));
 		}
 		
 		if($retu) {
@@ -197,10 +197,12 @@ class Manage_BankDetails extends page_generic {
 		$edit_mode		= false;
 		$edit_charID	= 0;
 		$money			= 0;
+		$item_sellable	= 0;
 		
 		if($itemID > 0){
 			$mode_select	= 0;
 			$edit_mode		= true;
+			$item_sellable	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'sellable', array($itemID)) : 0;
 			$edit_bankid	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'banker', array($itemID)) : 0;
 			$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
 			$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
@@ -229,6 +231,7 @@ class Manage_BankDetails extends page_generic {
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
 			'MS_MEMBERS'	=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), $edit_charID),
 			'DD_MODE'		=> $this->html->DropDown('mode', $this->user->lang('gb_a_mode'), $mode_select, '', '', 'input', 'selectmode', array(), $edit_mode),
+			'R_SELLABLE'	=> $this->html->RadioBox('sellable', array ('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')), $item_sellable, 'input'),
 		));
 
 		$this->core->set_vars(array(

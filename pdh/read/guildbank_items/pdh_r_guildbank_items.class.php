@@ -79,7 +79,8 @@ if (!class_exists('pdh_r_guildbank_items')){
 						'type'		=> $row['item_type'],
 						'rarity'	=> (int)$row['item_rarity'],
 						'amount'	=> (int)$row['item_amount'],
-						'date'		=> (int)$row['item_date']
+						'date'		=> (int)$row['item_date'],
+						'sellable'	=> (int)$row['item_sellable']
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
 				}
@@ -111,6 +112,10 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_date($id){
 			return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->data[$id]['date'] : 0;
+		}
+
+		public function get_sellable($id){
+			return (isset($this->data[$id]['sellable'])) ? $this->data[$id]['sellable'] : 0;
 		}
 
 		public function get_html_date($id){

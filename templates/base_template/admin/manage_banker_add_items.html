@@ -60,6 +60,10 @@ $(document).ready(function() {
 		<dt><label>{L_gb_dkp}:</label></dt>
 		<dd><input type="text" name="dkp" size="5" value="{DKP}" class="input" /></dd>
 	</dl>
+	<dl class="item">
+		<dt><label>{L_gb_item_sellable}:</label></dt>
+		<dd>{R_SELLABLE}</dd>
+	</dl>
 </fieldset>
 <input type="submit" name="save" value="<!-- IF S_EDIT -->{L_rb_edititem_button}<!-- ELSE -->{L_rb_additem_button}<!-- ENDIF -->" class="mainoption bi_ok" />
 {CSRF_TOKEN}

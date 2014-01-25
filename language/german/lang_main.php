@@ -66,6 +66,7 @@ $lang = array(
 	'gb_payout_item'				=> 'Gegenstand verkaufen',
 	'add_transaction'				=> 'Transaktion hinzufügen',
 	'gb_adjustment_text'			=> 'Gildenbank - Gegenstand wurde gekauft',
+	'gb_item_sellable'				=> 'Gegenstand verlaufbar',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
