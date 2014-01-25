@@ -61,7 +61,16 @@ if (!class_exists('pdh_w_guildbank_items'))
 			if ($resQuery) return $intID;
 			return false;
 		}
-	
+
+		public function amount($intID, $intAmount){
+			$resQuery = $this->db->query("UPDATE __guildbank_items SET :params WHERE item_id=?", array(
+				'item_amount'	=> $intAmount,
+			), $intID);
+			$this->pdh->enqueue_hook('guildbank_items_update');
+			if ($resQuery) return $intID;
+			return false;
+		}
+
 		public function delete($intID){
 			$this->db->query("DELETE FROM __guildbank_items WHERE item_id=?", false, $intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');

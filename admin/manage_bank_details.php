@@ -32,8 +32,11 @@ class Manage_BankDetails extends page_generic {
 	public function __construct(){
 		$this->user->check_auth('a_guildbank_manage');
 		$handler = array(
-			'save'		=> array('process' => 'save',			'csrf'=>true),
-			'addedit'	=> array('process' => 'display_add'),
+			'save'				=> array('process' => 'save',			'csrf'=>true),
+			'perform_payout'	=> array('process' => 'perform_payout',	'csrf'=>true),
+			'addedit'			=> array('process' => 'display_add'),
+			'payout'			=> array('process' => 'display_payout'),
+			
 		);
 		parent::__construct(false, $handler, array('guildbank_items', 'name'), null, 'content_ids[]');
 		$this->process();
@@ -70,6 +73,38 @@ class Manage_BankDetails extends page_generic {
 
 		// close the dialog
 		$this->tpl->add_js('jQuery.FrameDialog.closeDialog();');
+	}
+
+	public function perform_payout(){
+		$buyer		= $this->in->get('char', 0);
+		$item		= $this->in->get('item', 0);
+		$amount		= $this->in->get('amount', 0);
+		$dkp		= -$this->in->get('dkp', 0);
+		$money		= $this->money->input();
+		
+		if($buyer > 0 && $item > 0){
+			// calculate the new amount
+			$amount_new	= $this->pdh->get('guildbank_items', 'amount', array($item)) - $amount;
+
+			// add the transaction
+			$retu		= $this->pdh->put('guildbank_transactions', 'add', array(
+				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
+				$this->in->get('transaction', 0), $this->in->get('banker', 0), $buyer, $item, $dkp, $money, 'gb_item_payout', 0
+			));
+		
+			// reduce amount of items
+			$this->pdh->put('guildbank_items', 'amount', array($item, $amount_new));
+
+			// add a auto correction here...
+			if($this->config->get('use_autoadjust',	'guildbank') > 0 && $this->config->get('adjustment_event',	'guildbank') > 0){
+				//add_adjustment($adjustment_value, $adjustment_reason, $member_ids, $event_id, $raid_id=NULL, $time=false, $group_key = null)
+				$this->pdh->put('adjustment', 'add_adjustment', array($dkp, $this->user->lang('gb_adjustment_text'), $buyer, $this->config->get('adjustment_event',	'guildbank')));
+			}
+			$this->pdh->process_hook_queue();
+
+			// close the dialog
+			$this->tpl->add_js('jQuery.FrameDialog.closeDialog();');
+		}
 	}
 
 	public function delete() {
@@ -118,11 +153,13 @@ class Manage_BankDetails extends page_generic {
 		// build the url for the dialogs
 		$redirect_url		= 'manage_bank_details.php'.$this->SID.'&g='.$bankerID.'&details=true';
 		$transactions_url	= 'manage_bank_details.php'.$this->SID.'&simple_head=true&addedit=true&g='.$bankerID;
+		$payout_url			= 'manage_bank_details.php'.$this->SID.'&simple_head=true&g='.$bankerID;
 		
 		$this->jquery->dialog('add_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url.'&mode=1', 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
 		$this->jquery->dialog('edit_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url."&mode=1&t='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
 		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
 		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('payout_item', $this->user->lang('gb_ta_head_payout'), array('url' => $payout_url."&payout=true", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
 		
 		$this->confirm_delete($this->user->lang('confirm_delete_items'));
 		$this->tpl->assign_vars(array(
@@ -182,13 +219,13 @@ class Manage_BankDetails extends page_generic {
 			'MODE'			=> $mode_select,
 			'ITEMID'		=> $itemID,
 			'TAID'			=> $transactionID,
-			'MONEY'			=> $this->money->editfields($money),
+			'MONEY'			=> $this->money->editfields($money, 'money_{ID}', true),
 			'DD_RARITY'		=> $this->html->DropDown('rarity', $this->user->lang('gb_a_rarity'), (($itemID > 0) ? $rarity : '')),
 			'DD_TYPE'		=> $this->html->DropDown('type', $this->user->lang('gb_a_type'), $type),
 			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
 			'V_NAME'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : '',
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
-			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+			#'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
 			'MS_MEMBERS'	=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), $edit_charID),
 			'DD_MODE'		=> $this->html->DropDown('mode', $this->user->lang('gb_a_mode'), $mode_select, '', '', 'input', 'selectmode', array(), $edit_mode),
@@ -197,6 +234,28 @@ class Manage_BankDetails extends page_generic {
 		$this->core->set_vars(array(
 			'page_title'		=> ($itemID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_item_title'),
 			'template_file'		=> 'admin/manage_banker_add_items.html',
+			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
+			'header_format'		=> ($this->in->get('simple_head')) ? 'simple' : 'full',
+			'display'			=> true)
+		);
+	}
+
+	public function display_payout(){
+		$bankerID		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
+		$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
+
+		$this->tpl->assign_vars(array(
+			'MONEY'			=> $this->money->editfields($money),
+			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
+			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
+			'DD_ITEMS'		=> $this->html->DropDown('item', $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 0),
+			'DD_CHARS'		=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), $edit_charID),
+		));
+
+		$this->core->set_vars(array(
+			'page_title'		=> ($itemID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_item_title'),
+			'template_file'		=> 'admin/manage_banker_payout_items.html',
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'header_format'		=> ($this->in->get('simple_head')) ? 'simple' : 'full',
 			'display'			=> true)

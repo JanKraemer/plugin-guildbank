@@ -62,7 +62,10 @@ $lang = array(
 	'gb_members'					=> 'Empfänger',
 	'gb_manage_bank_transa'			=> 'Transaktionen verwalten',
 	'gb_item_added'					=> 'Gegenstand hinzugefügt',
+	'gb_item_payout'				=> 'Gegenstand verkauft',
+	'gb_payout_item'				=> 'Gegenstand verkaufen',
 	'add_transaction'				=> 'Transaktion hinzufügen',
+	'gb_adjustment_text'			=> 'Gildenbank - Gegenstand wurde gekauft',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
@@ -74,7 +77,9 @@ $lang = array(
 	'gb_amount'						=> "Menge",
 	'rb_additem_button'				=> 'Gegenstand speichern',
 	'rb_edititem_button'			=> 'Gegenstand ändern',
+	'gb_payput_button'				=> 'Gegenstand ausbezahlen',
 	'gb_ta_head_transaction'		=> 'Transaktion verwalten',
+	'gb_ta_head_payout'				=> 'Gegenstand ausbezahlen',
 	'gb_ta_head_item'				=> 'Gegenstand verwalten',
 
 	// settings
@@ -86,6 +91,10 @@ $lang = array(
 	'gb_merge_banker_help'			=> "Fasse alle Banken in einer Bank zusammen",
 	'gb_show_tooltip'				=> "Zeige Info-Tooltips",
 	'gb_show_tooltip_help'			=> "keine Ahnung was da stut ;)",
+	'gb_enable_autoadjustment'		=> 'Automatische Korrektur für verkaufte Gegenstände',
+	'gb_enable_autoadjustment_help'	=> 'Sollen für jeden verkauften Gegenstand automatische Korrekturen eingetragen werden?',
+	'gb_default_event'				=> 'Standardereignis für die automatische Korrektur',
+	'gb_default_event_help'			=> 'Falls die automatische Korrektur verwendet werden soll, muss ein Standardereignis gesetzt werden',
 
 	//filter translations
 	'gb_filter_banker'				=> "Bankier auswählen",

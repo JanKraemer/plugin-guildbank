@@ -62,7 +62,10 @@ $lang = array(
 	'gb_members'					=> 'Recipient',
 	'gb_manage_bank_transa'			=> 'Manage transactions',
 	'gb_item_added'					=> 'Add item',
+	'gb_item_payout'				=> 'Item payed out',
+	'gb_payout_item'				=> 'Pay out item',
 	'add_transaction'				=> 'Add transaction',
+	'gb_adjustment_text'			=> 'Guildbank - Bought an item',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Add item to bank account',
@@ -74,7 +77,9 @@ $lang = array(
 	'gb_amount'						=> "Amount",
 	'rb_additem_button'				=> 'Save item',
 	'rb_edititem_button'			=> 'Edit item',
+	'gb_payput_button'				=> 'Payout item',
 	'gb_ta_head_transaction'		=> 'Manage transaction',
+	'gb_ta_head_payout'				=> 'Payout Item',
 	'gb_ta_head_item'				=> 'Manage item',
 
 	// settings
@@ -86,6 +91,10 @@ $lang = array(
 	'gb_merge_banker_help'			=> "Combine all banker to a single bank",
 	'gb_show_tooltip'				=> "Show info tooltips",
 	'gb_show_tooltip_help'			=> "tbd",
+	'gb_enable_autoadjustment'		=> 'Add autoadjustment for sold items',
+	'gb_enable_autoadjustment_help'	=> 'If you want an auto adjustment for every item sold',
+	'gb_default_event'				=> 'Default event for adjustments',
+	'gb_default_event_help'			=> 'If you want to use the auto adjustments, you need to set a default event',
 
 	//filter translations
 	'gb_filter_banker'				=> "Choose banker",

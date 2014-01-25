@@ -54,6 +54,8 @@ class guildbankSettings extends page_generic {
 			'merge_bankers'		=> $this->in->get('merge_bankers',	0),
 			'show_money'		=> $this->in->get('show_money',		0),
 			'show_tooltip'		=> $this->in->get('show_tooltip',	0),
+			'adjustment_event'	=> $this->in->get('adjustment_event',	0),
+			'use_autoadjust'	=> $this->in->get('use_autoadjust',	0),
 		);
 
 		// update configuration
@@ -75,11 +77,15 @@ class guildbankSettings extends page_generic {
 		$show_tooltip	= $this->config->get('show_tooltip',	'guildbank');
 		$show_money		= $this->config->get('show_money',		'guildbank');
 		$merge_banker	= $this->config->get('merge_bankers',	'guildbank');
+		$use_autoadjust	= $this->config->get('use_autoadjust',	'guildbank');
 
 		$this->tpl->assign_vars(array(
 			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('show_tooltip',	false, (($show_tooltip) ? $show_tooltip : 0), 'input'),
 			'R_SHOW_MONEY'		=> $this->html->RadioBox('show_money',		false, (($show_money) ? $show_money : 0), 'input'),
 			'R_MERGE_BANKER'	=> $this->html->RadioBox('merge_bankers',	false, (($merge_banker) ? $merge_banker : 0), 'input'),
+			'R_AUTOADJUST'		=> $this->html->RadioBox('use_autoadjust',	false, (($use_autoadjust) ? $use_autoadjust : 0), 'input'),
+
+			'DD_EVENT'			=> $this->html->DropDown('adjustment_event', $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))), $this->config->get('adjustment_event',	'guildbank')),
 		));
 
 		$this->core->set_vars(array(

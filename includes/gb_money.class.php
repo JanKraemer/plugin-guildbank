@@ -56,6 +56,12 @@ if(!class_exists('gb_money')) {
 				}
 				
 			}
+
+			// add the operator..
+			if($this->in->exists(str_replace('{ID}', 'pm', $name))){
+				$total = $this->in->get(str_replace('{ID}', 'pm', $name)).$total;
+			}
+
 			return $total;
 		}
 
@@ -72,8 +78,8 @@ if(!class_exists('gb_money')) {
 			return '<img src="'.$this->root_path.'plugins/guildbank/games/'.(($large) ? ((isset($monValue['image_large'])) ? $monValue['image_large'] : $monValue['image']) : $monValue['image']).'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'"'.$imgsize.' />';
 		}
 
-		public function editfields($mymoney=0, $name='money_{ID}'){
-			$monvalue = '';
+		public function editfields($mymoney=0, $name='money_{ID}', $plusminus=false){
+			$monvalue = ($plusminus) ? $this->html->DropDown(str_replace('{ID}', 'pm', $name), array('+'=>'+', '-'=>'-')) : '';
 			foreach($this->data as $monName=>$monValue){
 				$monvalue .= $this->image($monValue).' '.$this->html->TextField(str_replace('{ID}', $monName, $name), (($monValue['size'] == 'unlimited') ? 6 : $monValue['size']), $this->output($mymoney, $monValue));
 			}
