@@ -19,7 +19,8 @@
 	// The array with the images
 	$money_data = array(
 		'diamond'		=> array(
-			'image'			=> 'default/images/gold.png',
+			'image'			=> 'fw/images/diamond.png',
+			'image_large'	=> 'fw/images/diamond_large.png',
 			'factor'		=> 1000000,
 			'size'			=> 'unlimited',
 			'language'		=> $user->lang['lang_diamond'],
@@ -27,6 +28,7 @@
 		),
 		'gold'		=> array(
 			'image'			=> 'default/images/gold.png',
+			'image_large'	=> 'default/images/gold_large.png',
 			'factor'		=> 10000,
 			'size'			=> 2,
 			'language'		=> $user->lang['lang_gold'],
@@ -34,6 +36,7 @@
 		),
 		'silver'	=> array(
 			'image'			=> 'default/images/silver.png',
+			'image_large'	=> 'default/images/silver_large.png',
 			'factor'		=> 100,
 			'size'			=> 2,
 			'language'		=> $user->lang['lang_silver'],
@@ -41,6 +44,7 @@
 		),
 		'copper'	=> array(
 			'image'			=> 'default/images/copper.png',
+			'image_large'	=> 'default/images/copper_large.png',
 			'factor'		=> 1,
 			'size'			=> 2,
 			'language'		=> $user->lang['lang_copper'],
