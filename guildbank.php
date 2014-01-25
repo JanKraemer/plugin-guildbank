@@ -98,6 +98,8 @@ class gb_guildbank extends page_generic {
 		 $ta_count		= count($ta_list);
 		 $footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
 
+		 $this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => "bankshop.php".$this->SID."&simple_head=true&i='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
+
 		 $this->jquery->Tab_header('guildbank_tab');
 		 $this->tpl->assign_vars(array(
 			 'SHOW_BANKERS'		=> ($this->config->get('show_bankers',		'guildbank') == 1) ? true : false,

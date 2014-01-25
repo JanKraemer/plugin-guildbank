@@ -35,6 +35,7 @@ $lang = array(
 
 	//guildbank
 	'gb_banker'						=> "Bankier",
+	'gb_shop'						=> "Itemshop",
 	'gb_not_avail'					=> "n.v.",
 	'gb_all_bankers'				=> "Alle Banken",
 	'gb_total_bankers'				=> "Vermögen aller Banken",
@@ -43,6 +44,13 @@ $lang = array(
 	'gb_update'						=> 'Letzte Aktivität',
 	'gb_tab_transactions'			=> 'Transaktionen',
 	'gb_tab_items'					=> 'Gegenstände',
+
+	// Shop
+	'gb_shop_window'				=> 'Gegenstand einkaufen',
+	'gb_shop_icon_title'			=> 'Gegenstand kaufen',
+	'gb_shop_buy'					=> 'Kaufen',
+	'gb_item_name'					=> 'Gegenstand',
+	'gb_shop'						=> 'Shop',
 
 	// manage_banker
 	'manage_bankers'				=> 'Gilden-Bankiers verwalten',

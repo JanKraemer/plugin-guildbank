@@ -32,6 +32,7 @@ $module_lang = array(
 	'rarity'			=> 'Rarity',
 	'banker_name'		=> 'Banker',
 	'dkp'				=> 'DKP',
+	'shoplink'			=> '',
 );
 
 $preset_lang = array(
@@ -46,6 +47,7 @@ $preset_lang = array(
 	'gb_irarity'		=> 'Rarity',
 	'gb_ibanker'		=> 'Banker',
 	'gb_idkp'			=> 'DKP',
+	'gb_ishop'			=> 'Itemshop Link',
 );
 
 ?>

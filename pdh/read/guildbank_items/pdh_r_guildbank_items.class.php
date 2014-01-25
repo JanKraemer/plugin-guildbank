@@ -47,6 +47,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
 			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
 			'gb_idkp'		=> array('dkp',			array('%item_id%'), array()),
+			'gb_ishop'		=> array('shoplink',	array('%item_id%'), array()),
 		);
 
 		public function reset(){
@@ -93,18 +94,18 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return true;
 		}
 
-		public function get_id_list($bankerID = 0, $priority = 0, $type = 0, $rarity = 0){
+		public function get_id_list($bankerID = 0, $priority = 0, $type = 0, $rarity = 0, $sellable = 0){
 			$data	= ($bankerID > 0) ? $this->banker_items[$bankerID] : $this->data;
 			if (is_array($data)){
-				$data	= array_keys($data);
 				// filter the output
-				if($priority > 0 || $type > 0 || $rarity > 0){
-					foreach($data as $itemid) {
-						if(($type > 0 && $this->get_type($itemid) != $type) ||	($priority > 0 && $this->get_priority($itemid) != $priority) || ($rarity > 0 && $this->get_rarity($itemid) != $rarity)){
+				if($priority > 0 || $type > 0 || $rarity > 0 || $sellable > 0){
+					foreach($data as $itemid=>$itemvalues) {
+						if(($type > 0 && $this->get_type($itemid) != $type) ||	($priority > 0 && $this->get_priority($itemid) != $priority) || ($rarity > 0 && $this->get_rarity($itemid) != $rarity) || ($sellable > 0 && $this->get_sellable($itemid) != '1')){
 							unset($data[$itemid]);
 						}
 					}
 				}
+				$data	= array_keys($data);
 				return $data;
 			}
 			return array();
@@ -115,7 +116,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_sellable($id){
-			return (isset($this->data[$id]['sellable'])) ? $this->data[$id]['sellable'] : 0;
+			return (isset($this->data[$id]['sellable']) && $this->data[$id]['sellable'] > 0) ? $this->data[$id]['sellable'] : 0;
 		}
 
 		public function get_html_date($id){
@@ -190,6 +191,12 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_name_itt($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
 			return $this->get_itt_itemname($item_id, $lang, $direct, $onlyicon, $noicon, $in_span);
+		}
+
+		public function get_shoplink($id){
+			if($this->get_sellable($id) > 0 && $this->user->check_auth('u_guildbank_shop', false)){
+				return '<a href="javascript:open_shop(\''.$id.'\');"><img src="'.$this->root_path.'plugins/guildbank/images/shopping_cart.png" alt="'.$this->user->lang('gb_shop_icon_title').'" title="'.$this->user->lang('gb_shop_icon_title').'" width="22" /></a>';
+			}
 		}
   } //end class
 } //end if class not exists

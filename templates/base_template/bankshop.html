@@ -1,0 +1,31 @@
+<div>
+	<div class="raidcal_name floatLeft"><img src="images/shop_icon.png"  width="60"  alt="Shop" /> {L_gb_shop}</div>
+	<div class="floatRight">{MENU_OPTIONS}</div>
+</div>
+<div class="clear"></div>
+<form method="post" action="{ACTION}" name="addWC">
+<input type="hidden" name="banker" value="{BANKERID}">
+
+<fieldset class="settings smallsettings">
+	<dl class="item">
+		<dt><label>{L_gb_item_name}:</label></dt>
+		<dd>
+			<!-- IF NOSELECTION -->{ITEM}<input type="hidden" name="item" value="{ITEM_ID}"><!-- ELSE -->{DD_ITEMS}<!-- ENDIF -->
+		</dd>
+	</dl>
+	<dl>
+		<dt><label>{L_gb_members}:</label></dt>
+		<dd>{DD_MYCHARS}</dd>
+	</dl>
+	<dl class="item">
+		<dt><label>{L_gb_amount}:</label></dt>
+		<dd>{DD_AMOUNT}</dd>
+	</dl>
+	<dl class="item">
+		<dt><label>{L_gb_dkp}:</label></dt>
+		<dd><input type="text" name="dkp" size="5" value="{DKP}" class="input" <!-- IF NOSELECTION -->readonly="readonly"<!-- ENDIF -->/></dd>
+	</dl>
+</fieldset>
+<input type="submit" name="save" value="{L_gb_shop_buy}" class="mainoption bi_ok" />
+{CSRF_TOKEN}
+</form>

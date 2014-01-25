@@ -35,6 +35,7 @@ $lang = array(
 
 	//guildbank
 	'gb_banker'						=> "banker",
+	'gb_shop'						=> "Itemshop",
 	'gb_not_avail'					=> "n.a.",
 	'gb_all_bankers'				=> "All banker",
 	'gb_total_bankers'				=> "Asset of all bankers",
@@ -43,6 +44,13 @@ $lang = array(
 	'gb_update'						=> 'Last activity',
 	'gb_tab_transactions'			=> 'Transactions',
 	'gb_tab_items'					=> 'Items',
+
+	// Shop
+	'gb_shop_window'				=> 'Buy item',
+	'gb_shop_icon_title'			=> 'Buy item',
+	'gb_shop_buy'					=> 'Buy',
+	'gb_item_name'					=> 'Item name',
+	'gb_shop'						=> 'Shop',
 
 	// manage_banker
 	'manage_bankers'				=> 'Manage guild banker',
