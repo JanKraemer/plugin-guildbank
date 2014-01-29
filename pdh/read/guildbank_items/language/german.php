@@ -31,7 +31,7 @@ $module_lang = array(
 	'gb_ivalue_a'		=> 'Wert',
 	'rarity'			=> 'Seltenheit',
 	'banker_name'		=> 'Bankier',
-	'dkp'				=> 'DKP',
+	'dkp'				=> 'Kosten',
 	'shoplink'			=> '',
 );
 
