@@ -1,3 +1,15 @@
+<!-- IF NOSELECTION -->
+<script type='text/javascript'>
+$(document).ready(function() {
+	$('#item').change(function(){
+		var amount			= $(this).val();
+		var dkpvalue		= $('#dkpvalue').data('value');
+		var new_value		= dkpvalue*amount;
+		$('#dkpvalue').val(new_value);
+	});
+});
+</script>
+<!-- ENDIF -->
 <div>
 	<div class="raidcal_name floatLeft"><img src="images/shop_icon.png"  width="60"  alt="Shop" /> {L_gb_shop}</div>
 	<div class="floatRight">{MENU_OPTIONS}</div>
@@ -23,7 +35,7 @@
 	</dl>
 	<dl class="item">
 		<dt><label>{L_gb_dkp}:</label></dt>
-		<dd><input type="text" name="dkp" size="5" value="{DKP}" class="input" <!-- IF NOSELECTION -->readonly="readonly"<!-- ENDIF -->/></dd>
+		<dd><input type="text" name="dkp" size="5" id="dkpvalue" value="{DKP}" data-value="{DKP}" class="input" <!-- IF NOSELECTION -->readonly="readonly"<!-- ENDIF -->/></dd>
 	</dl>
 </fieldset>
 <input type="submit" name="save" value="{L_gb_shop_buy}" class="mainoption bi_ok" />

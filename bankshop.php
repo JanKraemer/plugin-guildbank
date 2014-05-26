@@ -59,13 +59,14 @@ class gb_guildbank_shop extends page_generic {
 		 $amount	= $this->pdh->get('guildbank_items', 'amount', array($itemID));
 		 $dkp		= $this->pdh->get('guildbank_items', 'dkp', array($itemID));
 		 $this->pdh->get('member', 'connection_id', array($user_id));
+
 		 $this->tpl->assign_vars(array(
 			 'NOSELECTION'		=> ($itemID > 0) ? true : false,
 			 'DD_ITEMS'			=> $this->html->DropDown('item', $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), $itemID, '', '', 'input', 'items_id'),
 			 'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($itemID)),
 			 'ITEM_ID'			=> $itemID,
 			 'DD_MYCHARS'		=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id']))))),
-			 'DD_AMOUNT'		=> $this->html->DropDown('item', (($amount > 0) ? range(1, $amount) : 1), 0),
+			 'DD_AMOUNT'		=> $this->html->DropDown('item', (($amount > 0) ? range(0, $amount) : 1), 0),
 			 'DKP'				=> $dkp,
 		 ));
 		
