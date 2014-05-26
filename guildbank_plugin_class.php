@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC'))
 
 class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
-	public $version		= '1.0.0 a1';
+	public $version		= '1.0.1';
 	public $copyright 	= 'Wallenium';
 
 	public static function __shortcuts(){
@@ -46,11 +46,11 @@ class guildbank extends plugin_generic {
 			'long_description'  => $this->user->lang('guildbank_long_desc'),
 			'homepage'          => EQDKP_PROJECT_URL,
 			'manuallink'        => false,
-			'plus_version'      => '1.0'
+			'plus_version'      => '1.0.8'
 		));
 
 		$this->add_dependency(array(
-			'plus_version'      => '1.0'
+			'plus_version'      => '1.0.8'
 		));
 
 		// -- Register our permissions ------------------------

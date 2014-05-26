@@ -36,9 +36,8 @@ class Manage_BankDetails extends page_generic {
 			'perform_payout'	=> array('process' => 'perform_payout',	'csrf'=>true),
 			'addedit'			=> array('process' => 'display_add'),
 			'payout'			=> array('process' => 'display_payout'),
-			
 		);
-		parent::__construct(false, $handler, array('guildbank_items', 'name'), null, 'content_ids[]');
+		parent::__construct(false, $handler, array('guildbank_items', 'deletename'), null, 'selections[]');
 		$this->process();
 	}
 
@@ -108,21 +107,35 @@ class Manage_BankDetails extends page_generic {
 	}
 
 	public function delete() {
-		/*$banker_ids = $this->in->getArray('banker_ids', 'int');
-		if($banker_ids) {
-			foreach($banker_ids as $id) {
-				$names[] = $this->pdh->get('guildbank_banker', 'name', ($id));
-				$retu[] = $this->pdh->put('guildbank_banker', 'delete', array($id));
+		$tmp_ids = $this->in->getArray('selections');
+		if($tmp_ids){
+			// now, lets get the information..
+			foreach($tmp_ids as $id){
+				$tmp_id		= explode("_", $id);
+				$real_id	= $tmp_id[1];
+				$type		= $tmp_id[0];
+
+				// perform the delete-process
+				if($real_id > 0 && $type != ''){
+					$pdh_module	= ($type == 'transaction') ? 'guildbank_transactions' : 'guildbank_items';
+					$names[] = $this->pdh->get('guildbank_items', 'deletename', ($id));
+					
+					// now, delete it!
+					$retu[] = $this->pdh->put($pdh_module, 'delete', array($real_id));
+				}
+
+				// the message
+				if(in_array(false, $retu)) {
+					$message = array('title' => $this->user->lang('del_no_suc'), 'text' => implode(', ', $names), 'color' => 'red');
+				}else{
+					$message = array('title' => $this->user->lang('del_suc'), 'text' => implode(', ', $names), 'color' => 'green');
+				}
 			}
-			if(in_array(false, $retu)) {
-				$message = array('title' => $this->user->lang('del_no_suc'), 'text' => implode(', ', $names), 'color' => 'red');
-			} else {
-				$message = array('title' => $this->user->lang('del_suc'), 'text' => implode(', ', $names), 'color' => 'green');
-			}
-		} else {
+		}else{
 			$message = array('title' => '', 'text' => $this->user->lang('no_calendars_selected'), 'color' => 'grey');
 		}
-		$this->display($message);*/
+		$this->pdh->process_hook_queue();
+		$this->display($message);
 	}
 
 	public function display($messages=false, $banker = false){

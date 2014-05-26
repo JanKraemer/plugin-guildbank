@@ -179,6 +179,13 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		public function get_dkp($id){
 			return (isset($this->data[$id]) && $this->data[$id]['dkp'] > 0) ? $this->data[$id]['dkp'] : 0;
 		}
+		
+		public function get_deletename($id){
+			if($id > 0){
+				return $this->get_subject($id).' - '.$this->get_item($id);
+			}
+			return 'undefined';
+		}
 
 		public function get_itemdkp($itemid){
 			if(is_array($this->data) && count($this->data) > 0){
@@ -202,7 +209,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		}
 
 		public function get_subject($id){
-			return (isset($this->data[$id]) && $this->data[$id]['subject']) ? (($this->user->lang($this->data[$id]['subject'])) ? $this->user->lang($this->data[$id]['subject']) : $this->data[$id]['subject']) : '';
+			return (isset($this->data[$id]) && $this->data[$id]['subject']) ? (($this->user->lang($this->data[$id]['subject'])) ? $this->user->lang($this->data[$id]['subject']) : $this->data[$id]['subject']) : 'undefined';
 		}
 
 		public function get_edit($id){

@@ -137,6 +137,25 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public function get_name($id){
 			return (isset($this->data[$id]) && $this->data[$id]['name']) ? $this->data[$id]['name'] : 'none';
 		}
+		
+		public function get_deletetype($id){
+			$tmp_id		= explode("_", $id);
+			$real_id	= $tmp_id[1];
+			$type		= $tmp_id[0];
+			return array('id'=>$real_id, 'type'=>$type);
+		}
+		
+		public function get_deletename($id){
+			$deletetype	= $this->get_deletetype($id);
+			if(isset($deletetype['id']) && isset($deletetype['type'])){
+				if($deletetype['type'] == 'transaction'){
+					return $this->pdh->get('guildbank_transactions', 'deletename', array($deletetype['id']));
+				}else{
+					return $this->get_name($deletetype['id']);
+				}
+			}
+			return 'undefined';
+		}
 
 		public function get_type($id, $raw=false){
 			if($raw){

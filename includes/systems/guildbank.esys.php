@@ -70,7 +70,8 @@ $systems_guildbank = array(
 			'show_numbers'			=> true,
 			'show_select_boxes' 	=> true,
 			'selectboxes_checkall'	=> true,
-			'selectbox_name'		=> 'selected_items',
+			'selectbox_name'		=> 'selections',
+			'selectbox_valueprefix'	=> 'item_',
 			'table_sort_dir'		=> 'desc',
 			'table_sort_col'		=> 1,
 			'table_presets' => array(
@@ -92,9 +93,10 @@ $systems_guildbank = array(
 			'show_numbers'			=> true,
 			'show_select_boxes' 	=> true,
 			'selectboxes_checkall'	=> true,
-			'selectbox_name'		=> 'selected_transactions',
+			'selectbox_name'		=> 'selections',
+			'selectbox_valueprefix'	=> 'transaction_',
 			'table_sort_dir'		=> 'desc',
-			'table_sort_col'		=> 1,
+			'table_sort_col'		=> 0,
 			'table_presets'			=> array(
 				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_tsubject',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
