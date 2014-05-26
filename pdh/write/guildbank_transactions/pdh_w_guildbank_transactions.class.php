@@ -25,13 +25,8 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 {
 	class pdh_w_guildbank_transactions extends pdh_w_generic {
 
-		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time');
-			return array_merge(parent::$shortcuts, $shortcuts);
-		}
-
 		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
-			$resQuery = $this->db->query("INSERT INTO __guildbank_transactions :params", array(
+			$resQuery = $this->db->prepare("INSERT INTO __guildbank_transactions :p")->set(array(
 				'ta_banker'		=> $intBanker,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
@@ -40,14 +35,14 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 				'ta_subject'	=> $strSubject,
 				'ta_date'		=> $this->time->time,
 				'ta_startvalue'	=> $intStartvalue,
-			));
+			))->execute();
 			$this->pdh->enqueue_hook('guildbank_items_update');
-			if ($resQuery) return $this->db->insert_id();
+			if ($resQuery) return $resQuery->insertId;;
 			return false;
 		}
 
 		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
-			$resQuery = $this->db->query("UPDATE __guildbank_transactions SET :params WHERE ta_id=?", array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions SET :p WHERE ta_id=?")->set(array(
 				'ta_banker'		=> $intBanker,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
@@ -56,41 +51,41 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 				'ta_subject'	=> $strSubject,
 				'ta_date'		=> $this->time->time,
 				'ta_startvalue'	=> $intStartvalue,
-			), $intID);
+			))->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intID;
 			return false;
 		}
 
 		public function update_money($intBanker, $intValue){
-			$resQuery = $this->db->query("UPDATE __guildbank_transactions SET :params WHERE ta_startvalue=?", array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions SET :p WHERE ta_startvalue=?")->set(array(
 				'ta_value'		=> $intValue,
 				'ta_date'		=> $this->time->time,
-			), $intBanker);
+			))->execute($intBanker);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intBanker;
 			return false;
 		}
 
 		public function update_itemtransaction($intBanker, $intValue, $intDKP){
-			$resQuery = $this->db->query("UPDATE __guildbank_transactions SET :params WHERE ta_item=?", array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions SET :p WHERE ta_item=?")->set(array(
 				'ta_dkp'		=> $intDKP,
 				'ta_value'		=> $intValue,
 				'ta_date'		=> $this->time->time,
-			), $intBanker);
+			))->execute($intBanker);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intBanker;
 			return false;
 		}
 
 		public function delete($intID){
-			$this->db->query("DELETE FROM __guildbank_transactions WHERE ta_id=?", false, $intID);
+			$this->db->prepare("DELETE FROM __guildbank_transactions WHERE ta_id=?")->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
 
 		public function delete_bybankerid($intID){
-			$this->db->query("DELETE FROM __guildbank_transactions WHERE ta_banker=?", false, $intID);
+			$this->db->prepare("DELETE FROM __guildbank_transactions WHERE ta_banker=?")->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
@@ -102,6 +97,4 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		}
 	} //end class
 } //end if class not exists
-
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_pdh_w_guildbank_transactions', pdh_w_guildbank_transactions::__shortcuts());
 ?>

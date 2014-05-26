@@ -25,7 +25,7 @@ include_once('./../includes/common.php');
 
 class Manage_Banker extends page_generic {
 	public static function __shortcuts() {
-		$shortcuts = array('user', 'tpl', 'in', 'pdh', 'jquery', 'core', 'config', 'html', 'pm', 'time', 'money' => 'gb_money');
+		$shortcuts = array('money' => 'gb_money');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
@@ -102,7 +102,7 @@ class Manage_Banker extends page_generic {
 				'KEY'			=> $key,
 				'ID'			=> $id,
 				'NAME'			=> $name,
-				'DR_BANKCHAR'	=> $this->html->DropDown('bankers['.$key.'][bankchar]', $bankchars, $this->pdh->get('guildbank_banker', 'bankchar', array($id, true)), '', '', 'input', 'bankchar'.$key),
+				'DR_BANKCHAR'	=> new hdropdown('bankers['.$key.'][bankchar]', array('options' => $bankchars, 'value' => $this->pdh->get('guildbank_banker', 'bankchar', array($id, true)), 'id' => 'bankchar'.$key)),
 				'MONEY'			=> $this->money->editfields($this->pdh->get('guildbank_transactions', 'money', array($id)), 'bankers['.$key.'][money_{ID}]'),
 				'NOTE'			=> $this->pdh->get('guildbank_banker', 'note', array($id)),
 			));
@@ -115,7 +115,7 @@ class Manage_Banker extends page_generic {
 			'SID'			=> $this->SID,
 			'ID'			=> $new_id,
 			'KEY'			=> $key,
-			'DR_BANKCHAR'	=> $this->html->DropDown('bankers['.$key.'][bankchar]', $bankchars, '', '', '', 'input', 'bankchar'.$key),
+			'DR_BANKCHAR'	=> new hdropdown('bankers['.$key.'][bankchar]', array('options' => $bankchars, 'id' => 'bankchar'.$key)),
 			'MONEY'			=> $this->money->editfields(0, 'bankers['.$key.'][money_{ID}]'),
 		));
 
@@ -152,6 +152,5 @@ class Manage_Banker extends page_generic {
 		return false;
 	}
 }
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_Manage_Banker', Manage_Banker::__shortcuts());
 registry::register('Manage_Banker');
 ?>

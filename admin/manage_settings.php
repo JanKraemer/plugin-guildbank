@@ -25,12 +25,6 @@ $eqdkp_root_path = './../../../';
 include_once('./../includes/common.php');
 
 class guildbankSettings extends page_generic {
-
-	public static function __shortcuts(){
-		$shortcuts = array('user', 'config', 'pdc', 'pfh', 'pdh', 'pm', 'html');
-		return array_merge(parent::$shortcuts, $shortcuts);
-	}
-
 	/**
 	* Constructor
 	*/
@@ -80,12 +74,12 @@ class guildbankSettings extends page_generic {
 		$use_autoadjust	= $this->config->get('use_autoadjust',	'guildbank');
 
 		$this->tpl->assign_vars(array(
-			'R_SHOW_TOOLTIP'	=> $this->html->RadioBox('show_tooltip',	false, (($show_tooltip) ? $show_tooltip : 0), 'input'),
-			'R_SHOW_MONEY'		=> $this->html->RadioBox('show_money',		false, (($show_money) ? $show_money : 0), 'input'),
-			'R_MERGE_BANKER'	=> $this->html->RadioBox('merge_bankers',	false, (($merge_banker) ? $merge_banker : 0), 'input'),
-			'R_AUTOADJUST'		=> $this->html->RadioBox('use_autoadjust',	false, (($use_autoadjust) ? $use_autoadjust : 0), 'input'),
+			'R_SHOW_TOOLTIP'	=> new hradio('show_tooltip', array('value' => (($show_tooltip) ? $show_tooltip : 0))),
+			'R_SHOW_MONEY'		=> new hradio('show_money', array('value' => (($show_money) ? $show_money : 0))),
+			'R_MERGE_BANKER'	=> new hradio('merge_bankers', array('value' => (($merge_banker) ? $merge_banker : 0))),
+			'R_AUTOADJUST'		=> new hradio('use_autoadjust', array('value' => (($use_autoadjust) ? $use_autoadjust : 0))),
 
-			'DD_EVENT'			=> $this->html->DropDown('adjustment_event', $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))), $this->config->get('adjustment_event',	'guildbank')),
+			'DD_EVENT'			=> new hdropdown('adjustment_event', array('options' => $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))), 'value' => $this->config->get('adjustment_event',	'guildbank'))),
 		));
 
 		$this->core->set_vars(array(
@@ -97,7 +91,5 @@ class guildbankSettings extends page_generic {
 	}
 
 }
-
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_guildbankSettings', guildbankSettings::__shortcuts());
 registry::register('guildbankSettings');
 ?>

@@ -25,13 +25,8 @@ if (!class_exists('pdh_w_guildbank_items'))
 {
 	class pdh_w_guildbank_items extends pdh_w_generic {
 
-		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time');
-			return array_merge(parent::$shortcuts, $shortcuts);
-		}
-
 		public function add($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'){
-			$resQuery = $this->db->query("INSERT INTO __guildbank_items :params", array(
+			$resQuery = $this->db->prepare("INSERT INTO __guildbank_items :p")->set(array(
 				'item_banker'	=> $strBanker,
 				'item_date'		=> $this->time->time,
 				'item_name'		=> $strName,
@@ -39,8 +34,8 @@ if (!class_exists('pdh_w_guildbank_items'))
 				'item_type'		=> $strType,
 				'item_amount'	=> $intAmount,
 				'item_sellable'	=> $intSellable,
-			));
-			$id = $this->db->insert_id();
+			))->execute();
+			$id = $resQuery->insertId;
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
 			$this->pdh->put('guildbank_transactions', 'add', array(0, $strBanker, $intChar, $id, $intDKP, $intMoney, $strSubject, $id));
 			$this->pdh->enqueue_hook('guildbank_items_update');
@@ -49,7 +44,7 @@ if (!class_exists('pdh_w_guildbank_items'))
 		}
 
 		public function update($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject=''){
-			$resQuery = $this->db->query("UPDATE __guildbank_items SET :params WHERE item_id=?", array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_items SET :p WHERE item_id=?")->set(array(
 				'item_banker'	=> $strBanker,
 				'item_date'		=> $this->time->time,
 				'item_name'		=> $strName,
@@ -57,7 +52,7 @@ if (!class_exists('pdh_w_guildbank_items'))
 				'item_type'		=> $strType,
 				'item_amount'	=> $intAmount,
 				'item_sellable'	=> $intSellable,
-			), $intID);
+			))->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'update_itemtransaction',	array($intID, $intMoney, $intDKP));
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intID;
@@ -65,30 +60,25 @@ if (!class_exists('pdh_w_guildbank_items'))
 		}
 
 		public function amount($intID, $intAmount){
-			$resQuery = $this->db->query("UPDATE __guildbank_items SET :params WHERE item_id=?", array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_items SET :p WHERE item_id=?")->set(array(
 				'item_amount'	=> $intAmount,
-			), $intID);
+			))->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intID;
 			return false;
 		}
 
 		public function delete($intID){
-			$this->db->query("DELETE FROM __guildbank_items WHERE item_id=?", false, $intID);
+			$this->db->prepare("DELETE FROM __guildbank_items WHERE item_id=?")->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
 	
-	public function truncate(){
-		$this->db->query("TRUNCATE __guildbank_items");
-		$this->pdh->enqueue_hook('guildbank_items_update');
-		return true;
-	}
-   
-    
-
-  } //end class
+		public function truncate(){
+			$this->db->query("TRUNCATE __guildbank_items");
+			$this->pdh->enqueue_hook('guildbank_items_update');
+			return true;
+		}
+	} //end class
 } //end if class not exists
-
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_pdh_w_guildbank_items', pdh_w_guildbank_items::__shortcuts());
 ?>

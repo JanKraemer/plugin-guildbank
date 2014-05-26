@@ -23,12 +23,6 @@ if (!defined('EQDKP_INC'))
 
 if (!class_exists('pdh_r_guildbank_banker')){
 	class pdh_r_guildbank_banker extends pdh_r_generic{
-
-		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time');
-			return array_merge(parent::$shortcuts, $shortcuts);
-		}
-
 		private $data;
 
 		public $hooks = array(
@@ -58,7 +52,7 @@ if (!class_exists('pdh_r_guildbank_banker')){
 			$result = $this->db->query($sql);
 			if ($result){
 				// add row by row to local copy
-				while (($row = $this->db->fetch_record($result))){
+				while (($row = $result->fetchAssoc())){
 					$this->data[(int)$row['banker_id']] = array(
 						'id'			=> (int)$row['banker_id'],
 						'name'			=> $row['banker_name'],
@@ -66,7 +60,7 @@ if (!class_exists('pdh_r_guildbank_banker')){
 						'note'			=> $row['banker_note'],
 					);
 				}
-				$this->db->free_result($result);
+				#$this->db->free_result($result);
 			}
 
 			// add data to cache

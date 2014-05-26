@@ -26,7 +26,7 @@ include_once('./includes/common.php');
 class gb_guildbank_shop extends page_generic {
 
 	public static function __shortcuts(){
-		$shortcuts = array('pm', 'user', 'core', 'in', 'pdh', 'time', 'tpl', 'html', 'money' => 'gb_money');
+		$shortcuts = array('money' => 'gb_money');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
@@ -84,6 +84,5 @@ class gb_guildbank_shop extends page_generic {
 		
 	}
 }
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_gb_guildbank_shop', gb_guildbank_shop::__shortcuts());
 register('gb_guildbank_shop');
 ?>

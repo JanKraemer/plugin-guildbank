@@ -25,18 +25,14 @@ if (!class_exists('pdh_w_guildbank_banker'))
 {
 	class pdh_w_guildbank_banker extends pdh_w_generic {
 
-		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time');
-			return array_merge(parent::$shortcuts, $shortcuts);
-		}
-
 		public function add($intID, $strName, $intMoney, $intBankChar, $strNote){
-			$resQuery = $this->db->query("INSERT INTO __guildbank_banker :params", array(
+			$resQuery = $this->db->prepare("INSERT INTO __guildbank_banker :p")->set(array(
 				'banker_name'			=> $strName,
 				'banker_bankchar'		=> $intBankChar,
 				'banker_note'			=> $strNote
-			));
-			$id = $this->db->insert_id();
+			))->execute();
+			
+			$id = $resQuery->insertId;
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
 			$this->pdh->put('guildbank_transactions', 'add', array(0, $id, $intBankChar, 0, 0, $intMoney, '', $id));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
@@ -46,11 +42,11 @@ if (!class_exists('pdh_w_guildbank_banker'))
 		}
 
 		public function update($intID, $strName, $intMoney, $intBankChar, $strNote){
-			$resQuery = $this->db->query("UPDATE __guildbank_banker SET :params WHERE banker_id=?", array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_banker SET :p WHERE banker_id=?")->set(array(
 				'banker_name'			=> $strName,
 				'banker_bankchar'		=> $intBankChar,
 				'banker_note'			=> $strNote
-			), $intID);
+			))->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'update_money', array($intBankChar, $intMoney));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
 			if ($resQuery) return $intID;
@@ -58,7 +54,7 @@ if (!class_exists('pdh_w_guildbank_banker'))
 		}
 	
 		public function delete($intID){
-			$this->db->query("DELETE FROM __guildbank_banker WHERE banker_id=?", false, $intID);
+			$this->db->prepare("DELETE FROM __guildbank_banker WHERE banker_id=?")->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'delete_bybankerid', array($intID));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
 			return true;
@@ -74,6 +70,4 @@ if (!class_exists('pdh_w_guildbank_banker'))
 
   } //end class
 } //end if class not exists
-
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_pdh_w_guildbank_banker', pdh_w_guildbank_banker::__shortcuts());
 ?>

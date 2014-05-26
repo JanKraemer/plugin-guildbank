@@ -26,11 +26,6 @@ class guildbank extends plugin_generic {
 	public $version		= '1.0.1';
 	public $copyright 	= 'Wallenium';
 
-	public static function __shortcuts(){
-		$shortcuts = array('user', 'config', 'pdc', 'pfh', 'pdh');
-		return array_merge(parent::$shortcuts, $shortcuts);
-	}
-
 	public function __construct(){
 		parent::__construct();
 
@@ -39,18 +34,18 @@ class guildbank extends plugin_generic {
 			'code'              => 'guildbank',
 			'path'              => 'guildbank',
 			'template_path'     => 'plugins/guildbank/templates/',
-			'icon'              => $this->root_path.'plugins/guildbank/images/adminmenu/guildbank.png',
+			'icon'              => 'fa-university',
 			'version'           => $this->version,
 			'author'            => $this->copyright,
 			'description'       => $this->user->lang('guildbank_short_desc'),
 			'long_description'  => $this->user->lang('guildbank_long_desc'),
 			'homepage'          => EQDKP_PROJECT_URL,
 			'manuallink'        => false,
-			'plus_version'      => '1.0.8'
+			'plus_version'      => '2.0'
 		));
 
 		$this->add_dependency(array(
-			'plus_version'      => '1.0.8'
+			'plus_version'      => '2.0'
 		));
 
 		// -- Register our permissions ------------------------
@@ -58,7 +53,7 @@ class guildbank extends plugin_generic {
 		// ('a'/'u', Permission-Name, Enable? 'Y'/'N', Language string, array of user-group-ids that should have this permission)
 		// Groups: 1 = Guests, 2 = Super-Admin, 3 = Admin, 4 = Member
 		$this->add_permission('u', 'view',		'Y', $this->user->lang('view'),				array(2,3,4));
-		$this->add_permission('u', 'shop',		'Y', $this->user->lang('gb_shop'),				array(2,3,4));
+		$this->add_permission('u', 'shop',		'Y', $this->user->lang('gb_shop'),			array(2,3,4));
 		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),			array(2,3));
 		$this->add_permission('a', 'settings',	'N', $this->user->lang('menu_settings'),	array(2,3));
 		
@@ -72,8 +67,8 @@ class guildbank extends plugin_generic {
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search', 'guildbank_search_hook', 'search');
 		// -- Menu --------------------------------------------
-		$this->add_menu('admin_menu', $this->gen_admin_menu());
-		$this->add_menu('main_menu1', $this->gen_main_menu());
+		$this->add_menu('admin', $this->gen_admin_menu());
+		$this->add_menu('main', $this->gen_main_menu());
 	}
 
 	/**
@@ -105,18 +100,18 @@ class guildbank extends plugin_generic {
 	private function gen_admin_menu(){
 		$admin_menu = array (array(
 			'name' => $this->user->lang('guildbank'),
-			'icon' => './../../plugins/guildbank/images/gb_icon.png',
+			'icon' => 'fa-university',
 			1 => array (
 				'link'	=> 'plugins/guildbank/admin/manage_settings.php'.$this->SID,
 				'text'	=> $this->user->lang('settings'),
 				'check'	=> 'a_guildbank_settings',
-				'icon'	=> 'manage_settings.png'
+				'icon'	=> 'fa-wrench'
 			),
 			2 => array (
 				'link'	=> 'plugins/guildbank/admin/manage_banker.php'.$this->SID,
 				'text'	=> $this->user->lang('manage'),
 				'check'	=> 'a_guildbank_manage',
-				'icon'	=> './../../plugins/guildbank/images/gb_icon.png'
+				'icon'	=> 'fa-university'
 			)
 		));
 		return $admin_menu;
@@ -137,6 +132,4 @@ class guildbank extends plugin_generic {
 		return $main_menu;
 	}
 }
-
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_guildbank', guildbank::__shortcuts());
 ?>

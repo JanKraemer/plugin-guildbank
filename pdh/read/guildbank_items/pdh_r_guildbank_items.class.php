@@ -25,7 +25,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 	class pdh_r_guildbank_items extends pdh_r_generic{
 
 		public static function __shortcuts() {
-			$shortcuts = array('pdc', 'db', 'pdh', 'game', 'user', 'html', 'config', 'jquery', 'time', 'money' => 'gb_money');
+			$shortcuts = array('money' => 'gb_money');
 			return array_merge(parent::$shortcuts, $shortcuts);
 		}
 
@@ -72,7 +72,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 			$result = $this->db->query($sql);
 			if ($result){
 				// add row by row to local copy
-				while (($row = $this->db->fetch_record($result))){
+				while (($row = $result->fetchAssoc())){
 					$this->data[(int)$row['item_id']] = array(
 						'id'		=> (int)$row['item_id'],
 						'banker'	=> (int)$row['item_banker'],
@@ -85,7 +85,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
 				}
-				$this->db->free_result($result);
+				#$this->db->free_result($result);
 			}
 
 			// add data to cache
