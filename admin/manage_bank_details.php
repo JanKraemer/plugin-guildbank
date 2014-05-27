@@ -235,16 +235,16 @@ class Manage_BankDetails extends page_generic {
 			'ITEMID'		=> $itemID,
 			'TAID'			=> $transactionID,
 			'MONEY'			=> $this->money->editfields($money, 'money_{ID}', true),
-			'DD_RARITY'		=> $this->html->DropDown('rarity', $this->user->lang('gb_a_rarity'), (($itemID > 0) ? $rarity : '')),
-			'DD_TYPE'		=> $this->html->DropDown('type', $this->user->lang('gb_a_type'), $type),
+			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $this->user->lang('gb_a_rarity'), 'value' => (($itemID > 0) ? $rarity : ''))),
+			'DD_TYPE'		=> new hdropdown('type', array('options' => $this->user->lang('gb_a_type'), 'value' => $type)),
 			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
 			'V_NAME'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : '',
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
-			'MS_MEMBERS'	=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), $edit_charID),
-			'DD_MODE'		=> $this->html->DropDown('mode', $this->user->lang('gb_a_mode'), $mode_select, '', '', 'input', 'selectmode', array(), $edit_mode),
-			'R_SELLABLE'	=> $this->html->RadioBox('sellable', array ('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')), $item_sellable, 'input'),
+			'MS_MEMBERS'	=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
+			'DD_MODE'		=> new hdropdown('mode', array('options' => $this->user->lang('gb_a_mode'), 'value' => $mode_select, 'id' => 'selectmode', 'disabled' => $edit_mode)),
+			'R_SELLABLE'	=> new hradio('sellable', array('value' => $item_sellable, 'options' => array('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')))),
 		));
 
 		$this->core->set_vars(array(
@@ -265,8 +265,8 @@ class Manage_BankDetails extends page_generic {
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
-			'DD_ITEMS'		=> $this->html->DropDown('item', $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 0),
-			'DD_CHARS'		=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), $edit_charID),
+			'DD_ITEMS'		=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => 0)),
+			'DD_CHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
 		));
 
 		$this->core->set_vars(array(

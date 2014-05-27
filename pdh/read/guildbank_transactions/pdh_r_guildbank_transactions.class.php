@@ -215,7 +215,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		public function get_edit($id){
 			$mode	= ($this->get_item($id, true) > 0) ? 'edit_item' : 'edit_transaction';
 			$myid 	= ($this->get_item($id, true) > 0) ? $this->get_item($id, true) : $id;
-			return '<a href="javascript:'.$mode.'(\''.$myid.'\');"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
+			return '<a href="javascript:'.$mode.'(\''.$myid.'\');"><i class="fa fa-pencil fa-lg" title="'.$this->user->lang('edit').'"></i></a>';
 		}
   } //end class
 } //end if class not exists

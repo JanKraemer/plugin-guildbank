@@ -16,14 +16,7 @@
  * $Id$
  */
  
-// EQdkp required files/vars
-define('EQDKP_INC', true);
-define('PLUGIN', 'guildbank');
-
-$eqdkp_root_path = './../../';
-include_once('./includes/common.php');
-
-class gb_guildbank_shop extends page_generic {
+class bankshop_pageobject extends pageobject {
 
 	public static function __shortcuts(){
 		$shortcuts = array('money' => 'gb_money');
@@ -35,6 +28,9 @@ class gb_guildbank_shop extends page_generic {
 	public function __construct(){
 		if (!$this->pm->check('guildbank', PLUGIN_INSTALLED))
 			message_die($this->user->lang('guildbank_not_installed'));
+
+		// load the includes
+		require_once($this->root_path.'plugins/guildbank/includes/gb_money.class.php');
 
 		$handler = array(
 			'save'		=> array('process' => 'save', 'csrf' => true, 'check' => 'u_guildbank_shop'),
@@ -62,11 +58,11 @@ class gb_guildbank_shop extends page_generic {
 
 		 $this->tpl->assign_vars(array(
 			 'NOSELECTION'		=> ($itemID > 0) ? true : false,
-			 'DD_ITEMS'			=> $this->html->DropDown('item', $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), $itemID, '', '', 'input', 'items_id'),
+			 'DD_ITEMS'			=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), 'value' => $itemID, 'id' => 'items_id')),
 			 'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($itemID)),
 			 'ITEM_ID'			=> $itemID,
-			 'DD_MYCHARS'		=> $this->html->DropDown('char', $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id']))))),
-			 'DD_AMOUNT'		=> $this->html->DropDown('item', (($amount > 0) ? range(0, $amount) : 1), 0),
+			 'DD_MYCHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
+			 'DD_AMOUNT'		=> new hdropdown('item', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
 			 'DKP'				=> $dkp,
 		 ));
 		
@@ -84,5 +80,4 @@ class gb_guildbank_shop extends page_generic {
 		
 	}
 }
-register('gb_guildbank_shop');
 ?>

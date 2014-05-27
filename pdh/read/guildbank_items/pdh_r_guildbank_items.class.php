@@ -165,7 +165,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_edit($id){
-			return '<a href="javascript:edit_item(\''.$id.'\');"><img src="'.$this->root_path.'images/glyphs/edit.png" alt="'.$this->user->lang('edit').'" title="'.$this->user->lang('edit').'" /></a>';
+			return '<a href="javascript:edit_item(\''.$id.'\');"><i class="fa fa-pencil fa-lg" title="'.$this->user->lang('edit').'"></i></a>';
 		}
 
 		public function get_value($id){
@@ -214,7 +214,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_shoplink($id){
 			if($this->get_sellable($id) > 0 && $this->user->check_auth('u_guildbank_shop', false)){
-				return '<a href="javascript:open_shop(\''.$id.'\');"><img src="'.$this->root_path.'plugins/guildbank/images/shopping_cart.png" alt="'.$this->user->lang('gb_shop_icon_title').'" title="'.$this->user->lang('gb_shop_icon_title').'" width="22" /></a>';
+				return '<a href="javascript:open_shop(\''.$id.'\');"><i class="fa fa-shopping-cart fa-lg" title="'.$this->user->lang('gb_shop_icon_title').'"></i></a>';
 			}
 		}
   } //end class

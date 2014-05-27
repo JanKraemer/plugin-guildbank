@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC'))
 
 class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
-	public $version		= '1.0.1';
+	public $version		= '1.1.0';
 	public $copyright 	= 'Wallenium';
 
 	public function __construct(){
@@ -64,8 +64,14 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_write_module('guildbank_banker');
 		$this->add_pdh_write_module('guildbank_items');
 		$this->add_pdh_write_module('guildbank_transactions');
+		
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search', 'guildbank_search_hook', 'search');
+		
+	    // -- Routing -------------------------------------------
+		$this->routing->addRoute('Guildbank', 'guildbank', 'plugins/guildbank/page_objects');
+		$this->routing->addRoute('Bankshop', 'bankshop', 'plugins/guildbank/page_objects');
+		
 		// -- Menu --------------------------------------------
 		$this->add_menu('admin', $this->gen_admin_menu());
 		$this->add_menu('main', $this->gen_main_menu());
@@ -124,7 +130,7 @@ class guildbank extends plugin_generic {
 	private function gen_main_menu(){
 		$main_menu = array(
 			1 => array (
-				'link'		=> 'plugins/guildbank/guildbank.php'.$this->SID,
+				'link'		=> $this->routing->build('Guildbank', false, false, true, true),
 				'text'		=> $this->user->lang('gb_usermenu_guildbank'),
 				'check'		=> 'u_guildbank_view',
 			),

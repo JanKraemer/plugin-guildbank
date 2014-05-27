@@ -15,15 +15,8 @@
  *
  * $Id$
  */
- 
-// EQdkp required files/vars
-define('EQDKP_INC', true);
-define('PLUGIN', 'guildbank');
 
-$eqdkp_root_path = './../../';
-include_once('./includes/common.php');
-
-class gb_guildbank extends page_generic {
+class guildbank_pageobject extends pageobject {
 
 	public static function __shortcuts(){
 		$shortcuts = array('money' => 'gb_money');
@@ -35,6 +28,9 @@ class gb_guildbank extends page_generic {
 	public function __construct(){
 		if (!$this->pm->check('guildbank', PLUGIN_INSTALLED))
 			message_die($this->user->lang('guildbank_not_installed'));
+
+		// load the includes
+		require_once($this->root_path.'plugins/guildbank/includes/gb_money.class.php');
 
 		$handler = array(
 			#'save' => array('process' => 'save', 'csrf' => true, 'check' => 'u_guildbank_view'),
@@ -98,7 +94,7 @@ class gb_guildbank extends page_generic {
 		 $ta_count		= count($ta_list);
 		 $footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
 
-		 $this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => "bankshop.php".$this->SID."&simple_head=true&i='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		 $this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&i='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
 
 		 $this->jquery->Tab_header('guildbank_tab');
 		 $this->tpl->assign_vars(array(
@@ -115,9 +111,9 @@ class gb_guildbank extends page_generic {
 			 'PAGINATION_TRANSA'=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 
 			 'START'			=> $start,
-			 'DD_BANKER'		=> $this->html->DropDown('banker', $dd_banker, $this->in->get('banker'), '', 'onchange="javascript:form.submit();"', 'input'),
-	         'DD_RARITY'		=>  $this->html->DropDown('rarity', $dd_rarity, $this->in->get('rarity'), '', 'onchange="javascript:form.submit();"', 'input'),
-	         'DD_TYPE'			=>  $this->html->DropDown('type', $dd_type, $this->in->get('type'), '', 'onchange="javascript:form.submit();"', 'input'),
+			 'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $this->in->get('banker'), 'js' => 'onchange="javascript:form.submit();"')),
+	         'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $this->in->get('rarity'), 'js' => 'onchange="javascript:form.submit();"')),
+	         'DD_TYPE'			=> new hdropdown('type', array('options' => $dd_type, 'value' => $this->in->get('type'), 'js' => 'onchange="javascript:form.submit();"')),
 			 
 			 'CREDITS'			=> sprintf($this->user->lang('guildbank_credits'), $this->pm->get_data('guildbank', 'version')),
 		));
@@ -131,5 +127,4 @@ class gb_guildbank extends page_generic {
  		);
 	 }
 }
-register('gb_guildbank');
 ?>

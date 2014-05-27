@@ -24,8 +24,7 @@ if(!defined('EQDKP_INC'))
 
 if(!class_exists('gb_money')) {
 	class gb_money extends gen_class {
-		public static $shortcuts = array('in', 'config', 'user', 'game', 'html');
-		
+
 		public function __construct(){
 			$f_moneydata	= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
 			$f_include		= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
