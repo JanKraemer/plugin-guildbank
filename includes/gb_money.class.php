@@ -30,6 +30,34 @@ if(!class_exists('gb_money')) {
 			$f_include		= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
 			include($f_include);
 			$this->data		= $money_data;
+			
+			// set the default css
+			$this->tpl->add_css("
+				.coin{
+					font-size:10px;
+				}
+				.coin-large{
+					font-size:14px;
+				}
+				.coin-gold{
+					color:#DAA520;
+				}
+				.coin-gold .coin-inner{
+					color:#FFD700;
+				}
+				.coin-silver{
+					color:#a7a7a7;
+				}
+				.coin-silver .coin-inner{
+					color:#dadada;
+				}
+				.coin-bronze{
+					color:#cd7f32;
+				}
+				.coin-bronze .coin-inner{
+					color:#e8c4a0;
+				}"
+			);
 		}
 		
 		public function get_data(){
@@ -74,7 +102,16 @@ if(!class_exists('gb_money')) {
 
 		public function image($monValue, $large=false, $size=false){
 			$imgsize	= ($size) ? ' width="'.$size.'"' : '';
-			return '<img src="'.$this->root_path.'plugins/guildbank/games/'.(($large) ? ((isset($monValue['image_large'])) ? $monValue['image_large'] : $monValue['image']) : $monValue['image']).'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'"'.$imgsize.' />';
+			switch($monValue['icon']['type']){
+				case 'svg':
+					$output	= "noch einbauen";
+				break;
+				default:
+					$large_tag	= ($large) ? ' coin-large' : '';
+					$output	= '<span class="fa-stack fa-fw coin coin-'.$monValue['icon']['name'].$large_tag.'"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-star fa-stack-1x fa-inverse coin-inner"></i></span>';
+				break;
+			}
+			return $output;
 		}
 
 		public function editfields($mymoney=0, $name='money_{ID}', $plusminus=false){

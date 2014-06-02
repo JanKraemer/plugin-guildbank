@@ -19,24 +19,30 @@
 	// The array with the images
 	$money_data = array(
 		'gold'		=> array(
-			'image'			=> 'default/images/gold.png',
-			'image_large'	=> 'default/images/gold_large.png',
+			'icon'			=> array(
+				'type'		=> 'default',
+				'name'		=> 'gold'
+			),
 			'factor'		=> 10000,
 			'size'			=> 'unlimited',
 			'language'		=> $this->user->lang('lang_gold'),
 			'short_lang'	=> $this->user->lang('lang_g'),
 		),
 		'silver'	=> array(
-			'image'			=> 'default/images/silver.png',
-			'image_large'	=> 'default/images/silver_large.png',
+			'icon'			=> array(
+				'type'		=> 'default',
+				'name'		=> 'silver'
+			),
 			'factor'		=> 100,
 			'size'			=> 2,
 			'language'		=> $this->user->lang('lang_silver'),
 			'short_lang'	=> $this->user->lang('lang_s'),
 		),
 		'copper'	=> array(
-			'image'			=> 'default/images/copper.png',
-			'image_large'	=> 'default/images/copper_large.png',
+			'icon'			=> array(
+				'type'		=> 'default',
+				'name'		=> 'bronze'
+			),
 			'factor'		=> 1,
 			'size'			=> 2,
 			'language'		=> $this->user->lang('lang_copper'),

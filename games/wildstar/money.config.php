@@ -16,15 +16,34 @@
  * $Id$
  */
 
+$this->tpl->add_css("
+	.coin-platin{
+		color:#EDEDEF;
+	}
+	.coin-platin .coin-inner{
+		color:#D0D4D5;
+	}"
+);
+
 	// The array with the images
 	$money_data = array(
+		'diamond'		=> array(
+			'icon'			=> array(
+				'type'		=> 'default',
+				'name'		=> 'platin'
+			),
+			'factor'		=> 1000000,
+			'size'			=> 'unlimited',
+			'language'		=> $user->lang['lang_platin'],
+			'short_lang'	=> $user->lang['lang_p'],
+		),
 		'gold'		=> array(
 			'icon'			=> array(
 				'type'		=> 'default',
 				'name'		=> 'gold'
 			),
-			'factor'		=> 100000,
-			'size'			=> 'unlimited',
+			'factor'		=> 10000,
+			'size'			=> 2,
 			'language'		=> $user->lang['lang_gold'],
 			'short_lang'	=> $user->lang['lang_g'],
 		),
@@ -34,7 +53,7 @@
 				'name'		=> 'silver'
 			),
 			'factor'		=> 100,
-			'size'			=> 3,
+			'size'			=> 2,
 			'language'		=> $user->lang['lang_silver'],
 			'short_lang'	=> $user->lang['lang_s'],
 		),
