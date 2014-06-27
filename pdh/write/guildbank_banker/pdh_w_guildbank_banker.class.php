@@ -42,12 +42,12 @@ if (!class_exists('pdh_w_guildbank_banker'))
 		}
 
 		public function update($intID, $strName, $intMoney, $intBankChar, $strNote){
-			$resQuery = $this->db->prepare("UPDATE __guildbank_banker SET :p WHERE banker_id=?")->set(array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_banker :p WHERE banker_id=?")->set(array(
 				'banker_name'			=> $strName,
 				'banker_bankchar'		=> $intBankChar,
 				'banker_note'			=> $strNote
 			))->execute($intID);
-			$this->pdh->put('guildbank_transactions', 'update_money', array($intBankChar, $intMoney));
+			$this->pdh->put('guildbank_transactions', 'update_money', array($intID, $intMoney));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
 			if ($resQuery) return $intID;
 			return false;

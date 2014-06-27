@@ -42,7 +42,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		}
 
 		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
-			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions SET :p WHERE ta_id=?")->set(array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_id=?")->set(array(
 				'ta_banker'		=> $intBanker,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
@@ -58,7 +58,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		}
 
 		public function update_money($intBanker, $intValue){
-			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions SET :p WHERE ta_startvalue=?")->set(array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_startvalue=?")->set(array(
 				'ta_value'		=> $intValue,
 				'ta_date'		=> $this->time->time,
 			))->execute($intBanker);
@@ -68,7 +68,7 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 		}
 
 		public function update_itemtransaction($intBanker, $intValue, $intDKP){
-			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions SET :p WHERE ta_item=?")->set(array(
+			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_item=?")->set(array(
 				'ta_dkp'		=> $intDKP,
 				'ta_value'		=> $intValue,
 				'ta_date'		=> $this->time->time,
