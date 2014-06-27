@@ -46,22 +46,22 @@ class Manage_BankDetails extends page_generic {
 		$edit		= $this->in->get('editmode', 0);
 		$mode		= $this->in->get('mode', 0);
 		$char		= $this->in->get('char', 0);
-		$func		= ($edit > 0 && ($mode == 0 && $this->in->get('item', 0) > 0) || ($mode == 1 && $this->in->get('mode', 0) > 0)) ? 'update' : 'add';
+		$func		= ($edit > 0 && ($mode == 0 && $this->in->get('item', 0) > 0) || ($mode == 1 && $this->in->get('transaction', 0) > 0)) ? 'update' : 'add';
 
 		// transactions
 		if($mode == 1){
 			$money		= $this->money->input();
 			$retu		= $this->pdh->put('guildbank_transactions', $func, array(
 				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
-				$this->in->get('transaction', 0), $this->in->get('banker', 0), $char, 0, 0, 0, $this->in->get('subject', ''), 0
+				$this->in->get('transaction', 0), $this->in->get('banker', 0), $char, 0, 0, $money, $this->in->get('subject', ''), 0
 			));
 
 		// items
 		}else{
 			$money		= $this->money->input(false, 'money2_{ID}');
 			$retu		= $this->pdh->put('guildbank_items', $func, array(
-			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'
-			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char,  $this->in->get('sellable', 0)));
+			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $intSelltype=0, $intAuctiontime=0, $strSubject='gb_item_added'
+			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char, $this->in->get('sellable', 0), $this->in->get('selltype', 0), $this->in->get('auctiontime', 0)));
 		}
 		
 		if($retu) {

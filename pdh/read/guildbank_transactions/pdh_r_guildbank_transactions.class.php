@@ -81,6 +81,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 				while (($row = $this->db->fetch_record($result))){
 					$this->data[(int)$row['ta_id']] = array(
 						'id'			=> (int)$row['ta_id'],
+						'type'			=> (int)$row['ta_type'],
 						'banker'		=> (int)$row['ta_banker'],
 						'char'			=> (int)$row['ta_char'],
 						'item'			=> (int)$row['ta_item'],
@@ -90,7 +91,9 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 						'date'			=> (int)$row['ta_date'],
 						'startvalue'	=> (int)$row['ta_startvalue'],
 					);
-					$this->summ[(int)(int)$row['ta_banker']] += (int)$row['ta_value'];
+					if((int)$row['ta_type'] != 1){
+						$this->summ[(int)(int)$row['ta_banker']] += (int)$row['ta_value'];
+					}
 					$this->startvalues[(int)$row['ta_startvalue']] = $row['ta_value'];
 					if((int)$row['ta_item'] > 0){
 						$this->itemcost[(int)$row['ta_item']] = $row['ta_value'];

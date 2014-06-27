@@ -30,9 +30,10 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 			return array_merge(parent::$shortcuts, $shortcuts);
 		}
 
-		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
+		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue, $intType=0){
 			$resQuery = $this->db->query("INSERT INTO __guildbank_transactions :params", array(
 				'ta_banker'		=> $intBanker,
+				'ta_type'		=> $intType,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
 				'ta_dkp'		=> $intDKP,
@@ -46,9 +47,10 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 			return false;
 		}
 
-		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
+		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue, $intType=0){
 			$resQuery = $this->db->query("UPDATE __guildbank_transactions SET :params WHERE ta_id=?", array(
 				'ta_banker'		=> $intBanker,
+				'ta_type'		=> $intType,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
 				'ta_dkp'		=> $intDKP,

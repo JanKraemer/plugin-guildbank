@@ -41,6 +41,7 @@ $preset_lang = array(
 	'gb_iname_itt'		=> 'Item',
 	'gb_iamount'		=> 'Amount',
 	'gb_itype'			=> 'Type',
+	'gb_icost'			=> 'Cost',
 	'gb_iedit'			=> 'Edit',
 	'gb_ivalue'			=> 'Value',
 	'gb_ivalue_a'		=> 'Value (Admin area)',

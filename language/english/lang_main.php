@@ -75,6 +75,7 @@ $lang = array(
 	'add_transaction'				=> 'Add transaction',
 	'gb_adjustment_text'			=> 'Guildbank - Bought an item',
 	'gb_item_sellable'				=> 'Item sellable',
+	'gb_itemvalue'					=> 'Item value',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Add item to bank account',

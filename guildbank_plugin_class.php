@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC'))
 
 class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
-	public $version		= '1.0.2';
+	public $version		= '1.0.3';
 	public $copyright 	= 'Wallenium';
 
 	public static function __shortcuts(){
@@ -84,8 +84,27 @@ class guildbank extends plugin_generic {
 		include($this->root_path.'plugins/guildbank/includes/sql.php');
 
 		// define installation
-		for ($i = 1; $i <= count($guildbankSQL['install']); $i++)
+		for ($i = 1; $i <= count($guildbankSQL['install']); $i++){
 			$this->add_sql(SQL_INSTALL, $guildbankSQL['install'][$i]);
+		}
+
+		// set the default config
+		if (is_array($config_vars)){
+			$this->config->set($this->default_config(), '', 'guildbank');
+		}
+	}
+
+	/**
+	* Define the default config
+	*/
+	private function default_config(){
+		return array(
+			'merge_bankers'		=> 0,
+			'show_money'		=> 1,
+			'show_tooltip'		=> 0,
+			'adjustment_event'	=> 0,
+			'use_autoadjust'	=> 0,
+		);
 	}
 
 	/**
