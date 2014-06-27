@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC'))
 
 class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
-	public $version		= '1.0.1';
+	public $version		= '1.0.2';
 	public $copyright 	= 'Wallenium';
 
 	public static function __shortcuts(){
