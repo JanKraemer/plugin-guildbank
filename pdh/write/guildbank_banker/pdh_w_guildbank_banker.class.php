@@ -51,7 +51,7 @@ if (!class_exists('pdh_w_guildbank_banker'))
 				'banker_bankchar'		=> $intBankChar,
 				'banker_note'			=> $strNote
 			), $intID);
-			$this->pdh->put('guildbank_transactions', 'update_money', array($intBankChar, $intMoney));
+			$this->pdh->put('guildbank_transactions', 'update_money', array($intID, $intMoney));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
 			if ($resQuery) return $intID;
 			return false;
