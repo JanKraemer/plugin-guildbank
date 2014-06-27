@@ -59,8 +59,8 @@ $lang = array(
 	'money'							=> 'Guthaben',
 
 	// manage transactions
-	'gb_manage_bank_items_title'	=> "Gegegnstände des Bankiers '%s' bearbeiten",
-	'gb_manage_bank_items'			=> "Bankgegegnstände bearbeiten",
+	'gb_manage_bank_items_title'	=> "Gegegenstände des Bankiers '%s' bearbeiten",
+	'gb_manage_bank_items'			=> "Bankgegegenstände bearbeiten",
 	'gb_mode'						=> 'Modus',
 	'gb_a_mode'					=> array(
 		'0'			=> 'Gegenstand',
@@ -75,6 +75,7 @@ $lang = array(
 	'add_transaction'				=> 'Transaktion hinzufügen',
 	'gb_adjustment_text'			=> 'Gildenbank - Gegenstand wurde gekauft',
 	'gb_item_sellable'				=> 'Gegenstand verlaufbar',
+	'gb_itemvalue'					=> 'Gegenstandswert',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',

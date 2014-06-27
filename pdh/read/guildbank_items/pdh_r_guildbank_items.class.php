@@ -43,6 +43,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 			'gb_itype'		=> array('type',		array('%item_id%'), array()),
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
 			'gb_ivalue'		=> array('value',		array('%item_id%'), array()),
+			'gb_icost'		=> array('value',		array('%item_id%'), array()),
 			'gb_ivalue_a'	=> array('value_a',		array('%item_id%'), array()),
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
 			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
@@ -74,14 +75,16 @@ if (!class_exists('pdh_r_guildbank_items')){
 				// add row by row to local copy
 				while (($row = $result->fetchAssoc())){
 					$this->data[(int)$row['item_id']] = array(
-						'id'		=> (int)$row['item_id'],
-						'banker'	=> (int)$row['item_banker'],
-						'name'		=> $row['item_name'],
-						'type'		=> $row['item_type'],
-						'rarity'	=> (int)$row['item_rarity'],
-						'amount'	=> (int)$row['item_amount'],
-						'date'		=> (int)$row['item_date'],
-						'sellable'	=> (int)$row['item_sellable']
+						'id'			=> (int)$row['item_id'],
+						'banker'		=> (int)$row['item_banker'],
+						'name'			=> $row['item_name'],
+						'type'			=> $row['item_type'],
+						'rarity'		=> (int)$row['item_rarity'],
+						'amount'		=> (int)$row['item_amount'],
+						'date'			=> (int)$row['item_date'],
+						'sellable'		=> (int)$row['item_sellable'],
+						'selltype'		=> (int)$row['item_selltype'],
+						'auctiontime'	=> (int)$row['item_auctiontime'],
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
 				}
@@ -117,6 +120,14 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_sellable($id){
 			return (isset($this->data[$id]['sellable']) && $this->data[$id]['sellable'] > 0) ? $this->data[$id]['sellable'] : 0;
+		}
+
+		public function get_selltype($id){
+			return (isset($this->data[$id]['selltype']) && $this->data[$id]['selltype'] > 0) ? $this->data[$id]['selltype'] : 0;
+		}
+
+		public function get_auctiontime($id){
+			return (isset($this->data[$id]['auctiontime']) && $this->data[$id]['auctiontime'] > 0) ? $this->data[$id]['auctiontime'] : 0;
 		}
 
 		public function get_html_date($id){

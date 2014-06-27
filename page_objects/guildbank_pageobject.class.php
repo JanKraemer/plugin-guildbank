@@ -99,7 +99,7 @@ class guildbank_pageobject extends pageobject {
 		 $this->jquery->Tab_header('guildbank_tab');
 		 $this->tpl->assign_vars(array(
 			 'SHOW_BANKERS'		=> ($this->config->get('show_bankers',		'guildbank') == 1) ? true : false,
-			 'SHOW_MONEY'		=> ($this->config->get('show_money',		'guildbank') != 1) ? true : false,
+			 'SHOW_MONEY'		=> ($this->config->get('show_money',		'guildbank') == 1) ? true : false,
 			 'SHOW_TOOLTIP'		=> ($this->config->get('show_tooltip',		'guildbank') == 1 ) ? true : false,
 
 			 // Table & pagination for items

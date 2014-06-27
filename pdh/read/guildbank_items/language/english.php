@@ -26,6 +26,7 @@ $module_lang = array(
 	'name_itt'			=> 'Item',
 	'amount'			=> 'Amount',
 	'type'				=> 'Type',
+	'gb_icost'			=> 'Cost',
 	'edit'				=> '',
 	'value'				=> 'Value',
 	'value_a'			=> 'Value',

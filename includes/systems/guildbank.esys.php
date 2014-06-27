@@ -39,6 +39,7 @@ $systems_guildbank = array(
 				array('name' => 'gb_itype',		'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
 				array('name' => 'gb_ibanker',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
 				array('name' => 'gb_idkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_icost',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
 				array('name' => 'gb_ishop',		'sort' => false,	'th_add' => 'align="center"',				'td_add' => '')
 			)
 		),

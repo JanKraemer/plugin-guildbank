@@ -25,9 +25,10 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 {
 	class pdh_w_guildbank_transactions extends pdh_w_generic {
 
-		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
+		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue, $intType=0){
 			$resQuery = $this->db->prepare("INSERT INTO __guildbank_transactions :p")->set(array(
 				'ta_banker'		=> $intBanker,
+				'ta_type'		=> $intType,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
 				'ta_dkp'		=> $intDKP,
@@ -41,9 +42,10 @@ if (!class_exists('pdh_w_guildbank_transactions'))
 			return false;
 		}
 
-		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue){
+		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue, $intType=0){
 			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_id=?")->set(array(
 				'ta_banker'		=> $intBanker,
+				'ta_type'		=> $intType,
 				'ta_char'		=> $intChar,
 				'ta_item'		=> $intItem,
 				'ta_dkp'		=> $intDKP,

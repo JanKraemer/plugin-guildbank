@@ -38,6 +38,8 @@ $guildbankSQL = array(
 				item_type varchar(255) default NULL,
 				item_amount mediumint(8) default 0,
 				item_sellable tinyint(1) default 0,
+				item_selltype tinyint(1) default 0,
+				item_auctiontime int(11) default NULL,
 				PRIMARY KEY  (item_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 		2 => "CREATE TABLE IF NOT EXISTS __guildbank_banker (
@@ -49,6 +51,7 @@ $guildbankSQL = array(
 				) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 		3 => "CREATE TABLE IF NOT EXISTS __guildbank_transactions (
 				ta_id mediumint(8) unsigned NOT NULL auto_increment,
+				ta_type tinyint(1) default 0,
 				ta_banker mediumint(8) default 0,
 				ta_char mediumint(8) default 0,
 				ta_item mediumint(8) default 0,
