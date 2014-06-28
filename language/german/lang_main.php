@@ -44,6 +44,7 @@ $lang = array(
 	'gb_update'						=> 'Letzte Aktivität',
 	'gb_tab_transactions'			=> 'Transaktionen',
 	'gb_tab_items'					=> 'Gegenstände',
+	'gb_title_page'					=> 'Gildenbank ansehen',
 
 	// Shop
 	'gb_shop_window'				=> 'Gegenstand einkaufen',
@@ -74,7 +75,7 @@ $lang = array(
 	'gb_payout_item'				=> 'Gegenstand verkaufen',
 	'add_transaction'				=> 'Transaktion hinzufügen',
 	'gb_adjustment_text'			=> 'Gildenbank - Gegenstand wurde gekauft',
-	'gb_item_sellable'				=> 'Gegenstand verlaufbar',
+	'gb_item_sellable'				=> 'Gegenstand verkaufbar',
 	'gb_itemvalue'					=> 'Gegenstandswert',
 
 	// add/edit banker
@@ -85,9 +86,9 @@ $lang = array(
 	'gb_type'						=> "Gegenstandsart",
 	'gb_dkp'						=> "DKP",
 	'gb_amount'						=> "Menge",
-	'rb_additem_button'				=> 'Gegenstand speichern',
-	'rb_edititem_button'			=> 'Gegenstand ändern',
+	'gb_additem_button'				=> 'Gegenstand speichern',
 	'gb_payput_button'				=> 'Gegenstand ausbezahlen',
+	'gb_addtrans_button'			=> 'Transaktion speichern',
 	'gb_ta_head_transaction'		=> 'Transaktion verwalten',
 	'gb_ta_head_payout'				=> 'Gegenstand ausbezahlen',
 	'gb_ta_head_item'				=> 'Gegenstand verwalten',
@@ -130,7 +131,19 @@ $lang = array(
 		'1'			=> "Rest"
 	),
 
+	// default currency
+	'currency_platin'				=> 'Platin',
+	'currency_platin_s'				=> 'P',
+	'currency_gold'					=> 'Gold',
+	'currency_gold_s'				=> 'G',
+	'currency_silver'				=> 'Silber',
+	'currency_silver_s'				=> 'S',
+	'currency_copper'				=> 'Kupfer',
+	'currency_copper_s'				=> 'K',
+	'currency_diamond'				=> 'Diamant',
+	'currency_diamond_s'			=> 'D',
+
 	// credits
-	'guildbank_credits'			=> "Gildenbank %s",
+	'guildbank_credits'				=> "Gildenbank %s",
 );
 ?>

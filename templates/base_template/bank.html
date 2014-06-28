@@ -1,3 +1,10 @@
+<div class="breadcrumb-container">
+	<ul class="breamcrumb">
+		<li><a href="{EQDKP_CONTROLLER_PATH}{SID}" title="{L_home}"><i class="fa fa-home"></i></a></li>
+		<li class="current"><a>{L_gb_title_page}</a></li>
+	</ul>
+	<div class="clear"></div>
+</div>
 <table width="100%" border="0" cellspacing="1" cellpadding="2" class="borderless">
 	<tr>
 		<td width="65%" valign="top">
@@ -80,33 +87,19 @@
 
 	<div id="fragment-items">
 		<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">
-			<!-- IF PAGINATION_ITEM -->
-			<tr class="row2">
-				<td class="center" colspan="5">{PAGINATION_ITEM}</td>
-			</tr>
-			<!-- ENDIF PAGINATION_ITEM -->
 			{ITEMS_TABLE}
-			<!-- IF PAGINATION_ITEM -->
-			<tr class="row2">
-				<td class="center" colspan="5">{PAGINATION_ITEM}</td>
-			</tr>
-			<!-- ENDIF PAGINATION_ITEM -->
 		</table>
+		<div class="center pagination_wrapper">
+			{PAGINATION_ITEM}
+		</div>
 	</div>
 	<div id="fragment-transactions">
 		<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">
-			<!-- IF PAGINATION_TRANSA -->
-			<tr class="row2">
-				<td class="center" colspan="5">{PAGINATION_TRANSA}</td>
-			</tr>
-			<!-- ENDIF PAGINATION_TRANSA -->
 			{TRANSA_TABLE}
-			<!-- IF PAGINATION_TRANSA -->
-			<tr class="row2">
-				<td class="center" colspan="5">{PAGINATION_TRANSA}</td>
-			</tr>
-			<!-- ENDIF PAGINATION_TRANSA -->
 		</table>
+		<div class="center pagination_wrapper">
+			{PAGINATION_TRANSA}
+		</div>
 	</div>
 </div>
 

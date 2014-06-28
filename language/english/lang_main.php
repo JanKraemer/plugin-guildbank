@@ -44,6 +44,7 @@ $lang = array(
 	'gb_update'						=> 'Last activity',
 	'gb_tab_transactions'			=> 'Transactions',
 	'gb_tab_items'					=> 'Items',
+	'gb_title_page'					=> 'View guildbank',
 
 	// Shop
 	'gb_shop_window'				=> 'Buy item',
@@ -85,9 +86,9 @@ $lang = array(
 	'gb_type'						=> "Item type",
 	'gb_dkp'						=> "DKP",
 	'gb_amount'						=> "Amount",
-	'rb_additem_button'				=> 'Save item',
-	'rb_edititem_button'			=> 'Edit item',
+	'gb_additem_button'				=> 'Save item',
 	'gb_payput_button'				=> 'Payout item',
+	'gb_addtrans_button'			=> 'Save transaction',
 	'gb_ta_head_transaction'		=> 'Manage transaction',
 	'gb_ta_head_payout'				=> 'Payout Item',
 	'gb_ta_head_item'				=> 'Manage item',
@@ -130,7 +131,19 @@ $lang = array(
 		'1'			=> "Other"
 	),
 
+	// default currency
+	'currency_platin'				=> 'Platinum',
+	'currency_platin_s'				=> 'P',
+	'currency_gold'					=> 'Gold',
+	'currency_gold_s'				=> 'G',
+	'currency_silver'				=> 'Silver',
+	'currency_silver_s'				=> 'S',
+	'currency_copper'				=> 'Copper',
+	'currency_copper_s'				=> 'C',
+	'currency_diamond'				=> 'Diamond',
+	'currency_diamond_s'			=> 'D',
+
 	// credits
-	'guildbank_credits'			=> "Guild bank %s",
+	'guildbank_credits'				=> "Guild bank %s",
 );
 ?>

@@ -22,7 +22,7 @@ $(document).ready(function() {
 <input type="hidden" name="editmode" value="{EDITMODE}">
 <input type="hidden" name="mode" value="{MODE}">
 
-<fieldset class="settings smallsettings">
+<fieldset class="settings mediumsettings">
 	<legend id="header_name">{L_gb_ta_head_item}</legend>
 	<dl>
 		<dt><label>{L_gb_mode}:</label></dt>
@@ -69,6 +69,8 @@ $(document).ready(function() {
 		<dd>{R_SELLABLE}</dd>
 	</dl>
 </fieldset>
-<input type="submit" name="save" value="<!-- IF S_EDIT -->{L_rb_edititem_button}<!-- ELSE -->{L_rb_additem_button}<!-- ENDIF -->" class="mainoption bi_ok" />
+<button class="mainoption" type="button" name="save">
+	<i class="fa fa-check"></i> <!-- IF S_TRANSACT -->{L_gb_addtrans_button}<!-- ELSE -->{L_gb_additem_button}<!-- ENDIF -->
+</button>
 {CSRF_TOKEN}
 </form>

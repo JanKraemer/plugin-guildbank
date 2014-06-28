@@ -108,7 +108,7 @@ if(!class_exists('gb_money')) {
 				break;
 				default:
 					$large_tag	= ($large) ? ' coin-large' : '';
-					$output	= '<span class="fa-stack fa-fw coin coin-'.$monValue['icon']['name'].$large_tag.'"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-star fa-stack-1x fa-inverse coin-inner"></i></span>';
+					$output	= '<span class="fa-stack fa-fw coin coin-'.$monValue['icon']['name'].$large_tag.'" title="'.$monValue['language'].'"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-star fa-stack-1x fa-inverse coin-inner"></i></span>';
 				break;
 			}
 			return $output;

@@ -119,7 +119,7 @@ class guildbank_pageobject extends pageobject {
 		));
 		
  		$this->core->set_vars(array(
- 			'page_title'        => sprintf($this->user->lang('admin_title_prefix'), $this->config->get('guildtag'), $this->config->get('dkp_name')).': '.$user->lang['guildbank_title'],
+ 			'page_title'        => $user->lang['gb_title_page'],
  			'template_path'     => $this->pm->get_data('guildbank', 'template_path'),
  			'template_file'     => 'bank.html',
  			'display'           => true,

@@ -189,6 +189,7 @@ class Manage_BankDetails extends page_generic {
 			'TRANSA_LIST'			=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
 			'TRANSA_PAGINATION'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 			'TRANSA_COLUMN_COUNT'	=> $hptt_transa->get_column_count(),
+			'L_BC_CURRENTPAGE'		=> sprintf($this->user->lang('gb_manage_bank_items_title'), $banker_name),
 		));
 
 		$this->core->set_vars(array(
@@ -232,6 +233,7 @@ class Manage_BankDetails extends page_generic {
 		$this->tpl->assign_vars(array(
 			'S_EDIT'		=> $edit_mode,
 			'EDITMODE'		=> ($edit_mode) ? '1' : '0',
+			'S_TRANSACT'	=> ($mode_select == '1') ? true : false,
 			'MODE'			=> $mode_select,
 			'ITEMID'		=> $itemID,
 			'TAID'			=> $transactionID,

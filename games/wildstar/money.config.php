@@ -34,8 +34,8 @@ $this->tpl->add_css("
 			),
 			'factor'		=> 1000000,
 			'size'			=> 'unlimited',
-			'language'		=> $user->lang['lang_platin'],
-			'short_lang'	=> $user->lang['lang_p'],
+			'language'		=> $user->lang['currency_platin'],
+			'short_lang'	=> $user->lang['currency_platin_s'],
 		),
 		'gold'		=> array(
 			'icon'			=> array(
@@ -44,8 +44,8 @@ $this->tpl->add_css("
 			),
 			'factor'		=> 10000,
 			'size'			=> 2,
-			'language'		=> $user->lang['lang_gold'],
-			'short_lang'	=> $user->lang['lang_g'],
+			'language'		=> $user->lang['currency_gold'],
+			'short_lang'	=> $user->lang['currency_gold_s'],
 		),
 		'silver'	=> array(
 			'icon'			=> array(
@@ -54,8 +54,8 @@ $this->tpl->add_css("
 			),
 			'factor'		=> 100,
 			'size'			=> 2,
-			'language'		=> $user->lang['lang_silver'],
-			'short_lang'	=> $user->lang['lang_s'],
+			'language'		=> $user->lang['currency_silver'],
+			'short_lang'	=> $user->lang['currency_silver_s'],
 		),
 		'copper'	=> array(
 			'icon'			=> array(
@@ -64,8 +64,8 @@ $this->tpl->add_css("
 			),
 			'factor'		=> 1,
 			'size'			=> 2,
-			'language'		=> $user->lang['lang_copper'],
-			'short_lang'	=> $user->lang['lang_c'],
+			'language'		=> $user->lang['currency_copper'],
+			'short_lang'	=> $user->lang['currency_copper_s'],
 		)
 	);
 

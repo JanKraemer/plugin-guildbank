@@ -128,16 +128,16 @@ class guildbank extends plugin_generic {
 			'name' => $this->user->lang('guildbank'),
 			'icon' => 'fa-university',
 			1 => array (
-				'link'	=> 'plugins/guildbank/admin/manage_settings.php'.$this->SID,
-				'text'	=> $this->user->lang('settings'),
-				'check'	=> 'a_guildbank_settings',
-				'icon'	=> 'fa-wrench'
-			),
-			2 => array (
 				'link'	=> 'plugins/guildbank/admin/manage_banker.php'.$this->SID,
 				'text'	=> $this->user->lang('manage'),
 				'check'	=> 'a_guildbank_manage',
 				'icon'	=> 'fa-university'
+			),
+			2 => array (
+				'link'	=> 'plugins/guildbank/admin/manage_settings.php'.$this->SID,
+				'text'	=> $this->user->lang('settings'),
+				'check'	=> 'a_guildbank_settings',
+				'icon'	=> 'fa-wrench'
 			)
 		));
 		return $admin_menu;
