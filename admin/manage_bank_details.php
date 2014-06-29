@@ -216,17 +216,19 @@ class Manage_BankDetails extends page_generic {
 		$item_sellable	= 0;
 		
 		if($itemID > 0){
-			$mode_select	= 0;
-			$edit_mode		= true;
-			$item_sellable	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'sellable', array($itemID)) : 0;
-			$edit_bankid	= ($itemID > 0) ? $this->pdh->get('guildbank_items', 'banker', array($itemID)) : 0;
-			$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
-			$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
+			$mode_select		= 0;
+			$edit_mode			= true;
+			$item_sellable		= $this->pdh->get('guildbank_items', 'sellable', array($itemID));
+			$edit_bankid		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
+			$money				= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
+			$select_selltype	= $this->pdh->get('guildbank_items', 'selltype', array($itemID));
+			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
 		}elseif($transactionID > 0){
-			$mode_select	= 1;
-			$edit_mode		= true;
-			$money			= $this->pdh->get('guildbank_transactions', 'value', array($transactionID, true));
-			$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array($transactionID, true));
+			$mode_select		= 1;
+			$edit_mode			= true;
+			$money				= $this->pdh->get('guildbank_transactions', 'value', array($transactionID, true));
+			$select_selltype	= 0;
+			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($transactionID, true));
 		}
 
 		$rarity			= $this->pdh->get('guildbank_items', 'rarity', array($itemID));
@@ -246,10 +248,12 @@ class Manage_BankDetails extends page_generic {
 			'V_NAME'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : '',
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+			'AUCTIONTIME'	=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'auctiontime', array($edit_bankid)) : 48,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
 			'MS_MEMBERS'	=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
 			'DD_MODE'		=> new hdropdown('mode', array('options' => $this->user->lang('gb_a_mode'), 'value' => $mode_select, 'id' => 'selectmode', 'disabled' => $edit_mode)),
 			'R_SELLABLE'	=> new hradio('sellable', array('value' => $item_sellable, 'options' => array('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')))),
+			'DD_SELLTYPE'	=> new hdropdown('selltype', array('options' => $this->user->lang('gb_a_selltype'), 'value' => $select_selltype, 'id' => 'selltype')),
 		));
 
 		$this->core->set_vars(array(

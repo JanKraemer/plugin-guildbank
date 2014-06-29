@@ -79,6 +79,8 @@ $lang = array(
 	'gb_adjustment_text'			=> 'Guildbank - Bought an item',
 	'gb_item_sellable'				=> 'Item sellable',
 	'gb_itemvalue'					=> 'Item value',
+	'gb_item_selltype'				=> 'Selltype',
+	'gb_item_auctiontime'			=> 'Duration of auction (in h)',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Add item to bank account',
@@ -132,6 +134,12 @@ $lang = array(
 		'3'			=> "Rare",
 		'2'			=> "Normal",
 		'1'			=> "Other"
+	),
+	
+	// Sell type
+	'gb_a_selltype'					=> array(
+		0			=> "Shop",
+		1			=> "Auction",
 	),
 
 	// default currency

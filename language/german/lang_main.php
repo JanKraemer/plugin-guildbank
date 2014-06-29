@@ -79,6 +79,8 @@ $lang = array(
 	'gb_adjustment_text'			=> 'Gildenbank - Gegenstand wurde gekauft',
 	'gb_item_sellable'				=> 'Gegenstand verkaufbar',
 	'gb_itemvalue'					=> 'Gegenstandswert',
+	'gb_item_selltype'				=> 'Verkaufsart',
+	'gb_item_auctiontime'			=> 'Auktionsdauer (in h)',
 
 	// add/edit banker
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
@@ -132,6 +134,12 @@ $lang = array(
 		'3'			=> "Rar",
 		'2'			=> "Normal",
 		'1'			=> "Rest"
+	),
+	
+	// Sell type
+	'gb_a_selltype'					=> array(
+		0			=> "Verkauf",
+		1			=> "Auktion",
 	),
 
 	// default currency

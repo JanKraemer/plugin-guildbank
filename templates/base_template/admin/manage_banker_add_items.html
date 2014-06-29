@@ -12,6 +12,22 @@ $(document).ready(function() {
 			$('#header_name').text('{L_gb_ta_head_item}');
 		}
 	}).trigger('change');
+	
+	$("input[name='sellable']").click(function() {
+		if($(this).val() == '1'){
+			$('.selltype').show();
+		}else{
+			$('.selltype').hide();
+		}
+	}).trigger('click');
+	
+	$('#selltype').change(function() {
+		if($(this).val() == '1'){
+			$('#auctiontime_container').show();
+		}else{
+			$('#auctiontime_container').hide();
+		}
+	}).trigger('change');
 });
 </script>
 
@@ -68,8 +84,12 @@ $(document).ready(function() {
 		<dt><label>{L_gb_item_sellable}:</label></dt>
 		<dd>{R_SELLABLE}</dd>
 	</dl>
+	<dl class="item selltype">
+		<dt><label>{L_gb_item_selltype}:</label></dt>
+		<dd>{DD_SELLTYPE} <span id="auctiontime_container">{L_gb_item_auctiontime}: <input type="text" name="auctiontime" size="5" value="{AUCTIONTIME}" class="input" /></span></dd>
+	</dl>
 </fieldset>
-<button class="mainoption" type="button" name="save">
+<button class="mainoption" type="submit" name="save">
 	<i class="fa fa-check"></i> <!-- IF S_TRANSACT -->{L_gb_addtrans_button}<!-- ELSE -->{L_gb_additem_button}<!-- ENDIF -->
 </button>
 {CSRF_TOKEN}
