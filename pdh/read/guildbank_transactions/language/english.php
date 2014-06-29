@@ -29,6 +29,7 @@ $module_lang = array(
 	'banker'			=> 'Banker',
 	'value'				=> 'Value',
 	'dkp'				=> 'DKP',
+	'edit'				=> '',
 );
 
 $preset_lang = array(

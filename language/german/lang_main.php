@@ -70,6 +70,8 @@ $lang = array(
 	'gb_subject'					=> 'Verwendungszweck',
 	'gb_members'					=> 'Empfänger',
 	'gb_manage_bank_transa'			=> 'Transaktionen verwalten',
+	'gb_title_transaction'			=> 'Transaktionensverwaltung',
+	'gb_title_item'					=> 'Gegenstandsverwaltung',
 	'gb_item_added'					=> 'Gegenstand hinzugefügt',
 	'gb_item_payout'				=> 'Gegenstand verkauft',
 	'gb_payout_item'				=> 'Gegenstand verkaufen',
@@ -95,6 +97,7 @@ $lang = array(
 
 	// settings
 	'gb_header_global'				=> "Gildenbank Einstellungen",
+	'gb_breadcrumb_settings'		=> "Gildenbank: Einstellungen",
 	'gb_saved'						=> "Die Einstellungen wurden erfolgreich gespeichert",
 	'gb_show_money'					=> "Zeige Bankvermögen",
 	'gb_show_money_help'			=> "Zeige Bankvermögen (wenn aus: Keine Goldanzeige)",

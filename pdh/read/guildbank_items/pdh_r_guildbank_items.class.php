@@ -209,7 +209,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 						'url' => $this->root_path."infotooltip/infotooltip_feed.php?name=".urlencode(base64_encode($this->get_name($id)))."&lang=".$lang."&update=1&direct=1",
 						'height' => '340',
 						'width' => '400',
-						'onclose' => $_SERVER['REQUEST_URI']
+						'onclose' => $this->env->request
 					);
 					$this->jquery->Dialog("infotooltip_update", "Item-Update", $options);
 					$ext = '<span style="cursor:pointer;" onclick="infotooltip_update()">Refresh</span>';

@@ -70,6 +70,8 @@ $lang = array(
 	'gb_subject'					=> 'Purpose',
 	'gb_members'					=> 'Recipient',
 	'gb_manage_bank_transa'			=> 'Manage transactions',
+	'gb_title_transaction'			=> 'Transaction management',
+	'gb_title_item'					=> 'Item management',
 	'gb_item_added'					=> 'Add item',
 	'gb_item_payout'				=> 'Item payed out',
 	'gb_payout_item'				=> 'Pay out item',
@@ -94,7 +96,8 @@ $lang = array(
 	'gb_ta_head_item'				=> 'Manage item',
 
 	// settings
-	'gb_header_global'				=> "Guild bank settings",
+	'gb_header_global'				=> "Guildbank settings",
+	'gb_breadcrumb_settings'		=> "Guildbank: settings",
 	'gb_saved'						=> "The settings were successfully saved",
 	'gb_show_money'					=> "Show the bank assets",
 	'gb_show_money_help'			=> "Show the bank assets (if disabled: money not displayed)",

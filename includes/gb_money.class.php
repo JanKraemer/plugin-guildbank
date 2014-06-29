@@ -26,18 +26,26 @@ if(!class_exists('gb_money')) {
 	class gb_money extends gen_class {
 
 		public function __construct(){
-			$f_moneydata	= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
-			$f_include		= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
+			$f_moneydata		= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
+			$f_include			= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
 			include($f_include);
-			$this->data		= $money_data;
-			
-			// set the default css
+			$this->data			= $money_data;
+			$this->load_css();
+		}
+		
+		private function load_css(){
 			$this->tpl->add_css("
 				.coin{
 					font-size:10px;
 				}
 				.coin-large{
 					font-size:14px;
+				}
+				.coin-platin{
+					color:#EDEDEF;
+				}
+				.coin-platin .coin-inner{
+					color:#D0D4D5;
 				}
 				.coin-gold{
 					color:#DAA520;
@@ -58,6 +66,11 @@ if(!class_exists('gb_money')) {
 					color:#e8c4a0;
 				}"
 			);
+		}
+		
+		public function loadMoneyClass(){
+			// this is just a pseudo class for the PDH to load the CSS in this construct... The PDH modules & the caching require this step
+			return true;
 		}
 		
 		public function get_data(){

@@ -18,22 +18,22 @@
 
 	// The array with the images
 	$money_data = array(
-		'diamond'		=> array(
+		'platin'		=> array(
 			'icon'			=> array(
 				'type'		=> 'default',
 				'name'		=> 'platin'
 			),
-			'factor'		=> 1000000,
+			'factor'		=> 1000,
 			'size'			=> 'unlimited',
-			'language'		=> $user->lang['currency_platin'],
-			'short_lang'	=> $user->lang['currency_platin_s'],
+			'language'		=> $user->lang['currency_platinum'],
+			'short_lang'	=> $user->lang['currency_platinum_s'],
 		),
 		'gold'		=> array(
 			'icon'			=> array(
 				'type'		=> 'default',
 				'name'		=> 'gold'
 			),
-			'factor'		=> 10000,
+			'factor'		=> 100,
 			'size'			=> 2,
 			'language'		=> $user->lang['currency_gold'],
 			'short_lang'	=> $user->lang['currency_gold_s'],
@@ -43,7 +43,7 @@
 				'type'		=> 'default',
 				'name'		=> 'silver'
 			),
-			'factor'		=> 100,
+			'factor'		=> 10,
 			'size'			=> 2,
 			'language'		=> $user->lang['currency_silver'],
 			'short_lang'	=> $user->lang['currency_silver_s'],

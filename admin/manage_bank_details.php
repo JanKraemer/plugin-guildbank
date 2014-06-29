@@ -145,6 +145,7 @@ class Manage_BankDetails extends page_generic {
 		
 		//init infotooltip
 		infotooltip_js();
+		$this->money->loadMoneyClass();
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
 		// -- display entries ITEMS ------------------------------------------------
