@@ -3,21 +3,21 @@
 $(document).ready(function() {
 	$('#selectmode').change(function() {
 		if($(this).val() == '1'){
-			$('.transaction').show();
-			$('.item').hide();
+			$('dl.transaction').show();
+			$('dl.item').hide();
 			$('#header_name').text('{L_gb_ta_head_transaction}');
 		}else{
-			$('.transaction').hide();
-			$('.item').show();
+			$('dl.transaction').hide();
+			$('dl.item').show();
 			$('#header_name').text('{L_gb_ta_head_item}');
 		}
 	}).trigger('change');
 	
 	$("input[name='sellable']").click(function() {
-		if($(this).val() == '1'){
-			$('.selltype').show();
+		if($(this).val() == '1' && $('#selectmode').val() == '0'){
+			$('#container_selltype').show();
 		}else{
-			$('.selltype').hide();
+			$('#container_selltype').hide();
 		}
 	}).trigger('click');
 	
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		<dt><label>{L_gb_item_sellable}:</label></dt>
 		<dd>{R_SELLABLE}</dd>
 	</dl>
-	<dl class="item selltype">
+	<dl class="item" id="container_selltype">
 		<dt><label>{L_gb_item_selltype}:</label></dt>
 		<dd>{DD_SELLTYPE} <span id="auctiontime_container">{L_gb_item_auctiontime}: <input type="text" name="auctiontime" size="5" value="{AUCTIONTIME}" class="input" /></span></dd>
 	</dl>
