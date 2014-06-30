@@ -45,14 +45,12 @@ if (!class_exists('update_guildbank_103')){
 					// SQL
 					1 => 'Add table field for type to transaction table',
 					2 => 'Add table field for sell type to item table',
-					3 => 'Add table field for auction time to item table',
 				),
 				'german' => array(
 					'update_guildbank_103' => 'Guild Banker 1.0.3 Update Paket',
 					// SQL
 					1 => 'Add table field for type to transaction table',
 					2 => 'Add table field for sell type to item table',
-					3 => 'Add table field for auction time to item table',
 				),
 			);
 
@@ -60,7 +58,6 @@ if (!class_exists('update_guildbank_103')){
 			$this->sqls = array(
 				1 => 'ALTER TABLE __guildbank_transactions ADD COLUMN `ta_type` tinyint(1) default 0 AFTER `ta_id`;',
 				2 => 'ALTER TABLE __guildbank_items ADD COLUMN `item_selltype` tinyint(1) default 0 AFTER `item_sellable`;',
-				3 => 'ALTER TABLE __guildbank_items ADD COLUMN `item_auctiontime` int(11) default NULL default 0 AFTER `item_selltype`;',
 			);
 		}
 
