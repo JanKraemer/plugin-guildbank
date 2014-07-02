@@ -60,8 +60,8 @@ class Manage_BankDetails extends page_generic {
 		}else{
 			$money		= $this->money->input(false, 'money2_{ID}');
 			$retu		= $this->pdh->put('guildbank_items', $func, array(
-			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $intSelltype=0, $intAuctiontime=0, $strSubject='gb_item_added'
-			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char, $this->in->get('sellable', 0), $this->in->get('selltype', 0), $this->in->get('auctiontime', 0)));
+			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'
+			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char, $this->in->get('sellable', 0)));
 		}
 		
 		if($retu) {
@@ -170,11 +170,11 @@ class Manage_BankDetails extends page_generic {
 		$transactions_url	= 'manage_bank_details.php'.$this->SID.'&simple_head=true&addedit=true&g='.$bankerID;
 		$payout_url			= 'manage_bank_details.php'.$this->SID.'&simple_head=true&g='.$bankerID;
 		
-		$this->jquery->dialog('add_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url.'&mode=1', 'width' => 600, 'height' => 520, 'onclose'=> $redirect_url));
-		$this->jquery->dialog('edit_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url."&mode=1&t='+id+'", 'width' => 600, 'height' => 520, 'onclose'=> $redirect_url, 'withid' => 'id'));
-		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 520, 'onclose'=> $redirect_url));
-		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 520, 'onclose'=> $redirect_url, 'withid' => 'id'));
-		$this->jquery->dialog('payout_item', $this->user->lang('gb_ta_head_payout'), array('url' => $payout_url."&payout=true", 'width' => 600, 'height' => 520, 'onclose'=> $redirect_url));
+		$this->jquery->dialog('add_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url.'&mode=1', 'width' => 600, 'height' => 450, 'onclose'=> $redirect_url));
+		$this->jquery->dialog('edit_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url."&mode=1&t='+id+'", 'width' => 600, 'height' => 450, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 580, 'onclose'=> $redirect_url));
+		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 580, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('payout_item', $this->user->lang('gb_ta_head_payout'), array('url' => $payout_url."&payout=true", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
 		
 		$this->confirm_delete($this->user->lang('confirm_delete_items'));
 		$this->tpl->assign_vars(array(
@@ -221,13 +221,11 @@ class Manage_BankDetails extends page_generic {
 			$item_sellable		= $this->pdh->get('guildbank_items', 'sellable', array($itemID));
 			$edit_bankid		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
 			$money				= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
-			$select_selltype	= $this->pdh->get('guildbank_items', 'selltype', array($itemID));
 			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
 		}elseif($transactionID > 0){
 			$mode_select		= 1;
 			$edit_mode			= true;
 			$money				= $this->pdh->get('guildbank_transactions', 'value', array($transactionID, true));
-			$select_selltype	= 0;
 			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($transactionID, true));
 		}
 
@@ -253,7 +251,6 @@ class Manage_BankDetails extends page_generic {
 			'MS_MEMBERS'	=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
 			'DD_MODE'		=> new hdropdown('mode', array('options' => $this->user->lang('gb_a_mode'), 'value' => $mode_select, 'id' => 'selectmode', 'disabled' => $edit_mode)),
 			'R_SELLABLE'	=> new hradio('sellable', array('value' => $item_sellable, 'options' => array('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')))),
-			'DD_SELLTYPE'	=> new hdropdown('selltype', array('options' => $this->user->lang('gb_a_selltype'), 'value' => $select_selltype, 'id' => 'selltype')),
 		));
 
 		$this->core->set_vars(array(

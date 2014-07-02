@@ -63,6 +63,25 @@ $systems_guildbank = array(
 				array('name' => 'gb_tdkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => '')
 			)
 		),
+		'hptt_guildbank_auctions' => array(
+			'name'					=> 'hptt_guildbank_auctions',
+			'table_main_sub'		=> '%auction_id%',
+			'table_subs'			=> array('%auction_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'),
+			'page_ref'				=> 'guildbank.php',
+			'show_numbers'			=> false,
+			'show_select_boxes' 	=> false,
+			'selectboxes_checkall'	=> false,
+			'table_sort_dir'		=> 'desc',
+			'table_sort_col'		=> 0,
+			'table_presets'			=> array(
+				array('name' => 'gb_astartdate','sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_aname_itt',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_aduration',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_astartvalue','sort' => true,	'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_abidsteps',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_anote',	'sort' => true,			'th_add' => 'align="center width="200px"',	'td_add' => ''),
+			)
+		),
 		'hptt_guildbank_admin_items' => array(
 			'name'					=> 'hptt_guildbank_admin_items',
 			'table_main_sub'		=> '%item_id%',
@@ -107,6 +126,28 @@ $systems_guildbank = array(
 				array('name' => 'gb_tbanker',	'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
 				array('name' => 'gb_tvalue',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
 				array('name' => 'gb_tdkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
+			)
+		),
+		'hptt_guildbank_admin_auctions' => array(
+			'name'					=> 'hptt_guildbank_admin_auctions',
+			'table_main_sub'		=> '%auction_id%',
+			'table_subs'			=> array('%auction_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'),
+			'page_ref'				=> 'manage_auctions.php',
+			'show_numbers'			=> true,
+			'show_select_boxes' 	=> true,
+			'selectboxes_checkall'	=> true,
+			'selectbox_name'		=> 'auction_ids',
+			'table_sort_dir'		=> 'desc',
+			'table_sort_col'		=> 0,
+			'table_presets'			=> array(
+				array('name' => 'gb_aedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
+				array('name' => 'gb_aactive',	'sort' => false,	'th_add' => 'align="center"',				'td_add' => ''),
+				array('name' => 'gb_aname_itt',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_astartdate','sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_aduration',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_astartvalue','sort' => true,	'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_abidsteps',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_anote',	'sort' => true,			'th_add' => 'align="center width="200px"',	'td_add' => ''),
 			)
 		),
 	)

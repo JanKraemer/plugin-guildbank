@@ -44,6 +44,7 @@ $lang = array(
 	'gb_update'						=> 'Letzte Aktivität',
 	'gb_tab_transactions'			=> 'Transaktionen',
 	'gb_tab_items'					=> 'Gegenstände',
+	'gb_tab_auctions'				=> 'Auktionen',
 	'gb_title_page'					=> 'Gildenbank ansehen',
 
 	// Shop
@@ -52,6 +53,28 @@ $lang = array(
 	'gb_shop_buy'					=> 'Kaufen',
 	'gb_item_name'					=> 'Gegenstand',
 	'gb_shop'						=> 'Shop',
+
+	// manage_auction
+	'gb_manage_auctions'			=> 'Auktionen verwalten',
+	'gb_auction_management'			=> 'Auktionsverwaltung',
+	'gb_auction_head_add'			=> 'Auktion hinzufügen',
+	'gb_auction_head_edit'			=> 'Auktion bearbeiten',
+	'gb_footer_auction'				=> "... %1\$d Auktion(en) gefunden / %2\$d pro Seite",
+	'gb_add_auction'				=> 'Auktion erstellen',
+	'gb_delete_auctions'			=> 'Ausgewählte Gegenstände löschen',
+	'gb_add_auction_title'			=> 'Auktion hinzufügen',
+	'gb_edit_auction_title'			=> 'Auktion bearbeiten',
+	'gb_auction_item'				=> 'Gegenstand',
+	'gb_auction_item_help'			=> 'Ein oder mehrere Gegenstände zum versteigern. Bei Mehrfachauswahl werden mehrere Auktionen erstellt',
+	'gb_auction_startdate'			=> 'Startzeitpunkt',
+	'gb_auction_duration'			=> 'Auktionsdauer',
+	'gb_auction_duration_help'		=> 'Die Auktionsdauer in Stunden',
+	'gb_auction_startvalue'			=> 'Startgebotswert',
+	'gb_auction_bidsteps'			=> 'Gebotsschrittweite',
+	'gb_auction_bidsteps_help'		=> 'Bieter können in diesen Schrittweiten auf den Gegenstand bieten',
+	'gb_auction_raidatt'			=> 'Raidteilnamen für Gebot',
+	'gb_auction_raidatt_help'		=> 'Anzahl der Raidteilnamen in dem die betreffenden Gegenstände gefallen sind. Bei 0 kann jeder auf den Gegenstand bieten.',
+	'gb_confirm_delete_auctions'	=> "Bist Du sicher, dass Du diese Auktion(en) %s löschen willst?",
 
 	// manage_banker
 	'manage_bankers'				=> 'Gilden-Bankiers verwalten',
@@ -79,10 +102,9 @@ $lang = array(
 	'gb_adjustment_text'			=> 'Gildenbank - Gegenstand wurde gekauft',
 	'gb_item_sellable'				=> 'Gegenstand verkaufbar',
 	'gb_itemvalue'					=> 'Gegenstandswert',
-	'gb_item_selltype'				=> 'Verkaufsart',
-	'gb_item_auctiontime'			=> 'Auktionsdauer (in h)',
 
 	// add/edit banker
+	'gb_manage_banker'				=> 'Banker verwalten',
 	'gb_add_item_title'				=> 'Gegenstand zum Bankkonto hinzufügen',
 	'gb_edit_item_title'			=> 'Gegenstand bearbeiten',
 	'gb_item_name'					=> "Gegenstand",
@@ -134,12 +156,6 @@ $lang = array(
 		'3'			=> "Rar",
 		'2'			=> "Normal",
 		'1'			=> "Rest"
-	),
-	
-	// Sell type
-	'gb_a_selltype'					=> array(
-		0			=> "Verkauf",
-		1			=> "Auktion",
 	),
 
 	// default currency

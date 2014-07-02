@@ -55,15 +55,18 @@ class guildbank extends plugin_generic {
 		$this->add_permission('u', 'view',		'Y', $this->user->lang('view'),				array(2,3,4));
 		$this->add_permission('u', 'shop',		'Y', $this->user->lang('gb_shop'),			array(2,3,4));
 		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),			array(2,3));
+		$this->add_permission('a', 'auctions',	'N', $this->user->lang('gb_perm_auctions'),	array(2,3));
 		$this->add_permission('a', 'settings',	'N', $this->user->lang('menu_settings'),	array(2,3));
 		
 		// -- PDH Modules -------------------------------------
 		$this->add_pdh_read_module('guildbank_banker');
 		$this->add_pdh_read_module('guildbank_items');
 		$this->add_pdh_read_module('guildbank_transactions');
+		$this->add_pdh_read_module('guildbank_auctions');
 		$this->add_pdh_write_module('guildbank_banker');
 		$this->add_pdh_write_module('guildbank_items');
 		$this->add_pdh_write_module('guildbank_transactions');
+		$this->add_pdh_write_module('guildbank_auctions');
 		
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search', 'guildbank_search_hook', 'search');
@@ -129,11 +132,17 @@ class guildbank extends plugin_generic {
 			'icon' => 'fa-university',
 			1 => array (
 				'link'	=> 'plugins/guildbank/admin/manage_banker.php'.$this->SID,
-				'text'	=> $this->user->lang('manage'),
+				'text'	=> $this->user->lang('gb_manage_banker'),
 				'check'	=> 'a_guildbank_manage',
 				'icon'	=> 'fa-university'
 			),
 			2 => array (
+				'link'	=> 'plugins/guildbank/admin/manage_auctions.php'.$this->SID,
+				'text'	=> $this->user->lang('gb_manage_auctions'),
+				'check'	=> 'a_guildbank_auctions',
+				'icon'	=> 'fa-gavel'
+			),
+			3 => array (
 				'link'	=> 'plugins/guildbank/admin/manage_settings.php'.$this->SID,
 				'text'	=> $this->user->lang('settings'),
 				'check'	=> 'a_guildbank_settings',
