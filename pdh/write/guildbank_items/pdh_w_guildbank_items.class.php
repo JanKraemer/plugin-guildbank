@@ -38,8 +38,7 @@ if (!class_exists('pdh_w_guildbank_items'))
 				'item_rarity'		=> $intRarity,
 				'item_type'			=> $strType,
 				'item_amount'		=> $intAmount,
-				'item_sellable'		=> $intSellable,
-				'item_selltype'		=> $intSelltype
+				'item_sellable'		=> $intSellable
 			));
 			$id = $this->db->insert_id();
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
@@ -57,8 +56,7 @@ if (!class_exists('pdh_w_guildbank_items'))
 				'item_rarity'		=> $intRarity,
 				'item_type'			=> $strType,
 				'item_amount'		=> $intAmount,
-				'item_sellable'		=> $intSellable,
-				'item_selltype'		=> $intSelltype
+				'item_sellable'		=> $intSellable
 			), $intID);
 			$this->pdh->put('guildbank_transactions', 'update_itemtransaction',	array($intID, $intMoney, $intDKP));
 			$this->pdh->enqueue_hook('guildbank_items_update');

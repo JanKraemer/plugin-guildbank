@@ -38,7 +38,6 @@ $guildbankSQL = array(
 				item_type varchar(255) default NULL,
 				item_amount mediumint(8) default 0,
 				item_sellable tinyint(1) default 0,
-				item_selltype tinyint(1) default 0,
 				PRIMARY KEY  (item_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 		2 => "CREATE TABLE IF NOT EXISTS __guildbank_banker (
