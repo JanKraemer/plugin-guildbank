@@ -83,7 +83,7 @@
 	<ul>
 		<li><a href='#fragment-items'><span>{L_gb_tab_items}</span></a></li>
 		<li><a href='#fragment-transactions'><span>{L_gb_tab_transactions}</span></a></li>
-		<li><a href='#fragment-auctions'><span>{L_gb_tab_auctions}</span></a></li>
+		<!-- IF SHOW_AUCTIONS --><li><a href='#fragment-auctions'><span>{L_gb_tab_auctions}</span></a></li><!-- ENDIF -->
 	</ul>
 
 	<div id="fragment-items">
@@ -102,6 +102,7 @@
 			{PAGINATION_TRANSA}
 		</div>
 	</div>
+	<!-- IF SHOW_AUCTIONS -->
 	<div id="fragment-auctions">
 		<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">
 			{AUCTION_TABLE}
@@ -110,6 +111,7 @@
 			{PAGINATION_AUCTION}
 		</div>
 	</div>
+	<!-- ENDIF -->
 </div>
 
 <br/><div class="center credits">{CREDITS}</div>

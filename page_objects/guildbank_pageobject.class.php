@@ -95,20 +95,30 @@ class guildbank_pageobject extends pageobject {
 		 $footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
 
 		 // -- display entries AUCTIONS -----------------------------------------
-		 $auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array());
-		 $hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
-		 $page_suffix_a		= '&amp;astart='.$this->in->get('astart', 0);
-		 $sort_suffix_a		= '&amp;asort='.$this->in->get('asort');
-		 $auction_count		= count($auction_list);
-		 $footer_auction	= sprintf($this->user->lang('listitems_footcount'), $auction_list, $this->user->data['user_ilimit']);
+ 		if($this->user->check_auth('u_guildbank_auction', false)){
+ 			$this->pdh->get('guildbank_auctions', 'counterJS');		// init the auction clock
+			$auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array());
+			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+			$page_suffix_a		= '&amp;astart='.$this->in->get('astart', 0);
+			$sort_suffix_a		= '&amp;asort='.$this->in->get('asort');
+			$auction_count		= count($auction_list);
+			$footer_auction	= sprintf($this->user->lang('listitems_footcount'), $auction_list, $this->user->data['user_ilimit']);
+			
+			$this->tpl->assign_vars(array(
+				'AUCTION_TABLE'		=> $hptt_auction->get_html_table($this->in->get('sort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),
+				'PAGINATION_AUCTION'=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0)),
+			));
+		}
 
 		 $this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&i='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
 
-		 $this->jquery->Tab_header('guildbank_tab');
+		 $this->jquery->Tab_header('guildbank_tab', true);
 		 $this->tpl->assign_vars(array(
 			 'SHOW_BANKERS'		=> ($this->config->get('show_bankers',		'guildbank') == 1) ? true : false,
 			 'SHOW_MONEY'		=> ($this->config->get('show_money',		'guildbank') == 1) ? true : false,
 			 'SHOW_TOOLTIP'		=> ($this->config->get('show_tooltip',		'guildbank') == 1 ) ? true : false,
+			 'SHOW_AUCTIONS'	=> $this->user->check_auth('u_guildbank_auction', false),
+			 'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
 
 			 // Table & pagination for items
 			 'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_item),
@@ -117,10 +127,6 @@ class guildbank_pageobject extends pageobject {
 			 // Table & pagination for transactions
 			 'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
 			 'PAGINATION_TRANSA'=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
-
-			 // Table & pagination for auctions
-			 'AUCTION_TABLE'	=> $hptt_auction->get_html_table($this->in->get('sort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),
-			 'PAGINATION_AUCTION'=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0)),
 
 			 'START'			=> $start,
 			 'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $this->in->get('banker'), 'js' => 'onchange="javascript:form.submit();"')),

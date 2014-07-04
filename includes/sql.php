@@ -26,7 +26,8 @@ $guildbankSQL = array(
 		1	=> 'DROP TABLE IF EXISTS `__guildbank_items`',
 		2	=> 'DROP TABLE IF EXISTS `__guildbank_banker`',
 		3	=> 'DROP TABLE IF EXISTS `__guildbank_transactions`',
-		4	=> 'DROP TABLE IF EXISTS `__guildbank_auction`'
+		4	=> 'DROP TABLE IF EXISTS `__guildbank_auctions`',
+		5	=> 'DROP TABLE IF EXISTS `__guildbank_auction_bids`'
 	),
 
 	'install'   => array(
@@ -63,15 +64,24 @@ $guildbankSQL = array(
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 		4 => "CREATE TABLE IF NOT EXISTS __guildbank_auctions (
 				auction_id mediumint(8) unsigned NOT NULL auto_increment,
-				auction_item varchar(255) default NULL,
+				auction_item int(11) default NULL,
 				auction_startdate int(11) default NULL,
 				auction_duration int(11) default NULL,
 				auction_bidsteps int(11) default NULL,
 				auction_note varchar(255) default NULL,
 				auction_startvalue int(11) default NULL,
 				auction_raidattendance int(11) default NULL,
+				auction_multidkppool int(11) default NULL,
 				auction_active tinyint(1) default 0,
 				PRIMARY KEY (auction_id)
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
+		5 => "CREATE TABLE IF NOT EXISTS __guildbank_auction_bids (
+				bid_id mediumint(8) unsigned NOT NULL auto_increment,
+				bid_auctionid int(11) default NULL,
+				bid_date int(11) default NULL,
+				bid_memberid int(11) default NULL,
+				bid_bidvalue int(11) default NULL,
+				PRIMARY KEY (bid_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 	)
 );

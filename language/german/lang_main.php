@@ -75,6 +75,19 @@ $lang = array(
 	'gb_auction_raidatt'			=> 'Raidteilnamen für Gebot',
 	'gb_auction_raidatt_help'		=> 'Anzahl der Raidteilnamen in dem die betreffenden Gegenstände gefallen sind. Bei 0 kann jeder auf den Gegenstand bieten.',
 	'gb_confirm_delete_auctions'	=> "Bist Du sicher, dass Du diese Auktion(en) %s löschen willst?",
+	'gb_auction_multidkppool'		=> 'Multidkp Pool',
+	'gb_auction_multidkppool_help'	=> 'Gib einen Multidkp Pool an, aus dem die Punkte für die Gebote verwendet werden sollen',
+
+	// auction shop
+	'gb_auction_icon_title'			=> 'Gebote abgeben',
+	'gb_auction_window'				=> 'Auktion',
+	'gb_auction_title'				=> 'Auktion & Gebote',
+	'gb_button_bid'					=> 'Bieten',
+	'gb_error_noidnotloggedin'		=> 'ACHTUNG: Um die Auktionen verwenden zu können, musst du sowohl eingeloggt als auch eine gültige AUktionsID verwenden. Versuche es noch einmal.',
+	'gb_auction_avail_dkp'			=> 'Verfügbare Punkte',
+	'gb_auction_timeleft'			=> 'Restzeit bis zum Auktionsende',
+	'gb_auction_bid_info'			=> 'Gebot abgeben',
+	'gb_bids_footcount'				=> "... %1\$d Gebot(e) / %2\$d pro Seite",
 
 	// manage_banker
 	'manage_bankers'				=> 'Gilden-Bankiers verwalten',

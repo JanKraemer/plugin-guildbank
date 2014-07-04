@@ -72,6 +72,12 @@ if (!class_exists('pdh_w_guildbank_items'))
 
 		public function delete($intID){
 			$this->db->prepare("DELETE FROM __guildbank_items WHERE item_id=?")->execute($intID);
+			$auctions	= $this->pdh->get('guildbank_auction', 'auction_byitem', array($intID));
+			if(is_array($auctions) && count($auctions) > 0){
+				foreach($auctions as $auctionids){
+					$this->pdh->put('guildbank_auctions', 'delete', array($auctionids));
+				}
+			}
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}

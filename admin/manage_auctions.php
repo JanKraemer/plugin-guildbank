@@ -47,7 +47,7 @@ class Manage_Auction extends page_generic {
 				$retu[]		= $this->pdh->put('guildbank_auctions', $func, array(
 					//$intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $strNote='', $boolActive=1
 					$this->in->get('transaction', 0), $itemid, $this->time->fromformat($this->in->get('startdate'), 1), $this->in->get('duration', 0),
-					$this->in->get('bidsteps', 0), $this->in->get('startvalue', 0), $this->in->get('raidattendance', 0),
+					$this->in->get('bidsteps', 0), $this->in->get('startvalue', 0), $this->in->get('raidattendance', 0), $this->in->get('multidkppool', 1)
 				));
 			}
 		}
@@ -90,9 +90,10 @@ class Manage_Auction extends page_generic {
 		}
 
 		infotooltip_js();
+		$this->pdh->get('guildbank_auctions', 'counterJS');
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
-		$view_auctions		= $this->pdh->get('guildbank_auctions', 'id_list', array());
+		$view_auctions		= $this->pdh->get('guildbank_auctions', 'id_list', array(false));
 		$hptt_auctions		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_auctions'], $view_auctions, $view_auctions, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
 		$page_suffix		= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix		= '&amp;sort='.$this->in->get('sort');
@@ -103,7 +104,7 @@ class Manage_Auction extends page_generic {
 		$transactions_url	= 'manage_auctions.php'.$this->SID.'&simple_head=true&addedit=true';
 
 		$this->jquery->dialog('add_auction', $this->user->lang('gb_auction_head_add'), array('url' => $transactions_url, 'width' => 600, 'height' => 440, 'onclose'=> $redirect_url));
-		$this->jquery->dialog('edit_auction', $this->user->lang('gb_auction_head_edit'), array('url' => $transactions_url."&i='+id+'", 'width' => 600, 'height' => 440, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('edit_auction', $this->user->lang('gb_auction_head_edit'), array('url' => $transactions_url."&i='+id+'", 'width' => 600, 'height' => 500, 'onclose'=> $redirect_url, 'withid' => 'id'));
 
 		$this->confirm_delete($this->user->lang('gb_confirm_delete_auctions'));
 		$this->tpl->assign_vars(array(
@@ -135,7 +136,8 @@ class Manage_Auction extends page_generic {
 			'DURATION'			=> new hspinner('duration', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'duration', array($auctionID)) : 6), 'step'=> 1, 'min' => 0, 'max' => 100)),
 			'STARTVALUE'		=> new hspinner('startvalue', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'start', array($auctionID)) : 50), 'step'=> 10, 'min' => 0)),
 			'BIDSTEPS'			=> new hspinner('bidsteps', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'bidsteps', array($auctionID)) : 10), 'step'=> 10, 'min' => 10)),
-			'RAIDATTENDANCE'		=> new hspinner('raidattendance', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'raidattendance', array($auctionID)) : 0), 'step'=> 1, 'min' => 0)),
+			'RAIDATTENDANCE'	=> new hspinner('raidattendance', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'raidattendance', array($auctionID)) : 0), 'step'=> 1, 'min' => 0)),
+			'MULTIDKPPOOL'		=> new hdropdown('multidkppool', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'multidkppool', array($auctionID)) : 1), 'options' => $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list'))))),
 		));
 
 		$this->core->set_vars(array(

@@ -44,13 +44,17 @@ if (!class_exists('update_guildbank_110')){
 					'update_guildbank_110' => 'Guild Banker 1.1.0 Update Package',
 					// SQL
 					1 => 'Add auctions table',
-					2 => 'Add table field for sell type to item table',
+					2 => 'Add auction bid table',
+					3 => 'Add auth option for guildbank admin auction management',
+					4 => 'Add auth option for guildbank auctions',
 				),
 				'german' => array(
 					'update_guildbank_110' => 'Guild Banker 1.1.0 Update Paket',
 					// SQL
 					1 => 'Füge Auktionstabelle hinzu',
-					2 => 'Add table field for sell type to item table',
+					2 => 'Füge Auktions-Bitertabelle hinzu',
+					3 => 'Fügt eine auth-Option für die Auktionsverwaltung im Adminbereich hinzu',
+					4 => 'Fügt eine auth-Option für die Auktionen hinzu',
 				),
 			);
 
@@ -65,10 +69,20 @@ if (!class_exists('update_guildbank_110')){
 						auction_note varchar(255) default NULL,
 						auction_startvalue int(11) default NULL,
 						auction_raidattendance int(11) default NULL,
+						auction_multidkppool int(11) default NULL,
 						auction_active tinyint(1) default 0,
 						PRIMARY KEY (auction_id)
 					) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
-				2 =>  "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('a_guildbank_auctions', 'N');",
+				2 => "CREATE TABLE IF NOT EXISTS __guildbank_auction_bids (
+						bid_id mediumint(8) unsigned NOT NULL auto_increment,
+						bid_auctionid int(11) default NULL,
+						bid_date int(11) default NULL,
+						bid_memberid int(11) default NULL,
+						bid_bidvalue int(11) default NULL,
+						PRIMARY KEY (bid_id)
+					) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
+				3 =>  "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('a_guildbank_auctions', 'N');",
+				4 =>  "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('u_guildbank_auction', 'Y');",
 			);
 		}
 

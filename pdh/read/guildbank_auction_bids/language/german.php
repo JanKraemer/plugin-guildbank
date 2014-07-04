@@ -21,31 +21,15 @@ if (!defined('EQDKP_INC')){
 }
 
 $module_lang = array(
-	'startdate'			=> 'Start date',
-	'startvalue'		=> 'Start value',
-	'name'				=> 'Item',
-	'name_itt'			=> 'Item',
-	'duration'			=> 'Duration',
-	'bidsteps'			=> 'Bid steps',
-	'note'				=> 'Note',
-	'active'			=> '',
-	'edit'				=> '',
-	'auctionlink'		=> '',
-	'atime_left'		=> 'Time left',
+	'date'				=> 'Gebotszeit',
+	'member'			=> 'Bieter',
+	'bidvalue'			=> 'Gebot',
 );
 
 $preset_lang = array(
-	'gb_astartdate'		=> 'Date',
-	'gb_astartvalue'	=> 'Start value',
-	'gb_aname'			=> 'Item',
-	'gb_aname_itt'		=> 'Item',
-	'gb_aduration'		=> 'Duration',
-	'gb_abidsteps'		=> 'Bid steps',
-	'gb_anote'			=> 'Note',
-	'gb_aactive'		=> 'Active',
-	'gb_aedit'			=> 'Edit',
-	'gb_aalink'			=> 'Auction button',
-	'atime_left'		=> 'Verbleibende Zeit',
+	'gb_biddate'		=> 'Datum',
+	'gb_bidmember'		=> 'Bieter',
+	'gb_bidvalue'		=> 'Gebot',
 );
 
 ?>

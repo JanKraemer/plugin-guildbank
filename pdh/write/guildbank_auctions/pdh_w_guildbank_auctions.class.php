@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC')){
 if (!class_exists('pdh_w_guildbank_auctions')){
 	class pdh_w_guildbank_auctions extends pdh_w_generic {
 
-		public function add($intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $strNote='', $boolActive=1){
+		public function add($intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $intMultiDKP, $strNote='', $boolActive=1){
 			$resQuery = $this->db->prepare("INSERT INTO __guildbank_auctions :p")->set(array(
 				'auction_item'			=> $intItemID,
 				'auction_startdate'		=> $intStartdate,
@@ -32,6 +32,7 @@ if (!class_exists('pdh_w_guildbank_auctions')){
 				'auction_note'			=> $strNote,
 				'auction_startvalue'	=> $intStartvalue,
 				'auction_raidattendance'=> $intAttendance,
+				'auction_multidkppool'	=> $intMultiDKP,
 				'auction_active'		=> $boolActive,
 			))->execute();
 
@@ -42,7 +43,7 @@ if (!class_exists('pdh_w_guildbank_auctions')){
 			return false;
 		}
 
-		public function update($intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $strNote='', $boolActive=1){
+		public function update($intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $intMultiDKP, $strNote='', $boolActive=1){
 			$resQuery = $this->db->prepare("UPDATE __guildbank_auctions :p WHERE auction_id=?")->set(array(
 				'auction_item'			=> $intItemID,
 				'auction_startdate'		=> $intStartdate,
@@ -51,6 +52,7 @@ if (!class_exists('pdh_w_guildbank_auctions')){
 				'auction_note'			=> $strNote,
 				'auction_startvalue'	=> $intStartvalue,
 				'auction_raidattendance'=> $intAttendance,
+				'auction_multidkppool'	=> $intMultiDKP,
 				'auction_active'		=> $boolActive,
 			))->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_auction_update');
@@ -60,6 +62,7 @@ if (!class_exists('pdh_w_guildbank_auctions')){
 
 		public function delete($intID){
 			$this->db->prepare("DELETE FROM __guildbank_auctions WHERE auction_id=?")->execute($intID);
+			$this->pdh->put('guildbank_auction_bids', 'delete_byauction', array($intID));
 			$this->pdh->enqueue_hook('guildbank_auction_update');
 			return true;
 		}

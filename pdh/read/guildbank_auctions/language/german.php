@@ -30,6 +30,8 @@ $module_lang = array(
 	'note'				=> 'Notiz',
 	'active'			=> '',
 	'edit'				=> '',
+	'auctionlink'		=> '',
+	'atime_left'		=> 'Restzeit',
 );
 
 $preset_lang = array(
@@ -42,6 +44,8 @@ $preset_lang = array(
 	'gb_anote'			=> 'Notiz',
 	'gb_aactive'		=> 'Aktiv',
 	'gb_aedit'			=> 'Bearbeiten',
+	'gb_aalink'			=> 'Auktionsbutton',
+	'atime_left'		=> 'Verbleibende Zeit',
 );
 
 ?>

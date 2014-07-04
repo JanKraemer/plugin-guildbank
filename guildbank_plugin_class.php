@@ -54,6 +54,7 @@ class guildbank extends plugin_generic {
 		// Groups: 1 = Guests, 2 = Super-Admin, 3 = Admin, 4 = Member
 		$this->add_permission('u', 'view',		'Y', $this->user->lang('view'),				array(2,3,4));
 		$this->add_permission('u', 'shop',		'Y', $this->user->lang('gb_shop'),			array(2,3,4));
+		$this->add_permission('u', 'auction',	'Y', $this->user->lang('gb_auction'),		array(2,3,4));
 		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),			array(2,3));
 		$this->add_permission('a', 'auctions',	'N', $this->user->lang('gb_perm_auctions'),	array(2,3));
 		$this->add_permission('a', 'settings',	'N', $this->user->lang('menu_settings'),	array(2,3));
@@ -63,10 +64,12 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_read_module('guildbank_items');
 		$this->add_pdh_read_module('guildbank_transactions');
 		$this->add_pdh_read_module('guildbank_auctions');
+		$this->add_pdh_read_module('guildbank_auction_bids');
 		$this->add_pdh_write_module('guildbank_banker');
 		$this->add_pdh_write_module('guildbank_items');
 		$this->add_pdh_write_module('guildbank_transactions');
 		$this->add_pdh_write_module('guildbank_auctions');
+		$this->add_pdh_write_module('guildbank_auction_bids');
 		
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search', 'guildbank_search_hook', 'search');
@@ -74,6 +77,7 @@ class guildbank extends plugin_generic {
 	    // -- Routing -------------------------------------------
 		$this->routing->addRoute('Guildbank', 'guildbank', 'plugins/guildbank/page_objects');
 		$this->routing->addRoute('Bankshop', 'bankshop', 'plugins/guildbank/page_objects');
+		$this->routing->addRoute('Guildauction', 'guildauction', 'plugins/guildbank/page_objects');
 		
 		// -- Menu --------------------------------------------
 		$this->add_menu('admin', $this->gen_admin_menu());
