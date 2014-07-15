@@ -27,8 +27,13 @@ $lang = array(
 	'guildbank_long_desc'			=> 'Gildenbank ist ein Plugin um Raidbanken zu verwalten.',
 	'guildbank_not_installed'		=> 'Gildenbank ist nicht installiert.',
 
-	// User Menu
-	'gb_usermenu_guildbank'			=> "Gildenbank",
+	// Permissions
+	'gb_a_perm_auctions'			=> 'Auktionen verwalten',
+	'gb_u_perm_auction'				=> 'An Auktionen teilnehmen',
+	'gb_perm_shop'					=> 'Gegenstände einkaufen',
+
+	// Main Menu
+	'gb_mainmenu_guildbank'			=> "Gildenbank",
 
 	// Admin Menu
 	'gb_adminmenu_guildbank'		=> "Gildenbank",
@@ -90,10 +95,10 @@ $lang = array(
 	'gb_bids_footcount'				=> "... %1\$d Gebot(e) / %2\$d pro Seite",
 
 	// manage_banker
-	'manage_bankers'				=> 'Gilden-Bankiers verwalten',
-	'confirm_delete_bankers'		=> "Sollen die Bankiers %s gelöscht werden?",
-	'banker_mainchar'				=> 'Bank-Charakter',
-	'money'							=> 'Guthaben',
+	'gb_manage_bankers'				=> 'Gilden-Bankiers verwalten',
+	'gb_confirm_delete_bankers'		=> "Sollen die Bankiers %s gelöscht werden?",
+	'gb_banker_mainchar'			=> 'Bank-Charakter',
+	'gb_money'						=> 'Guthaben',
 
 	// manage transactions
 	'gb_manage_bank_items_title'	=> "Gegegenstände des Bankiers '%s' bearbeiten",
@@ -172,18 +177,20 @@ $lang = array(
 	),
 
 	// default currency
-	'currency_platin'				=> 'Platin',
-	'currency_platin_s'				=> 'P',
-	'currency_gold'					=> 'Gold',
-	'currency_gold_s'				=> 'G',
-	'currency_silver'				=> 'Silber',
-	'currency_silver_s'				=> 'S',
-	'currency_copper'				=> 'Kupfer',
-	'currency_copper_s'				=> 'K',
-	'currency_diamond'				=> 'Diamant',
-	'currency_diamond_s'			=> 'D',
+	'gb_currency'					=> array(
+		'platin'	=> 'Platin',
+		'platin_s'	=> 'P',
+		'gold'		=> 'Gold',
+		'gold_s'	=> 'G',
+		'silver'	=> 'Silber',
+		'silver_s'	=> 'S',
+		'copper'	=> 'Kupfer',
+		'copper_s'	=> 'K',
+		'diamond'	=> 'Diamant',
+		'diamond_s'	=> 'D',
+	),
 
 	// credits
-	'guildbank_credits'				=> "Gildenbank %s",
+	'gb_credits'					=> "Gildenbank %s",
 );
 ?>

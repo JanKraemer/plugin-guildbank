@@ -52,12 +52,12 @@ class guildbank extends plugin_generic {
 		// permissions: 'a'=admins, 'u'=user
 		// ('a'/'u', Permission-Name, Enable? 'Y'/'N', Language string, array of user-group-ids that should have this permission)
 		// Groups: 1 = Guests, 2 = Super-Admin, 3 = Admin, 4 = Member
-		$this->add_permission('u', 'view',		'Y', $this->user->lang('view'),				array(2,3,4));
-		$this->add_permission('u', 'shop',		'Y', $this->user->lang('gb_shop'),			array(2,3,4));
-		$this->add_permission('u', 'auction',	'Y', $this->user->lang('gb_auction'),		array(2,3,4));
-		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),			array(2,3));
-		$this->add_permission('a', 'auctions',	'N', $this->user->lang('gb_perm_auctions'),	array(2,3));
-		$this->add_permission('a', 'settings',	'N', $this->user->lang('menu_settings'),	array(2,3));
+		$this->add_permission('u', 'view',		'Y', $this->user->lang('view'),					array(2,3,4));
+		$this->add_permission('u', 'shop',		'Y', $this->user->lang('gb_perm_shop'),			array(2,3,4));
+		$this->add_permission('u', 'auction',	'Y', $this->user->lang('gb_u_perm_auction'),	array(2,3,4));
+		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),				array(2,3));
+		$this->add_permission('a', 'auctions',	'N', $this->user->lang('gb_a_perm_auctions'),	array(2,3));
+		$this->add_permission('a', 'settings',	'N', $this->user->lang('menu_settings'),		array(2,3));
 		
 		// -- PDH Modules -------------------------------------
 		$this->add_pdh_read_module('guildbank_banker');
@@ -164,7 +164,7 @@ class guildbank extends plugin_generic {
 		$main_menu = array(
 			1 => array (
 				'link'		=> $this->routing->build('Guildbank', false, false, true, true),
-				'text'		=> $this->user->lang('gb_usermenu_guildbank'),
+				'text'		=> $this->user->lang('gb_mainmenu_guildbank'),
 				'check'		=> 'u_guildbank_view',
 			),
 		);

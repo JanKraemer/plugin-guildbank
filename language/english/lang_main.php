@@ -27,8 +27,13 @@ $lang = array(
 	'guildbank_long_desc'			=> 'Manage items and transactions of guild bankers',
 	'guildbank_not_installed'		=> 'Guild bank is not installed',
 
-	// User Menu
-	'gb_usermenu_guildbank'			=> "Guild bank",
+	// Permissions
+	'gb_a_perm_auctions'			=> 'Manage auctions',
+	'gb_u_perm_auction'				=> 'Bid on auctions',
+	'gb_perm_shop'					=> 'Buy items in shop',
+
+	// Main Menu
+	'gb_mainmenu_guildbank'			=> "Guild bank",
 
 	// Admin Menu
 	'gb_adminmenu_guildbank'		=> "Guild bank",
@@ -54,16 +59,16 @@ $lang = array(
 	'gb_shop'						=> 'Shop',
 
 	// manage_banker
-	'manage_bankers'				=> 'Manage guild banker',
-	'confirm_delete_bankers'		=> "Should the banker(s) %s be removed?",
-	'banker_mainchar'				=> 'Bank-character',
-	'money'							=> 'Balance',
+	'gb_manage_bankers'				=> 'Manage guild banker',
+	'gb_confirm_delete_bankers'		=> "Should the banker(s) %s be removed?",
+	'gb_banker_mainchar'			=> 'Bank-character',
+	'gb_money'						=> 'Balance',
 
 	// manage transactions
 	'gb_manage_bank_items_title'	=> "Edit items of banker '%s'",
 	'gb_manage_bank_items'			=> "Edit items of banker",
 	'gb_mode'						=> 'Mode',
-	'gb_a_mode'					=> array(
+	'gb_a_mode'						=> array(
 		'0'			=> 'Item',
 		'1'			=> 'Transaction',
 	),
@@ -136,18 +141,20 @@ $lang = array(
 	),
 
 	// default currency
-	'currency_platin'				=> 'Platinum',
-	'currency_platin_s'				=> 'P',
-	'currency_gold'					=> 'Gold',
-	'currency_gold_s'				=> 'G',
-	'currency_silver'				=> 'Silver',
-	'currency_silver_s'				=> 'S',
-	'currency_copper'				=> 'Copper',
-	'currency_copper_s'				=> 'C',
-	'currency_diamond'				=> 'Diamond',
-	'currency_diamond_s'			=> 'D',
+	'gb_currency'					=> array(
+		'platin'	=> 'Platinum',
+		'platin_s'	=> 'P',
+		'gold'		=> 'Gold',
+		'gold_s'	=> 'G',
+		'silver'	=> 'Silver',
+		'silver_s'	=> 'S',
+		'copper'	=> 'Copper',
+		'copper_s'	=> 'C',
+		'diamond'	=> 'Diamond',
+		'diamond_s'	=> 'D',
+	),
 
 	// credits
-	'guildbank_credits'				=> "Guild bank %s",
+	'gb_credits'					=> "Guild bank %s",
 );
 ?>

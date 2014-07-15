@@ -109,7 +109,7 @@ class Manage_Banker extends page_generic {
 			$key++;
 			$new_id	= ($new_id == $id) ? $id+1 : $new_id;
 		}
-		$this->confirm_delete($this->user->lang('confirm_delete_bankers'));
+		$this->confirm_delete($this->user->lang('gb_confirm_delete_bankers'));
 
 		$this->tpl->assign_vars(array(
 			'SID'			=> $this->SID,
@@ -120,7 +120,7 @@ class Manage_Banker extends page_generic {
 		));
 
 		$this->core->set_vars(array(
-			'page_title'		=> $this->user->lang('manage_bankers'),
+			'page_title'		=> $this->user->lang('gb_manage_bankers'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'template_file'		=> 'admin/manage_banker.html',
 			'display'			=> true)

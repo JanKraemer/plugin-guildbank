@@ -133,7 +133,7 @@ class guildbank_pageobject extends pageobject {
 	         'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $this->in->get('rarity'), 'js' => 'onchange="javascript:form.submit();"')),
 	         'DD_TYPE'			=> new hdropdown('type', array('options' => $dd_type, 'value' => $this->in->get('type'), 'js' => 'onchange="javascript:form.submit();"')),
 			 
-			 'CREDITS'			=> sprintf($this->user->lang('guildbank_credits'), $this->pm->get_data('guildbank', 'version')),
+			 'CREDITS'			=> sprintf($this->user->lang('gb_credits'), $this->pm->get_data('guildbank', 'version')),
 		));
 		
  		$this->core->set_vars(array(

@@ -25,8 +25,8 @@
 			),
 			'factor'		=> 1000000,
 			'size'			=> 'unlimited',
-			'language'		=> $user->lang['currency_platin'],
-			'short_lang'	=> $user->lang['currency_platin_s'],
+			'language'		=> $this->user->lang(array('gb_currency', 'platin')),
+			'short_lang'	=> $this->user->lang(array('gb_currency', 'platin_s')),
 		),
 		'gold'		=> array(
 			'icon'			=> array(
@@ -35,8 +35,8 @@
 			),
 			'factor'		=> 10000,
 			'size'			=> 2,
-			'language'		=> $user->lang['currency_gold'],
-			'short_lang'	=> $user->lang['currency_gold_s'],
+			'language'		=> $this->user->lang(array('gb_currency', 'gold')),
+			'short_lang'	=> $this->user->lang(array('gb_currency', 'gold_s')),
 		),
 		'silver'	=> array(
 			'icon'			=> array(
@@ -45,8 +45,8 @@
 			),
 			'factor'		=> 100,
 			'size'			=> 2,
-			'language'		=> $user->lang['currency_silver'],
-			'short_lang'	=> $user->lang['currency_silver_s'],
+			'language'		=> $this->user->lang(array('gb_currency', 'silver')),
+			'short_lang'	=> $this->user->lang(array('gb_currency', 'silver_s')),
 		),
 		'copper'	=> array(
 			'icon'			=> array(
@@ -55,8 +55,8 @@
 			),
 			'factor'		=> 1,
 			'size'			=> 2,
-			'language'		=> $user->lang['currency_copper'],
-			'short_lang'	=> $user->lang['currency_copper_s'],
+			'language'		=> $this->user->lang(array('gb_currency', 'copper')),
+			'short_lang'	=> $this->user->lang(array('gb_currency', 'copper_s')),
 		)
 	);
 
