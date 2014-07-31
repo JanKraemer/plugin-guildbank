@@ -57,7 +57,15 @@ $lang = array(
 	'gb_shop_icon_title'			=> 'Gegenstand kaufen',
 	'gb_shop_buy'					=> 'Kaufen',
 	'gb_item_name'					=> 'Gegenstand',
+	'gb_dkppool'					=> 'MultiDKP-Pool',
 	'gb_shop'						=> 'Shop',
+	'gb_shop_error_nodkp'			=> 'Die vorhandenen DKP reichen nicht zum Kauf dieses Gegenstandes',
+	'gb_shop_error_noitem'			=> 'Es ist kein Gegenstand zum Kauf mehr vorhanden',
+	'gb_shop_buy_subject'			=> 'Gegenstand eingekauft',
+	'gb_shop_buy_successmsg'		=> 'Der Gegenstand wurde zum einkaufen vorgemerkt. Die Transaktion wird nach der Bestätigung durch einen Admin vorgenommen und deinem Konto gutgeschrieben.',
+	'gb_confirm_shop_ta'			=> 'Weiss noch nicht wo das angezeigt wird',
+	'gb_confirm_msg_success'		=> 'Die Transaktion wurde erfolgreich durchgeführt',
+	'gb_confirm_msg_delete'			=> 'Die Transaktion wurde erfolgreich abgelehnt',
 
 	// manage_auction
 	'gb_manage_auctions'			=> 'Auktionen verwalten',

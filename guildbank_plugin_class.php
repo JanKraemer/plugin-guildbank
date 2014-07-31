@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC'))
 
 class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
-	public $version		= '1.1.0';
+	public $version		= '2.0.0';
 	public $copyright 	= 'Wallenium';
 
 	public function __construct(){
@@ -58,13 +58,14 @@ class guildbank extends plugin_generic {
 		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),				array(2,3));
 		$this->add_permission('a', 'auctions',	'N', $this->user->lang('gb_a_perm_auctions'),	array(2,3));
 		$this->add_permission('a', 'settings',	'N', $this->user->lang('menu_settings'),		array(2,3));
-		
+
 		// -- PDH Modules -------------------------------------
 		$this->add_pdh_read_module('guildbank_banker');
 		$this->add_pdh_read_module('guildbank_items');
 		$this->add_pdh_read_module('guildbank_transactions');
 		$this->add_pdh_read_module('guildbank_auctions');
 		$this->add_pdh_read_module('guildbank_auction_bids');
+		$this->add_pdh_read_module('guildbank_shop_ta');
 		$this->add_pdh_write_module('guildbank_banker');
 		$this->add_pdh_write_module('guildbank_items');
 		$this->add_pdh_write_module('guildbank_transactions');
@@ -72,13 +73,14 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_write_module('guildbank_auction_bids');
 		
 		// -- Hooks -------------------------------------------
-		#$this->add_hook('search', 'guildbank_search_hook', 'search');
-		
-	    // -- Routing -------------------------------------------
+		#$this->add_hook('search',		'guildbank_search_hook',	'search');
+		$this->add_hook('admin_tasks',	'guildbank_admintask_hook',	'admin_tasks');
+
+		// -- Routing -------------------------------------------
 		$this->routing->addRoute('Guildbank', 'guildbank', 'plugins/guildbank/page_objects');
 		$this->routing->addRoute('Bankshop', 'bankshop', 'plugins/guildbank/page_objects');
 		$this->routing->addRoute('Guildauction', 'guildauction', 'plugins/guildbank/page_objects');
-		
+
 		// -- Menu --------------------------------------------
 		$this->add_menu('admin', $this->gen_admin_menu());
 		$this->add_menu('main', $this->gen_main_menu());

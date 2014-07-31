@@ -1,3 +1,4 @@
+<!-- IF not SHOWMESSAGE -->
 <!-- IF NOSELECTION -->
 <script type='text/javascript'>
 $(document).ready(function() {
@@ -22,7 +23,7 @@ $(document).ready(function() {
 <form method="post" action="{ACTION}" name="addWC">
 <input type="hidden" name="banker" value="{BANKERID}">
 
-<fieldset class="settings smallsettings">
+<fieldset class="settings mediumsettings">
 	<dl class="item">
 		<dt><label>{L_gb_item_name}:</label></dt>
 		<dd>
@@ -33,6 +34,11 @@ $(document).ready(function() {
 		<dt><label>{L_gb_members}:</label></dt>
 		<dd>{DD_MYCHARS}</dd>
 	</dl>
+	<dl>
+		<dt><label>{L_gb_dkppool}:</label></dt>
+		<dd>{DD_MULTIDKPPOOL}</dd>
+	</dl>
+	
 	<dl class="item">
 		<dt><label>{L_gb_amount}:</label></dt>
 		<dd>{DD_AMOUNT}</dd>
@@ -42,6 +48,11 @@ $(document).ready(function() {
 		<dd><input type="text" name="dkp" size="5" id="dkpvalue" value="{DKP}" data-value="{DKP}" class="input" <!-- IF NOSELECTION -->readonly="readonly"<!-- ENDIF -->/></dd>
 	</dl>
 </fieldset>
-<button class="mainoption" type="button" name="save"><i class="fa fa-shopping-cart"></i> {L_gb_shop_buy}</button>
+<button class="mainoption" type="submit" name="save"><i class="fa fa-shopping-cart"></i> {L_gb_shop_buy}</button>
 {CSRF_TOKEN}
 </form>
+<!-- ELSE -->
+<div class="infobox infobox-large infobox-{MSGCOLOR} clearfix">
+	<i class="fa {MSGICON} fa-4x pull-left"></i> {MSGTEXT}
+</div>
+<!-- ENDIF -->

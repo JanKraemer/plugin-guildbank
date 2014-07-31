@@ -34,6 +34,10 @@ class guildauction_pageobject extends pageobject {
 	public function perform_bid(){
 		$intUMemberID	= $this->in->get('memberid', 0);
 		
+		if(){
+			//$this->pdh->get('item', 'ids_by_name', array($itemname));
+		}
+		
 		// check if the meber has enough DKP
 		$bid_allowed	= true;
 		

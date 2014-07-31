@@ -218,6 +218,28 @@ if (!class_exists('pdh_r_guildbank_items')){
 				return '<a href="javascript:open_shop(\''.$id.'\');"><i class="fa fa-shopping-cart fa-lg" title="'.$this->user->lang('gb_shop_icon_title').'"></i></a>';
 			}
 		}
-  } //end class
+
+		public function get_search($search){
+			// empty search results
+			$searchResults = array();
+
+			// loop through the data array and fill search results
+			/*if ($this->data && is_array($this->data)){
+				$arrStatus = $this->user->lang('gr_status');
+
+				foreach ($this->data as $id => $data){
+					if (strpos($member, $search) !== false || strpos( $email, $search) !== false || strpos( $content, $search) !== false){
+						$searchResults[] = array(
+							'id'   => $this->time->user_date($data['tstamp'], true),
+							'name' => $data['username'].'; '.$this->user->lang('status').': '.$arrStatus[$data['status']],
+							'link' => $this->routing->build('ViewApplication', $data['username'], $id),
+						);
+					}
+				}
+			}*/
+			return $searchResults;
+		}
+
+	} //end class
 } //end if class not exists
 ?>

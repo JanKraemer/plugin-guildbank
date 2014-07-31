@@ -93,6 +93,6 @@ if (!class_exists('pdh_r_guildbank_banker')){
 			}
 			return (isset($this->data[$id]) && $this->data[$id]['bankchar'] > 0) ? $this->pdh->get('member', 'name', array($this->data[$id]['bankchar'])) : $this->user->lang('gb_no_bankchar');
 		}
-  } //end class
+	} //end class
 } //end if class not exists
 ?>

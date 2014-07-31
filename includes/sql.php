@@ -83,6 +83,15 @@ $guildbankSQL = array(
 				bid_bidvalue int(11) default NULL,
 				PRIMARY KEY (bid_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
+		6 => "CREATE TABLE IF NOT EXISTS __guildbank_shop_ta (
+				st_id mediumint(8) unsigned NOT NULL auto_increment,
+				st_itemid mediumint(8) default 0,
+				st_date int(11) default 0,
+				st_value BIGINT(20) default 0,
+				st_amount mediumint(8) default 0,
+				st_buyer mediumint(8) default 0,
+				PRIMARY KEY (st_id)
+			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 	)
 );
 

@@ -220,6 +220,6 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			$myid 	= ($this->get_item($id, true) > 0) ? $this->get_item($id, true) : $id;
 			return '<a href="javascript:'.$mode.'(\''.$myid.'\');"><i class="fa fa-pencil fa-lg" title="'.$this->user->lang('edit').'"></i></a>';
 		}
-  } //end class
+	} //end class
 } //end if class not exists
 ?>

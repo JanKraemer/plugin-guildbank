@@ -23,11 +23,11 @@ if (!defined('EQDKP_INC')){
 
 include_once(registry::get_const('root_path').'maintenance/includes/sql_update_task.class.php');
 
-if (!class_exists('update_guildbank_110')){
-	class update_guildbank_110 extends sql_update_task{
+if (!class_exists('update_guildbank_200')){
+	class update_guildbank_200 extends sql_update_task{
 
 		public $author		= 'Wallenium';
-		public $version		= '1.1.0';    // new version
+		public $version		= '2.0.0';    // new version
 		public $name		= 'Guild Bank 1.1.0 Update';
 		public $type		= 'plugin_update';
 		public $plugin_path	= 'guildbank'; // important!
@@ -41,20 +41,22 @@ if (!class_exists('update_guildbank_110')){
 			// init language
 			$this->langs = array(
 				'english' => array(
-					'update_guildbank_110' => 'Guild Banker 1.1.0 Update Package',
+					'update_guildbank_200' => 'Guild Banker 2.0.0 Update Package',
 					// SQL
 					1 => 'Add auctions table',
 					2 => 'Add auction bid table',
-					3 => 'Add auth option for guildbank admin auction management',
-					4 => 'Add auth option for guildbank auctions',
+					3 => 'Add item shop table',
+					4 => 'Add auth option for guildbank admin auction management',
+					5 => 'Add auth option for guildbank auctions',
 				),
 				'german' => array(
-					'update_guildbank_110' => 'Guild Banker 1.1.0 Update Paket',
+					'update_guildbank_200' => 'Guild Banker 2.0.0 Update Paket',
 					// SQL
 					1 => 'Füge Auktionstabelle hinzu',
 					2 => 'Füge Auktions-Bitertabelle hinzu',
-					3 => 'Fügt eine auth-Option für die Auktionsverwaltung im Adminbereich hinzu',
-					4 => 'Fügt eine auth-Option für die Auktionen hinzu',
+					3 => 'Fügt Verkaufstabelle hinzu',
+					4 => 'Fügt eine auth-Option für die Auktionsverwaltung im Adminbereich hinzu',
+					5 => 'Fügt eine auth-Option für die Auktionen hinzu',
 				),
 			);
 
@@ -81,8 +83,17 @@ if (!class_exists('update_guildbank_110')){
 						bid_bidvalue int(11) default NULL,
 						PRIMARY KEY (bid_id)
 					) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
-				3 =>  "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('a_guildbank_auctions', 'N');",
-				4 =>  "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('u_guildbank_auction', 'Y');",
+				3 => "CREATE TABLE IF NOT EXISTS __guildbank_shop_ta (
+						st_id mediumint(8) unsigned NOT NULL auto_increment,
+						st_itemid mediumint(8) default 0,
+						st_date int(11) default 0,
+						st_value BIGINT(20) default 0,
+						st_amount mediumint(8) default 0,
+						st_buyer mediumint(8) default 0,
+						PRIMARY KEY (st_id)
+					) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
+				4 => "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('a_guildbank_auctions', 'N');",
+				5 => "INSERT INTO `__auth_options` (`auth_value`, `auth_default`) VALUES ('u_guildbank_auction', 'Y');",
 			);
 		}
 
