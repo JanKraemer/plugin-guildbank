@@ -130,7 +130,7 @@ if(!class_exists('gb_money')) {
 		public function editfields($mymoney=0, $name='money_{ID}', $plusminus=false){
 			$monvalue = ($plusminus) ? new hdropdown(str_replace('{ID}', 'pm', $name), array('options' => array('+'=>'+', '-'=>'-'))) : '';
 			foreach($this->data as $monName=>$monValue){
-				$monvalue .= $this->image($monValue).' '.new htext(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 6 : $monValue['size'])));
+				$monvalue .= $this->image($monValue).' '.new htext(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size'])));
 			}
 			return $monvalue;
 		}

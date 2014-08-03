@@ -34,7 +34,7 @@
 				'name'		=> 'gold'
 			),
 			'factor'		=> 100,
-			'size'			=> 2,
+			'size'			=> 1,
 			'language'		=> $this->user->lang(array('gb_currency', 'gold')),
 			'short_lang'	=> $this->user->lang(array('gb_currency', 'gold_s')),
 		),
@@ -44,7 +44,7 @@
 				'name'		=> 'silver'
 			),
 			'factor'		=> 10,
-			'size'			=> 2,
+			'size'			=> 1,
 			'language'		=> $this->user->lang(array('gb_currency', 'silver')),
 			'short_lang'	=> $this->user->lang(array('gb_currency', 'silver_s')),
 		),
@@ -54,7 +54,7 @@
 				'name'		=> 'bronze'
 			),
 			'factor'		=> 1,
-			'size'			=> 2,
+			'size'			=> 1,
 			'language'		=> $this->user->lang(array('gb_currency', 'copper')),
 			'short_lang'	=> $this->user->lang(array('gb_currency', 'copper_s')),
 		)
