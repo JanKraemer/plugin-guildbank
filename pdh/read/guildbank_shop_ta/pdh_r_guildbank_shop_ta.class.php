@@ -85,6 +85,13 @@ if (!class_exists('pdh_r_guildbank_shop_ta')){
 			return (isset($this->data[$id]) && $this->data[$id]['itemid']) ? $this->data[$id]['itemid'] : 0;
 		}
 
+		public function get_item($id, $decorate=false){
+			if($itemid = $this->get_itemid($id) > 0){
+				return ($decorate) ? $this->pdh->get('guildbank_items', 'itt_itemname', array($this->data[$id]['itemid'], false, 0, 0, 0, 0)) : $this->pdh->get('guildbank_items', 'name', array($this->data[$id]['itemid']));
+			}
+			return 'Unknown';
+		}
+
 		public function get_value($id){
 			return (isset($this->data[$id]) && $this->data[$id]['value']) ? $this->data[$id]['value'] : 0;
 		}
@@ -93,15 +100,18 @@ if (!class_exists('pdh_r_guildbank_shop_ta')){
 			return (isset($this->data[$id]) && $this->data[$id]['amount']) ? $this->data[$id]['amount'] : 0;
 		}
 
-		public function get_buyer($id){
-			return (isset($this->data[$id]) && $this->data[$id]['buyer']) ? $this->data[$id]['buyer'] : 0;
+		public function get_buyer($id, $raw=false){
+			if($raw){
+				return (isset($this->data[$id]) && $this->data[$id]['buyer']) ? $this->data[$id]['buyer'] : 0;
+			}
+			return (isset($this->data[$id]) && $this->data[$id]['buyer']) ? $this->pdh->get('member', 'name', array($this->data[$id]['buyer'])) : 'Unknown';
 		}
 
 		public function get_date($id, $raw=false){
 			if($raw){
 				return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->data[$id]['date'] : 0;
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->time->user_date($this->data[$id]['date']) : '--';
+			return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->time->user_date($this->data[$id]['date'], true) : '--';
 		}
 	} //end class
 } //end if class not exists

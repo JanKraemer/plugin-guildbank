@@ -35,14 +35,14 @@ if (!class_exists('guildbank_admintask_hook')) {
 		public function admin_tasks(){
 			return array(
 				'gb_confirmTA'	=> array(
-					'name'			=> 'gb_confirm_shop_ta',
+					'name'			=> 'gb_confirm_shop_ta_head',
 					'icon'			=> 'fa fa-check',
 					'notify_func'	=> array($this, 'admintask_shopTA_ntfy'),
 					'content_func'	=> array($this, 'admintask_shopTA_content'),
 					'action_func'	=> array($this, 'admintask_shopTA_handle'),
 					'actions'		=> array(
-						'confirm'		=> array('icon' => 'fa fa-check', 'title' => 'uc_confirm_char', 'permissions' => array('a_guildbank_manage')),
-						'delete'		=> array('icon' => 'fa-trash-o', 'title' => 'delete_member', 'permissions' => array('a_guildbank_manage')),
+						'confirm'	=> array('icon' => 'fa fa-check', 'title' => 'gb_confirm_shop_ta_button', 'permissions' => array('a_guildbank_manage')),
+						'delete'	=> array('icon' => 'fa-times', 'title' => 'gb_decline_shop_ta_button', 'permissions' => array('a_guildbank_manage')),
 					),
 				),
 			);
@@ -55,28 +55,29 @@ if (!class_exists('guildbank_admintask_hook')) {
 			$confirm		= $this->pdh->get('guildbank_shop_ta', 'id_list');
 			if (count($confirm) > 0){
 				$nothing	= false;
-				foreach ($confirm as $member){
-					$userId			= $this->pdh->get('member', 'user', array($member));
-					/*$arrContent[]	= array(
-							'id'		=> $member,
-							'name'		=> $this->pdh->get('member', 'name_decorated', array($member)),
-							'level'		=> $this->pdh->get('member', 'level', array($member)),
-							'user'		=> ($userId) ? $this->pdh->get('user', 'name', array($userId)) : '',
-					);*/
+				foreach ($confirm as $transaction){
+					$arrContent[]	= array(
+							'id'			=> $transaction,
+							'gb_item_name'	=> $this->pdh->get('guildbank_shop_ta',	'item',		array($transaction)),
+							'gb_amount'		=> $this->pdh->get('guildbank_shop_ta',	'amount',	array($transaction)),
+							'gb_item_date'	=> $this->pdh->get('guildbank_shop_ta',	'date',		array($transaction)),
+							'gb_item_value'	=> $this->pdh->get('guildbank_shop_ta',	'value',	array($transaction)),
+							'buyer'			=> $this->pdh->get('guildbank_shop_ta',	'buyer',	array($transaction)),
+					);
 				}
 			}
 			return $arrContent;
 		}
 	
 		public function admintask_shopTA_ntfy(){
-			$deletion		= $this->pdh->get('guildbank_shop_ta', 'confirm_required');
-			if (count($deletion) > 0){
-				/*return array(array(
+			$confirm		= $this->pdh->get('guildbank_shop_ta', 'id_list');
+			if (count($confirm) > 0){
+				return array(array(
 					'type'		=> 'yellow',
-					'count'		=> count($deletion),
-					'msg'		=> sprintf($this->user->lang('notification_char_confirm_required'), count($deletion)),
-					'category'	=> $this->user->lang('manage_members'),
-				));*/
+					'count'		=> count($confirm),
+					'msg'		=> (count($confirm) > 1) ? sprintf($this->user->lang('gb_notify_shopta_confirm_req2'), count($confirm)) : $this->user->lang('gb_notify_shopta_confirm_req1'),
+					'category'	=> $this->user->lang('gb_notify_shopta_header'),
+				));
 			}
 			return array();
 		}
