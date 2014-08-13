@@ -32,7 +32,7 @@ if (!class_exists('guildbank_admintask_hook')) {
 		*
 		* @return array
 		*/
-		public function admin_tasks(){die('test');
+		public function admin_tasks(){
 			return array(
 				'gb_confirmTA'	=> array(
 					'name'			=> 'gb_confirm_shop_ta',
