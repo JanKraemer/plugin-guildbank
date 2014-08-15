@@ -77,6 +77,7 @@ if (!class_exists('guildbank_admintask_hook')) {
 					'count'		=> count($confirm),
 					'msg'		=> (count($confirm) > 1) ? sprintf($this->user->lang('gb_notify_shopta_confirm_req2'), count($confirm)) : $this->user->lang('gb_notify_shopta_confirm_req1'),
 					'category'	=> $this->user->lang('gb_notify_shopta_header'),
+					'caticon'	=> 'fa-shopping-cart',
 				));
 			}
 			return array();
