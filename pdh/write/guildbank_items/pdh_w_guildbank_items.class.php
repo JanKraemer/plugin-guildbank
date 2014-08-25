@@ -1,28 +1,26 @@
 <?php
-/*
- * Project:     EQdkp GuildBank
- * License:     Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
- * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
+ /*
+ * Project:		EQdkp-Plus Guildbank Plugin
+ * License:		Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
+ * Link:		http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
- * Began:       2005
- * Date:        $Date$
+ * Began:		2014
+ * Date:		$Date$
  * -----------------------------------------------------------------------
- * @author      $Author$
- * @copyright   2005-2014 Wallenium
- * @link        http://eqdkp-plus.com
- * @package     guildbank
- * @version     $Rev$
- *
+ * @author		$Author$
+ * @copyright	2006-2014 EQdkp-Plus Developer Team
+ * @link		http://eqdkp-plus.com
+ * @package		eqdkp-plus
+ * @version		$Rev$
+ * 
  * $Id$
  */
 
-if (!defined('EQDKP_INC'))
-{
-  die('Do not access this file directly.');
+if (!defined('EQDKP_INC')){
+	die('Do not access this file directly.');
 }
 
-if (!class_exists('pdh_w_guildbank_items'))
-{
+if (!class_exists('pdh_w_guildbank_items')){
 	class pdh_w_guildbank_items extends pdh_w_generic {
 
 		public function add($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'){

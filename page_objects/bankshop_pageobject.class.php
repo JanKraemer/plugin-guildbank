@@ -1,18 +1,18 @@
 <?php
-/*
- * Project:     EQdkp GuildBank
- * License:     Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
- * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
+ /*
+ * Project:		EQdkp-Plus Guildbank Plugin
+ * License:		Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
+ * Link:		http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
- * Began:       2005
- * Date:        $Date$
+ * Began:		2014
+ * Date:		$Date$
  * -----------------------------------------------------------------------
- * @author      $Author$
- * @copyright   2005-2014 Wallenium
- * @link        http://eqdkp-plus.com
- * @package     guildbank
- * @version     $Rev$
- *
+ * @author		$Author$
+ * @copyright	2006-2014 EQdkp-Plus Developer Team
+ * @link		http://eqdkp-plus.com
+ * @package		eqdkp-plus
+ * @version		$Rev$
+ * 
  * $Id$
  */
  
@@ -91,28 +91,28 @@ class bankshop_pageobject extends pageobject {
 
 	// shop display
 	public function display(){
-		 $amount	= $this->pdh->get('guildbank_items', 'amount', array($this->url_id));
-		 $dkp		= $this->pdh->get('guildbank_items', 'dkp', array($this->url_id));
-		 $dkppools	= $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
-		 #$points	= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
-		 $this->pdh->get('member', 'connection_id', array($user_id));
+		$amount		= $this->pdh->get('guildbank_items', 'amount', array($this->url_id));
+		$dkp		= $this->pdh->get('guildbank_items', 'dkp', array($this->url_id));
+		$dkppools	= $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
+		#$points	= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
+		$this->pdh->get('member', 'connection_id', array($user_id));
 
-		 $this->tpl->assign_vars(array(
-			 'NOSELECTION'		=> ($this->url_id > 0) ? true : false,
-			 'DD_ITEMS'			=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), 'value' => $this->url_id, 'id' => 'items_id')),
-			 'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($this->url_id)),
-			 'ITEM_ID'			=> $this->url_id,
-			 'DD_MYCHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
-			 'DD_AMOUNT'		=> new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
-			 'DD_MULTIDKPPOOL'	=> (count($dkppools) > 1) ? new hdropdown('dkppool', array('options' => $dkppools, 'value' => 0)) : new hhidden('dkppool', array('value' => $dkppools[0])),
-			 'DKP'				=> $dkp,
-		 ));
-		
-		 $this->core->set_vars(array(
- 			'page_title'        => sprintf($this->user->lang('admin_title_prefix'), $this->config->get('guildtag'), $this->config->get('dkp_name')).': '.$user->lang['guildbank_title'],
- 			'template_path'     => $this->pm->get_data('guildbank', 'template_path'),
- 			'template_file'     => 'bankshop.html',
- 			'display'           => true,
+		$this->tpl->assign_vars(array(
+			'NOSELECTION'		=> ($this->url_id > 0) ? true : false,
+			'DD_ITEMS'			=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), 'value' => $this->url_id, 'id' => 'items_id')),
+			'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($this->url_id)),
+			'ITEM_ID'			=> $this->url_id,
+			'DD_MYCHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
+			'DD_AMOUNT'		=> new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
+			'DD_MULTIDKPPOOL'	=> (count($dkppools) > 1) ? new hdropdown('dkppool', array('options' => $dkppools, 'value' => 0)) : new hhidden('dkppool', array('value' => $dkppools[0])),
+			'DKP'				=> $dkp,
+		));
+
+		$this->core->set_vars(array(
+ 			'page_title'		=> sprintf($this->user->lang('admin_title_prefix'), $this->config->get('guildtag'), $this->config->get('dkp_name')).': '.$user->lang['guildbank_title'],
+ 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
+ 			'template_file'		=> 'bankshop.html',
+ 			'display'			=> true,
 			'header_format'		=> ($this->in->get('simple_head')) ? 'simple' : 'full',
 		));
 	}

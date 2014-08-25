@@ -16,9 +16,8 @@
  * $Id$
  */
  
-if (!defined('EQDKP_INC'))
-{
-  header('HTTP/1.0 404 Not Found');exit;
+if (!defined('EQDKP_INC')){
+	header('HTTP/1.0 404 Not Found');exit;
 }
 
 class guildbank extends plugin_generic {

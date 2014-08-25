@@ -1,25 +1,24 @@
 <?php
-/*
- * Project:     EQdkp Shoutbox
- * License:     Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
- * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
+ /*
+ * Project:		EQdkp-Plus Guildbank Plugin
+ * License:		Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
+ * Link:		http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
- * Began:       2008
- * Date:        $Date$
+ * Began:		2014
+ * Date:		$Date$
  * -----------------------------------------------------------------------
- * @author      $Author$
- * @copyright   2008-2011 Aderyn
- * @link        http://eqdkp-plus.com
- * @package     shoutbox
- * @version     $Rev$
- *
+ * @author		$Author$
+ * @copyright	2006-2014 EQdkp-Plus Developer Team
+ * @link		http://eqdkp-plus.com
+ * @package		eqdkp-plus
+ * @version		$Rev$
+ * 
  * $Id$
  */
 
 if (!defined('EQDKP_INC')){
 	header('HTTP/1.0 404 Not Found');exit;
 }
-
 
 include_once(registry::get_const('root_path').'maintenance/includes/sql_update_task.class.php');
 

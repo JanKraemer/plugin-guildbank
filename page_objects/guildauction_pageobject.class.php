@@ -1,18 +1,18 @@
 <?php
-/*
- * Project:     EQdkp GuildBank
- * License:     Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
- * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
+ /*
+ * Project:		EQdkp-Plus Guildbank Plugin
+ * License:		Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
+ * Link:		http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
- * Began:       2005
- * Date:        $Date$
+ * Began:		2014
+ * Date:		$Date$
  * -----------------------------------------------------------------------
- * @author      $Author$
- * @copyright   2005-2014 Wallenium
- * @link        http://eqdkp-plus.com
- * @package     guildbank
- * @version     $Rev$
- *
+ * @author		$Author$
+ * @copyright	2006-2014 EQdkp-Plus Developer Team
+ * @link		http://eqdkp-plus.com
+ * @package		eqdkp-plus
+ * @version		$Rev$
+ * 
  * $Id$
  */
  
@@ -32,18 +32,17 @@ class guildauction_pageobject extends pageobject {
 	}
 
 	public function perform_bid(){
-		$intUMemberID	= $this->in->get('memberid', 0);
-		
-		if(){
-			//$this->pdh->get('item', 'ids_by_name', array($itemname));
-		}
-		
+		$intMemberID	= $this->in->get('memberid', 0);
+		$intBidValue	= $this->in->get('bidvalue', 0);
+		$intMDKPID		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
+		$intCurrDKP		= $this->pdh->get('points', 'current', array($intMemberID, $intMDKPID));
+
 		// check if the meber has enough DKP
-		$bid_allowed	= true;
-		
+		$bid_allowed	= ($intCurrDKP >= $intBidValue) ? true : false;
+
 		// perform the process
-		if($bid_allowed && $intUMemberID > 0){
-			$this->pdh->put('guildbank_auction_bids', 'add', array($this->url_id, $this->time->time, $intUMemberID, $this->in->get('bidvalue', 0)));
+		if($bid_allowed && $intMemberID > 0){
+			$this->pdh->put('guildbank_auction_bids', 'add', array($this->url_id, $this->time->time, $intMemberID, $intBidValue));
 		}
 		$this->pdh->process_hook_queue();
 		$this->display();
@@ -51,40 +50,40 @@ class guildauction_pageobject extends pageobject {
 
 	// shop display
 	public function display(){
-		 require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
+		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
-		 $bid_list		= $this->pdh->get('guildbank_auction_bids', 'id_list', array($this->url_id));
-		 $hptt_bids		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_bids'], $bid_list, $bid_list, array());
-		 $page_suffix	= '&amp;start='.$this->in->get('start', 0);
-		 $sort_suffix	= '&amp;sort='.$this->in->get('sort');
-		 $bids_count	= count($bid_list);
-		 $footer_bids	= sprintf($this->user->lang('gb_bids_footcount'), $bid_list, $this->user->data['user_ilimit']);
-		 
-		 // data
-		 $dkppool		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
-		 $actual_bid	= $this->pdh->get('guildbank_auction_bids', 'highest_value', array($this->url_id));
-		 $mainchar		= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
-		 $points		= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
-		 $bidsteps		= $this->pdh->get('guildbank_auctions', 'bidsteps', array($this->url_id));
-		 $bidspinner	= ((int)$actual_bid > 0) ? $actual_bid+$bidsteps : $this->pdh->get('guildbank_auctions', 'startvalue', array($this->url_id));
+		$bid_list		= $this->pdh->get('guildbank_auction_bids', 'id_list', array($this->url_id));
+		$hptt_bids		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_bids'], $bid_list, $bid_list, array());
+		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
+		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
+		$bids_count		= count($bid_list);
+		$footer_bids	= sprintf($this->user->lang('gb_bids_footcount'), $bid_list, $this->user->data['user_ilimit']);
 
-		 $this->pdh->get('guildbank_auctions', 'counterJS');
-		 $this->tpl->assign_vars(array(
-			 'ERROR_WARNING'	=> (!$this->url_id || !$this->user->is_signedin()) ? true : false,
-			 'DD_MYCHARS'		=> new hdropdown('memberid', array('value' => $mainchar, 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
-			 'MY_DKPPOINTS'		=> $points.' '.$this->config->get('dkp_name'),
-			 'BID_SPINNER'		=> new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points)),
-			 'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
-			 
-			 'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_bids),
-			 'PAGINATION_BIDS'	=> generate_pagination($this->routing->build('guildauction').$sort_suffix, $bids_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
-		 ));
+		// data
+		$dkppool		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
+		$actual_bid		= $this->pdh->get('guildbank_auction_bids', 'highest_value', array($this->url_id));
+		$mainchar		= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
+		$points			= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
+		$bidsteps		= $this->pdh->get('guildbank_auctions', 'bidsteps', array($this->url_id));
+		$bidspinner		= ((int)$actual_bid > 0) ? $actual_bid+$bidsteps : $this->pdh->get('guildbank_auctions', 'startvalue', array($this->url_id));
+
+		$this->pdh->get('guildbank_auctions', 'counterJS');
+		$this->tpl->assign_vars(array(
+			'ERROR_WARNING'		=> (!$this->url_id || !$this->user->is_signedin()) ? true : false,
+			'DD_MYCHARS'		=> new hdropdown('memberid', array('value' => $mainchar, 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
+			'MY_DKPPOINTS'		=> $points.' '.$this->config->get('dkp_name'),
+			'BID_SPINNER'		=> new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points)),
+			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
+
+			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_bids),
+			'PAGINATION_BIDS'	=> generate_pagination($this->routing->build('guildauction').$sort_suffix, $bids_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+		));
 		
-		 $this->core->set_vars(array(
- 			'page_title'        => $user->lang['gb_auction_window'],
- 			'template_path'     => $this->pm->get_data('guildbank', 'template_path'),
- 			'template_file'     => 'auction.html',
- 			'display'           => true,
+		$this->core->set_vars(array(
+			'page_title'		=> $user->lang['gb_auction_window'],
+			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
+			'template_file'		=> 'auction.html',
+			'display'			=> true,
 		));
 	}
 }

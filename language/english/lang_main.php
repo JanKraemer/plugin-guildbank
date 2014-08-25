@@ -1,24 +1,23 @@
 <?php
-/*
- * Project:     EQdkp GuildBank
- * License:     Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
- * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
+ /*
+ * Project:		EQdkp-Plus Guildbank Plugin
+ * License:		Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
+ * Link:		http://creativecommons.org/licenses/by-nc-sa/3.0/
  * -----------------------------------------------------------------------
- * Began:       2005
- * Date:        $Date$
+ * Began:		2014
+ * Date:		$Date$
  * -----------------------------------------------------------------------
- * @author      $Author$
- * @copyright   2005-2014 Wallenium
- * @link        http://eqdkp-plus.com
- * @package     guildbank
- * @version     $Rev$
- *
+ * @author		$Author$
+ * @copyright	2006-2014 EQdkp-Plus Developer Team
+ * @link		http://eqdkp-plus.com
+ * @package		eqdkp-plus
+ * @version		$Rev$
+ * 
  * $Id$
  */
 
-if (!defined('EQDKP_INC'))
-{
-    header('HTTP/1.0 404 Not Found');exit;
+if (!defined('EQDKP_INC')){
+	header('HTTP/1.0 404 Not Found');exit;
 }
 
 $lang = array(
@@ -105,7 +104,7 @@ $lang = array(
 	'gb_button_bid'					=> 'Bidding',
 	'gb_error_noidnotloggedin'		=> 'ATTENTION: To use the auctions you have either logged in, also use as a valid auctionID. Lets try again.',
 	'gb_auction_avail_dkp'			=> 'Available credits',
-	'gb_auction_timeleft'			=> 'Remaining time until the end of the auction',
+	'gb_auction_timeleft'			=> 'Remaining auctiontime',
 	'gb_auction_bid_info'			=> 'Place a bid',
 	'gb_bids_footcount'				=> "... %1\$d Bid(s) / %2\$d per page",
 
