@@ -29,9 +29,11 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 		);
 
 		public $presets = array(
-			'gb_biddate'		=> array('date',		array('%bid_id%'), array()),
-			'gb_bidmember'		=> array('member',		array('%bid_id%'), array()),
-			'gb_bidvalue'		=> array('bidvalue',	array('%bid_id%'), array()),
+			'gb_biddate'		=> array('date',			array('%bid_id%'), array()),
+			'gb_bidmember'		=> array('member',			array('%bid_id%'), array()),
+			'gb_bidvalue'		=> array('bidvalue',		array('%bid_id%'), array()),
+			'gb_bidhibidder'	=> array('highest_bidder',	array('%auction_id%'), array()),
+			'gb_bidhivalue'		=> array('highest_value',	array('%auction_id%'), array()),
 		);
 
 		public function reset(){
@@ -97,9 +99,19 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			return $bidvalues;
 		}
 
-		public function get_highest_bidder($auctionID){
-			$bidvalues = $this->get_bidvalues_byauction($auctionID);
-			return array_keys($bidvalues, max($bidvalues));
+		public function get_highest_bidder($auctionID, $raw=false){
+			$bidvalues	= $this->get_bidvalues_byauction($auctionID);
+			$bidders	= array_keys($bidvalues, max($bidvalues));
+			if(!$raw){
+				$bidder_html	= array();
+				if(is_array($bidders) && count($bidders) > 0){
+					foreach($bidders as $bidderID){
+						$bidder_html[]	= $this->pdh->get('member', 'name', array($bidderID));
+					}
+				}
+				return implode(', ', $bidder_html);
+			}
+			return $bidders;
 		}
 
 		public function get_highest_value($auctionID){

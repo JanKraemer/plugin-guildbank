@@ -69,6 +69,7 @@ class guildauction_pageobject extends pageobject {
 
 		$this->pdh->get('guildbank_auctions', 'counterJS');
 		$this->tpl->assign_vars(array(
+			'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
 			'ERROR_WARNING'		=> (!$this->url_id || !$this->user->is_signedin()) ? true : false,
 			'DD_MYCHARS'		=> new hdropdown('memberid', array('value' => $mainchar, 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
 			'MY_DKPPOINTS'		=> $points.' '.$this->config->get('dkp_name'),

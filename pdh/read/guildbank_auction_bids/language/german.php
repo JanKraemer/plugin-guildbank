@@ -24,12 +24,16 @@ $module_lang = array(
 	'date'				=> 'Gebotszeit',
 	'member'			=> 'Bieter',
 	'bidvalue'			=> 'Gebot',
+	'highest_bidder'	=> 'Höchstbietender',
+	'highest_value'		=> 'Höchstgebot'
 );
 
 $preset_lang = array(
 	'gb_biddate'		=> 'Datum',
 	'gb_bidmember'		=> 'Bieter',
 	'gb_bidvalue'		=> 'Gebot',
+	'gb_bidhibidder'	=> 'Höchstbietender',
+	'gb_bidhivalue'		=> 'Höchstgebot'
 );
 
 ?>

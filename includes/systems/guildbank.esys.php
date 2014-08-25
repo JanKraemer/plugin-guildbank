@@ -78,8 +78,8 @@ $systems_guildbank = array(
 				array('name' => 'gb_aname_itt',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_left_atime',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_astartvalue',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
-				array('name' => 'gb_abidsteps',		'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
-				array('name' => 'gb_anote',			'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
+				array('name' => 'gb_bidhibidder',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
+				array('name' => 'gb_bidhivalue',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 			)
 		),
 		'hptt_guildbank_bids' => array(
