@@ -92,18 +92,18 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			$auctionlist	= $this->get_bids_byauction($auctionID);
 			$bidvalues		= array();
 			foreach($auctionlist as $bid_id){
-				$bidvalues[$this->get_userid($bid_id)] = $this->get_bidvalue($bid_id);
+				$bidvalues[$this->get_memberid($bid_id)] = $this->get_bidvalue($bid_id);
 			}
 			return $bidvalues;
 		}
 
 		public function get_highest_bidder($auctionID){
-			$bidvalues = $this->get_bids_byauction($auctionID);
+			$bidvalues = $this->get_bidvalues_byauction($auctionID);
 			return array_keys($bidvalues, max($bidvalues));
 		}
 
 		public function get_highest_value($auctionID){
-			$bidvalues	= $this->get_bids_byauction($auctionID);
+			$bidvalues	= $this->get_bidvalues_byauction($auctionID);d($bidvalues);
 			$max		= (is_array($bidvalues) && count($bidvalues) > 0) ? max($bidvalues) : 0;
 			return ((int)$max > 0) ? $max : 0;
 		}
