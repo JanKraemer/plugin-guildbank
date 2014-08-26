@@ -103,7 +103,7 @@ class bankshop_pageobject extends pageobject {
 			'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($this->url_id)),
 			'ITEM_ID'			=> $this->url_id,
 			'DD_MYCHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
-			'DD_AMOUNT'		=> new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
+			'DD_AMOUNT'			=> new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
 			'DD_MULTIDKPPOOL'	=> (count($dkppools) > 1) ? new hdropdown('dkppool', array('options' => $dkppools, 'value' => 0)) : new hhidden('dkppool', array('value' => $dkppools[0])),
 			'DKP'				=> $dkp,
 		));

@@ -84,7 +84,7 @@ class guildauction_pageobject extends pageobject {
 			'ERROR_WARNING'		=> (!$this->url_id || !$this->user->is_signedin()) ? true : false,
 			'DD_MYCHARS'		=> new hdropdown('memberid', array('value' => $mainchar, 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
 			'MY_DKPPOINTS'		=> $points.' '.$this->config->get('dkp_name'),
-			'BID_SPINNER'		=> new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points)),
+			'BID_SPINNER'		=> new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points, 'onlyinteger' => true)),
 			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
 
 			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_bids),
@@ -92,7 +92,7 @@ class guildauction_pageobject extends pageobject {
 		));
 		
 		$this->core->set_vars(array(
-			'page_title'		=> $user->lang['gb_auction_window'],
+			'page_title'		=> $this->user->lang('gb_auction_window'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'template_file'		=> 'auction.html',
 			'display'			=> true,

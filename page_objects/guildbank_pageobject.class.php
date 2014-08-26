@@ -110,7 +110,7 @@ class guildbank_pageobject extends pageobject {
 			));
 		}
 
-		$this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&item='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&item='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $this->routing->build('bankshop'), 'withid' => 'id'));
 
 		$this->jquery->Tab_header('guildbank_tab', true);
 		$this->tpl->assign_vars(array(
@@ -128,7 +128,6 @@ class guildbank_pageobject extends pageobject {
 			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
 			'PAGINATION_TRANSA'	=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 
-			'START'			=> $start,
 			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $this->in->get('banker'), 'js' => 'onchange="javascript:form.submit();"')),
 			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $this->in->get('rarity'), 'js' => 'onchange="javascript:form.submit();"')),
 			'DD_TYPE'		=> new hdropdown('type', array('options' => $dd_type, 'value' => $this->in->get('type'), 'js' => 'onchange="javascript:form.submit();"')),
@@ -137,7 +136,7 @@ class guildbank_pageobject extends pageobject {
 		));
 
 		$this->core->set_vars(array(
-			'page_title'		=> $user->lang['gb_title_page'],
+			'page_title'		=> $this->user->lang('gb_title_page'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'template_file'		=> 'bank.html',
 			'display'			=> true,
