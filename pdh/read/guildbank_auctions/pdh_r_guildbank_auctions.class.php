@@ -139,7 +139,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 
 		// the time left using momentJS
 		public function get_counterJS(){
-			$this->tpl->add_js('function optimize_time_output(n){return ((n = +n+1) < 10 ? "0" : "") + n;}');
+			$this->tpl->add_js('function optimize_time_output(n){return ((n) < 10 ? "0" : "") + n;}');
 			$this->tpl->add_js("
 				$('.dyn_auctiontime').each(function(){
 					var diffTime	= $(this).data('difftime');
@@ -149,7 +149,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 
 					if(diffTime > 0){
 						setInterval(function(){
-							duration = moment.duration(duration - interval, 'milliseconds')
+							duration = moment.duration(duration - interval, 'milliseconds');
 							thisdata.text(optimize_time_output(duration.hours()) + ':' + optimize_time_output(duration.minutes()) + ':' + optimize_time_output(duration.seconds()));
 						}, interval);
 					}
