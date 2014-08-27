@@ -24,6 +24,8 @@ class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
 	public $version		= '2.0.0';
 	public $copyright 	= 'Wallenium';
+	
+	protected static $apiLevel = 20;
 
 	public function __construct(){
 		parent::__construct();
@@ -40,10 +42,6 @@ class guildbank extends plugin_generic {
 			'long_description'  => $this->user->lang('guildbank_long_desc'),
 			'homepage'          => EQDKP_PROJECT_URL,
 			'manuallink'        => false,
-			'plus_version'      => '2.0'
-		));
-
-		$this->add_dependency(array(
 			'plus_version'      => '2.0'
 		));
 
