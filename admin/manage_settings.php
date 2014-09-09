@@ -41,23 +41,51 @@ class guildbankSettings extends page_generic {
 		$this->process();
 	}
 
+	private $arrData = false;
+
 	public function save(){
+		$objForm				= register('form', array('gb_settings'));
+		$objForm->langPrefix	= 'gb_';
+		$objForm->validate		= true;
+		$objForm->add_fieldsets($this->fields());
+		$arrValues				= $objForm->return_values();
 
-		// take over new values
-		$savearray = array(
-			'merge_bankers'		=> $this->in->get('merge_bankers',	0),
-			'show_money'		=> $this->in->get('show_money',		0),
-			'show_tooltip'		=> $this->in->get('show_tooltip',	0),
-			'adjustment_event'	=> $this->in->get('adjustment_event',	0),
-			'use_autoadjust'	=> $this->in->get('use_autoadjust',	0),
+		if($objForm->error){
+			$this->arrData		= $arrValues;
+		}else{
+			// update configuration
+			$this->config->set($arrValues, '', 'guildbank');
+			// Success message
+			$messages[]			= $this->user->lang('gb_saved');
+			$this->display($messages);
+		}
+	}
+
+	private function fields(){
+		$arrFields = array(
+			'banker_display' => array(
+				'show_tooltip' => array(
+					'type'		=> 'radio',
+				),
+				'show_money' => array(
+					'type'		=> 'radio',
+				),
+				'merge_bankers' => array(
+					'type'		=> 'radio',
+				),
+			),
+			'itemshop' => array(
+				'use_autoadjust' => array(
+					'type'		=> 'radio',
+				),
+				'default_event' => array(
+					'type'		=> 'dropdown',
+					'options'	=> $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))),
+					'value'		=> $this->config->get('default_event',	'guildbank'),
+				),
+			)
 		);
-
-		// update configuration
-		$this->config->set($savearray, '', 'guildbank');
-		// Success message
-		$messages[] = $this->user->lang('gb_saved');
-
-		$this->display($messages);
+		return $arrFields;
 	}
 
 	public function display($messages=array()){
@@ -67,20 +95,21 @@ class guildbankSettings extends page_generic {
 				$this->core->message($name, $this->user->lang('guildbank'), 'green');
 		}
 
-		// stored config settings
-		$show_tooltip	= $this->config->get('show_tooltip',	'guildbank');
-		$show_money		= $this->config->get('show_money',		'guildbank');
-		$merge_banker	= $this->config->get('merge_bankers',	'guildbank');
-		$use_autoadjust	= $this->config->get('use_autoadjust',	'guildbank');
+		// get the saved data
+		$arrValues		= $this->config->get_config('guildbank');
+		if ($this->arrData !== false) $arrValues = $this->arrData;
 
-		$this->tpl->assign_vars(array(
-			'R_SHOW_TOOLTIP'	=> new hradio('show_tooltip', array('value' => (($show_tooltip) ? $show_tooltip : 0))),
-			'R_SHOW_MONEY'		=> new hradio('show_money', array('value' => (($show_money) ? $show_money : 0))),
-			'R_MERGE_BANKER'	=> new hradio('merge_bankers', array('value' => (($merge_banker) ? $merge_banker : 0))),
-			'R_AUTOADJUST'		=> new hradio('use_autoadjust', array('value' => (($use_autoadjust) ? $use_autoadjust : 0))),
-
-			'DD_EVENT'			=> new hdropdown('adjustment_event', array('options' => $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))), 'value' => $this->config->get('adjustment_event',	'guildbank'))),
-		));
+		// -- Template ------------------------------------------------------------
+		// initialize form class
+		$objForm				= register('form', array('gb_settings'));
+		$objForm->reset_fields();
+		$objForm->lang_prefix	= 'gb_';
+		$objForm->validate		= true;
+		$objForm->use_fieldsets	= true;
+		$objForm->add_fieldsets($this->fields());
+		
+		// Output the form, pass values in
+		$objForm->output($arrValues);
 
 		$this->core->set_vars(array(
 			'page_title'	=> $this->user->lang('guildbank').' '.$this->user->lang('settings'),

@@ -6,61 +6,24 @@
 	</ul>
 	<div class="clear"></div>
 </div>
-<form name="gr_settings" action="{ACTION}" method="post">
+<form name="sb_settings" action="{ACTION}" method="post">
+	<!-- BEGIN fieldsets -->
 	<fieldset class="settings">
-		<legend>{L_gb_header_global}</legend>
-		<div id="sb_settings_general">
-			<dl>
-				<dt>
-					<label>{L_gb_merge_banker}</label><br/>
-					<span>{L_gb_merge_banker_help}</span>
-				</dt>
-				<dd>
-					<label>{R_MERGE_BANKER}</label>
-				</dd>
-			</dl>
-			<dl>
-				<dt>
-					<label>{L_gb_show_money}</label><br/>
-					<span>{L_gb_show_money_help}</span>
-				</dt>
-				<dd>
-					<label>{R_SHOW_MONEY}</label>
-				</dd>
-			</dl>
-			<dl>
-				<dt>
-					<label>{L_gb_show_tooltip}</label><br/>
-					<span>{L_gb_show_tooltip_help}</span>
-				</dt>
-				<dd>
-					<label>{R_SHOW_TOOLTIP}</label>
-				</dd>
-			</dl>
-			<dl>
-				<dt>
-					<label>{L_gb_enable_autoadjustment}</label><br/>
-					<span>{L_gb_enable_autoadjustment_help}</span>
-				</dt>
-				<dd>
-					<label>{R_AUTOADJUST}</label>
-				</dd>
-			</dl>
-			<dl>
-				<dt>
-					<label>{L_gb_default_event}</label><br/>
-					<span>{L_gb_default_event_help}</span>
-				</dt>
-				<dd>
-					<label>{DD_EVENT}</label>
-				</dd>
-			</dl>
-		</div>
-		<br/>
-		<div class="contentFooter">
-			<button class="mainoption" type="submit" name="sb_save" ><i class="fa fa-check"></i>{L_save}</button>
-			<button class="liteoption" type="reset" name="sb_reset"><i class="fa fa-trash-o"></i>{L_reset}</button>
-		</div> 
+		<legend>{fieldsets.NAME}</legend>
+
+		<!-- BEGIN fields -->
+		<dl>
+			<dt><label>{fieldsets.fields.NAME}</label><br /><span>{fieldsets.fields.HELP}</span></dt>
+			<dd>{fieldsets.fields.FIELD}{fieldsets.fields.TEXT}</dd>
+		</dl>
+		<!-- END fields -->
 	</fieldset>
-	{CSRF_TOKEN}
+	<!-- END fieldsets -->
+	
+{CSRF_TOKEN}
+
+<div class="contentFooter">
+	<button class="mainoption" type="submit" name="save" ><i class="fa fa-check"></i>{L_save}</button>
+	<button class="liteoption" type="reset" name="reset"><i class="fa fa-trash-o"></i>{L_reset}</button>
+</div>
 </form>

@@ -243,7 +243,7 @@ class Manage_BankDetails extends page_generic {
 			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $this->user->lang('gb_a_rarity'), 'value' => (($itemID > 0) ? $rarity : ''))),
 			'DD_TYPE'		=> new hdropdown('type', array('options' => $this->user->lang('gb_a_type'), 'value' => $type)),
 			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
-			'V_NAME'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : '',
+			'ITEM'			=> new htext('name', array('value' => (($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : ''), 'size' => '40', 'autocomplete' => $this->pdh->aget('item', 'name', 0, array($this->pdh->get('item', 'id_list'))))),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
 			'AUCTIONTIME'	=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'auctiontime', array($edit_bankid)) : 48,
