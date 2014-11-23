@@ -135,7 +135,7 @@ class Manage_Auction extends page_generic {
 			'STARTDATE'			=> new hdatepicker('startdate', array('timepicker' => true, 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID)) : $this->time->time))),
 			'DURATION'			=> new hspinner('duration', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'duration', array($auctionID)) : 6), 'step'=> 1, 'min' => 0, 'max' => 100, 'onlyinteger' => true)),
 			'STARTVALUE'		=> new hspinner('startvalue', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startvalue', array($auctionID)) : 50), 'step'=> 10, 'min' => 0, 'onlyinteger' => true)),
-			'BIDSTEPS'			=> new hspinner('bidsteps', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'bidsteps', array($auctionID)) : 10), 'step'=> 10, 'min' => 10, 'onlyinteger' => true)),
+			'BIDSTEPS'			=> new hspinner('bidsteps', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'bidsteps', array($auctionID)) : 10), 'step'=> 1, 'min' => 1, 'onlyinteger' => true)),
 			'RAIDATTENDANCE'	=> new hspinner('raidattendance', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'raidattendance', array($auctionID)) : 0), 'step'=> 1, 'min' => 0, 'onlyinteger' => true)),
 			'MULTIDKPPOOL'		=> new hdropdown('multidkppool', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'multidkppool', array($auctionID)) : 1), 'options' => $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list'))))),
 		));

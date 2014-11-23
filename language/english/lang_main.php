@@ -72,6 +72,7 @@ $lang = array(
 	'gb_notify_shopta_header'			=> 'Share purchases item',
 	'gb_notify_shopta_confirm_req1'		=> 'A purchase is waiting for release',
 	'gb_notify_shopta_confirm_req2'		=> "%s purchases are waiting for release",
+	'gb_no_item_id_missing'				=> "The item-ID is missing. Please try again",
 
 	// manage_auction
 	'gb_manage_auctions'				=> 'Manage auctions',
@@ -150,6 +151,7 @@ $lang = array(
 	'gb_ta_head_transaction'			=> 'Manage transaction',
 	'gb_ta_head_payout'					=> 'Payout item',
 	'gb_ta_head_item'					=> 'Manage item',
+	'gb_banker_added'					=> 'Banker added',
 
 	// settings
 	'gb_header_global'					=> "Guild bank settings",

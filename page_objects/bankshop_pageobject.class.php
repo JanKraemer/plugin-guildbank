@@ -46,6 +46,10 @@ class bankshop_pageobject extends pageobject {
 	}
 
 	public function save(){
+		if(!$this->url_id || (int)$this->url_id < 1){
+			message_die($this->user->lang('gb_no_item_id_missing'));
+		}
+
 		$old_amount		= $this->pdh->get('guildbank_items', 'amount', array($this->url_id));
 		$amount_temp	= $this->pdh->get('guildbank_shop_ta', 'amount', array($this->url_id));
 		$old_amount		= ($amount_temp > 0) ? $old_amount-$amount_temp : $old_amount;
@@ -91,6 +95,10 @@ class bankshop_pageobject extends pageobject {
 
 	// shop display
 	public function display(){
+		if(!$this->url_id || (int)$this->url_id < 1){
+			message_die($this->user->lang('gb_no_item_id_missing'));
+		}
+
 		$amount		= $this->pdh->get('guildbank_items', 'amount', array($this->url_id));
 		$dkp		= $this->pdh->get('guildbank_items', 'dkp', array($this->url_id));
 		$dkppools	= $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));

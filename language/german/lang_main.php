@@ -72,6 +72,7 @@ $lang = array(
 	'gb_notify_shopta_header'		=> 'Gegenstandseinkäufe freigeben',
 	'gb_notify_shopta_confirm_req1'	=> 'Ein Einkauf wartet auf Freigabe',
 	'gb_notify_shopta_confirm_req2'	=> "%s Einkäufe warten auf Freigabe",
+	'gb_no_item_id_missing'			=> "Die item-ID fehlt. Bitte versuche es erneut oder benachrichtige den Administrator.",
 
 	// manage_auction
 	'gb_manage_auctions'			=> 'Auktionen verwalten',
@@ -150,6 +151,7 @@ $lang = array(
 	'gb_ta_head_transaction'		=> 'Transaktion verwalten',
 	'gb_ta_head_payout'				=> 'Gegenstand ausbezahlen',
 	'gb_ta_head_item'				=> 'Gegenstand verwalten',
+	'gb_banker_added'				=> 'Banker added',
 
 	// settings
 	'gb_header_global'				=> "Gildenbank Einstellungen",
