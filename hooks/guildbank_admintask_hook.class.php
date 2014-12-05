@@ -73,11 +73,12 @@ if (!class_exists('guildbank_admintask_hook')) {
 			$confirm		= $this->pdh->get('guildbank_shop_ta', 'id_list');
 			if (count($confirm) > 0){
 				return array(array(
-					'type'		=> 'yellow',
-					'count'		=> count($confirm),
+					'type'		=> 'gb_notify_shopta',
+					//'count'		=> count($confirm),
+					'count'		=> 1,
 					'msg'		=> (count($confirm) > 1) ? sprintf($this->user->lang('gb_notify_shopta_confirm_req2'), count($confirm)) : $this->user->lang('gb_notify_shopta_confirm_req1'),
-					'category'	=> $this->user->lang('gb_notify_shopta_header'),
-					'caticon'	=> 'fa-shopping-cart',
+					'icon'		=> 'fa-shopping-cart',
+					'prio'		=> 1,
 				));
 			}
 			return array();
