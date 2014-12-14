@@ -1,19 +1,22 @@
 <?php
-/*
- * Project:     EQdkp GuildBank
- * License:     Creative Commons - Attribution-Noncommercial-Share Alike 3.0 Unported
- * Link:        http://creativecommons.org/licenses/by-nc-sa/3.0/
- * -----------------------------------------------------------------------
- * Began:       2005
- * Date:        $Date$
- * -----------------------------------------------------------------------
- * @author      $Author$
- * @copyright   2005-2014 Wallenium
- * @link        http://eqdkp-plus.com
- * @package     guildbank
- * @version     $Rev$
+/*	Project:	EQdkp-Plus
+ *	Package:	Siggenerator Plugin
+ *	Link:		http://eqdkp-plus.eu
  *
- * $Id$
+ *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
+ *
+ *	This program is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU Affero General Public License as published
+ *	by the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	This program is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU Affero General Public License for more details.
+ *
+ *	You should have received a copy of the GNU Affero General Public License
+ *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
 if (!defined('EQDKP_INC')){
@@ -31,18 +34,18 @@ class guildbank extends plugin_generic {
 		parent::__construct();
 
 		$this->add_data(array (
-			'name'              => 'GuildBank',
-			'code'              => 'guildbank',
-			'path'              => 'guildbank',
-			'template_path'     => 'plugins/guildbank/templates/',
-			'icon'              => 'fa-university',
-			'version'           => $this->version,
-			'author'            => $this->copyright,
-			'description'       => $this->user->lang('guildbank_short_desc'),
-			'long_description'  => $this->user->lang('guildbank_long_desc'),
-			'homepage'          => EQDKP_PROJECT_URL,
-			'manuallink'        => false,
-			'plus_version'      => '2.0'
+			'name'				=> 'GuildBank',
+			'code'				=> 'guildbank',
+			'path'				=> 'guildbank',
+			'template_path'		=> 'plugins/guildbank/templates/',
+			'icon'				=> 'fa-university',
+			'version'			=> $this->version,
+			'author'			=> $this->copyright,
+			'description'		=> $this->user->lang('guildbank_short_desc'),
+			'long_description'	=> $this->user->lang('guildbank_long_desc'),
+			'homepage'			=> EQDKP_PROJECT_URL,
+			'manuallink'		=> false,
+			'plus_version'		=> '2.0'
 		));
 
 		// -- Register our permissions ------------------------
