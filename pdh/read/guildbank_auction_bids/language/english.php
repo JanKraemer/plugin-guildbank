@@ -1,6 +1,6 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	Guildbanker Plugin
+ *	Package:	EQdkp-Plus Language File
  *	Link:		http://eqdkp-plus.eu
  *
  *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
@@ -18,25 +18,30 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-if (!defined('EQDKP_INC')){
-	header('HTTP/1.0 404 Not Found'); exit;
+ 
+if (!defined('EQDKP_INC')) {
+	die('You cannot access this file directly.');
 }
 
-$module_lang = array(
-	'date'				=> 'Date',
-	'member'			=> 'Bidder',
-	'bidvalue'			=> 'Bidding',
-	'highest_bidder'	=> 'Highest bidder',
-	'highest_value'		=> 'highest bidding'
-);
+//Language: English	
+//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//File: plugins/guildbank/pdh/read/guildbank_auction_bids/language/english.php
+//Source-Language: german
 
-$preset_lang = array(
-	'gb_biddate'		=> 'Gebotsdatum',
-	'gb_bidmember'		=> 'Bidder',
-	'gb_bidvalue'		=> 'Bidding',
-	'gb_bidhibidder'	=> 'Highest bidder',
-	'gb_bidhivalue'		=> 'highest bidding'
-);
+$module_lang = array(
+	"date" => 'Date',
+	"member" => 'Bidder',
+	"bidvalue" => 'Bidding',
+	"highest_bidder" => 'Highest bidder',
+	"highest_value" => 'highest bidding',
+	);
+	$preset_lang = array(
+	"gb_biddate" => 'Gebotsdatum',
+	"gb_bidmember" => 'Bidder',
+	"gb_bidvalue" => 'Bidding',
+	"gb_bidhibidder" => 'Highest bidder',
+	"gb_bidhivalue" => 'highest bidding',
+	);
+	
 
 ?>

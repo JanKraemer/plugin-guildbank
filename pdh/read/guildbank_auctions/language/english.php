@@ -1,6 +1,6 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	Guildbanker Plugin
+ *	Package:	EQdkp-Plus Language File
  *	Link:		http://eqdkp-plus.eu
  *
  *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
@@ -18,38 +18,43 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-if (!defined('EQDKP_INC')){
-	header('HTTP/1.0 404 Not Found'); exit;
+ 
+if (!defined('EQDKP_INC')) {
+	die('You cannot access this file directly.');
 }
 
-$module_lang = array(
-	'startdate'			=> 'Start date',
-	'startvalue'		=> 'Start value',
-	'name'				=> 'Item',
-	'name_itt'			=> 'Item',
-	'duration'			=> 'Duration',
-	'bidsteps'			=> 'Bid steps',
-	'note'				=> 'Note',
-	'active'			=> '',
-	'edit'				=> '',
-	'auctionlink'		=> '',
-	'atime_left'		=> 'Time left',
-	'atime_left_html'	=> 'Time left',
-);
+//Language: English	
+//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//File: plugins/guildbank/pdh/read/guildbank_auctions/language/english.php
+//Source-Language: german
 
-$preset_lang = array(
-	'gb_astartdate'		=> 'Date',
-	'gb_astartvalue'	=> 'Start value',
-	'gb_aname'			=> 'Item',
-	'gb_aname_itt'		=> 'Item',
-	'gb_aduration'		=> 'Duration',
-	'gb_abidsteps'		=> 'Bid steps',
-	'gb_anote'			=> 'Note',
-	'gb_aactive'		=> 'Active',
-	'gb_aedit'			=> 'Edit',
-	'gb_aalink'			=> 'Auction button',
-	'atime_left'		=> 'Verbleibende Zeit',
-);
+$module_lang = array(
+	"startdate" => 'Start date',
+	"startvalue" => 'Start value',
+	"name" => 'Item',
+	"name_itt" => 'Item',
+	"duration" => 'Duration',
+	"bidsteps" => 'Bid steps',
+	"note" => 'Note',
+	"active" => '',
+	"edit" => '',
+	"auctionlink" => '',
+	"atime_left" => 'Time left',
+	"atime_left_html" => 'Time left',
+	);
+	$preset_lang = array(
+	"gb_astartdate" => 'Date',
+	"gb_astartvalue" => 'Start value',
+	"gb_aname" => 'Item',
+	"gb_aname_itt" => 'Item',
+	"gb_aduration" => 'Duration',
+	"gb_abidsteps" => 'Bid steps',
+	"gb_anote" => 'Note',
+	"gb_aactive" => 'Active',
+	"gb_aedit" => 'Edit',
+	"gb_aalink" => 'Auction button',
+	"atime_left" => 'Verbleibende Zeit',
+	);
+	
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	Guildbanker Plugin
+ *	Package:	EQdkp-Plus Language File
  *	Link:		http://eqdkp-plus.eu
  *
  *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
@@ -18,40 +18,45 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-if (!defined('EQDKP_INC')){
-	header('HTTP/1.0 404 Not Found'); exit;
+ 
+if (!defined('EQDKP_INC')) {
+	die('You cannot access this file directly.');
 }
 
-$module_lang = array(
-	'html_date'			=> 'Date',
-	'name'				=> 'Item',
-	'name_itt'			=> 'Item',
-	'amount'			=> 'Amount',
-	'type'				=> 'Type',
-	'gb_icost'			=> 'Cost',
-	'edit'				=> '',
-	'value'				=> 'Value',
-	'value_a'			=> 'Value',
-	'rarity'			=> 'Rarity',
-	'banker_name'		=> 'Banker',
-	'dkp'				=> 'DKP',
-	'shoplink'			=> '',
-);
+//Language: English	
+//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//File: plugins/guildbank/pdh/read/guildbank_items/language/english.php
+//Source-Language: german
 
-$preset_lang = array(
-	'gb_idate'			=> 'Date',
-	'gb_iname'			=> 'Item',
-	'gb_iname_itt'		=> 'Item',
-	'gb_iamount'		=> 'Amount',
-	'gb_itype'			=> 'Type',
-	'gb_iedit'			=> 'Edit',
-	'gb_ivalue'			=> 'Value',
-	'gb_ivalue_a'		=> 'Value (Admin area)',
-	'gb_irarity'		=> 'Rarity',
-	'gb_ibanker'		=> 'Banker',
-	'gb_idkp'			=> 'DKP',
-	'gb_ishop'			=> 'Itemshop Link',
-);
+$module_lang = array(
+	"html_date" => 'Date',
+	"name" => 'Item',
+	"name_itt" => 'Item',
+	"amount" => 'Amount',
+	"type" => 'Type',
+	"gb_icost" => 'Cost',
+	"edit" => '',
+	"value" => 'Value',
+	"gb_ivalue_a" => 'Value',
+	"rarity" => 'Rarity',
+	"banker_name" => 'Banker',
+	"dkp" => 'DKP',
+	"shoplink" => '',
+	);
+	$preset_lang = array(
+	"gb_idate" => 'Date',
+	"gb_iname" => 'Item',
+	"gb_iname_itt" => 'Item',
+	"gb_iamount" => 'Amount',
+	"gb_itype" => 'Type',
+	"gb_iedit" => 'Edit',
+	"gb_ivalue" => 'Value',
+	"gb_ivalue_a" => 'Value (Admin area)',
+	"gb_irarity" => 'Rarity',
+	"gb_ibanker" => 'Banker',
+	"gb_idkp" => 'DKP',
+	"gb_ishop" => 'Itemshop Link',
+	);
+	
 
 ?>

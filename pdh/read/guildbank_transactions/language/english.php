@@ -1,6 +1,6 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	Guildbanker Plugin
+ *	Package:	EQdkp-Plus Language File
  *	Link:		http://eqdkp-plus.eu
  *
  *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
@@ -18,32 +18,37 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-if (!defined('EQDKP_INC')){
-	header('HTTP/1.0 404 Not Found'); exit;
+ 
+if (!defined('EQDKP_INC')) {
+	die('You cannot access this file directly.');
 }
 
-$module_lang = array(
-	'date'				=> 'Date',
-	'item'				=> 'Item',
-	'item_itt'			=> 'Item',
-	'char'				=> 'Buyer',
-	'subject'			=> 'Purpose',
-	'banker'			=> 'Banker',
-	'value'				=> 'Value',
-	'dkp'				=> 'DKP',
-	'edit'				=> '',
-);
+//Language: English	
+//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//File: plugins/guildbank/pdh/read/guildbank_transactions/language/english.php
+//Source-Language: german
 
-$preset_lang = array(
-	'gb_tdate'			=> 'Date',
-	'gb_titem'			=> 'Item',
-	'gb_titem_itt'		=> 'Item',
-	'gb_tbuyer'			=> 'Buyer',
-	'gb_tsubject'		=> 'Purpose',
-	'gb_tbanker'		=> 'Banker',
-	'gb_tvalue'			=> 'Value',
-	'gb_tdkp'			=> 'DKP',
-);
+$module_lang = array(
+	"date" => 'Date',
+	"item" => 'Item',
+	"item_itt" => 'Item',
+	"char" => 'Buyer',
+	"subject" => 'Purpose',
+	"banker" => 'Banker',
+	"value" => 'Value',
+	"dkp" => 'DKP',
+	"edit" => '',
+	);
+	$preset_lang = array(
+	"gb_tdate" => 'Date',
+	"gb_titem" => 'Item',
+	"gb_titem_itt" => 'Item',
+	"gb_tbuyer" => 'Buyer',
+	"gb_tsubject" => 'Purpose',
+	"gb_tbanker" => 'Banker',
+	"gb_tvalue" => 'Value',
+	"gb_tdkp" => 'DKP',
+	);
+	
 
 ?>
