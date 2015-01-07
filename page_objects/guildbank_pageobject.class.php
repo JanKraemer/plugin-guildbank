@@ -113,7 +113,7 @@ class guildbank_pageobject extends pageobject {
 			));
 		}
 
-		$this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&item='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $this->routing->build('bankshop'), 'withid' => 'id'));
+		$this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&item='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $this->routing->build('guildbank'), 'withid' => 'id'));
 
 		$this->jquery->Tab_header('guildbank_tab', true);
 		$this->tpl->assign_vars(array(
