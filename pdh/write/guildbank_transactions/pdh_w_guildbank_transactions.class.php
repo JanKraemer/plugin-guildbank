@@ -59,14 +59,14 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 			if($intShopID > 0){
 				// read the data
 				$trans_data		= $this->pdh->get('guildbank_shop_ta', 'data', array($intShopID));
-				
+				$intBanker		= $this->pdh->get('guildbank_items', 'banker', array($trans_data['itemid']));
+				$item_amount	= $this->pdh->get('guildbank_items', 'amount', array($trans_data['itemid']));
+
 				// add a transaction
-				$intBanker	= $this->pdh->get('guildbank_items', 'banker', array($trans_data['itemid']));
 				$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], $trans_data['value'], 0, $this->user->lang('gb_shop_buy_subject'));
 				
 				// reduce the amount
-				$amount	= $this->pdh->get('guildbank_items', 'amount', array($this->url_id));
-				$this->pdh->put('guildbank_items', 'amount', array($intShopID, $amount-$trans_data['amount']));
+				$this->pdh->put('guildbank_items', 'amount', array($trans_data['itemid'], $item_amount-$trans_data['amount']));
 				
 				// add auto correction
 				if($this->config->get('use_autoadjust',	'guildbank') > 0 && $this->config->get('adjustment_event',	'guildbank') > 0){
@@ -75,8 +75,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				}
 				
 				// now, delete the transaction on hold
-				$this->db->prepare("DELETE FROM __guildbank_shop_ta WHERE st_id=?")->execute($intShopID);
-				$this->pdh->enqueue_hook('guildbank_items_update');
+				$this->delete_itemta($intShopID);
 			}
 			return false;
 		}
