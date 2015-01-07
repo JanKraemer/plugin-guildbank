@@ -2,12 +2,12 @@
 <!-- IF NOSELECTION -->
 <script type='text/javascript'>
 $(document).ready(function() {
-	$('#item').change(function(){
+	$('#amount').change(function(){
 		var amount			= $(this).val();
 		var dkpvalue		= $('#dkpvalue').data('value');
 		var new_value		= dkpvalue*amount;
 		$('#dkpvalue').val(new_value);
-	});
+	}).trigger('change');
 });
 </script>
 <!-- ENDIF -->
@@ -45,7 +45,7 @@ $(document).ready(function() {
 	</dl>
 	<dl class="item">
 		<dt><label>{L_gb_dkp}:</label></dt>
-		<dd><input type="text" name="dkp" size="5" id="dkpvalue" value="{DKP}" data-value="{DKP}" class="input" <!-- IF NOSELECTION -->readonly="readonly"<!-- ENDIF -->/></dd>
+		<dd><input type="text" name="costs" size="5" id="dkpvalue" value="{DKP}" data-value="{DKP}" class="input" <!-- IF NOSELECTION -->readonly="readonly"<!-- ENDIF -->/></dd>
 	</dl>
 </fieldset>
 <button class="mainoption" type="submit" name="save"><i class="fa fa-shopping-cart"></i> {L_gb_shop_buy}</button>
