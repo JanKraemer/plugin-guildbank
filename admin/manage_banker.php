@@ -88,7 +88,7 @@ class Manage_Banker extends page_generic {
 		}
 
 		// bankchar
-		$bankchars	=  array_merge(array(0 => '---'),$this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))));
+		$bankchars	= array(0 => '---') + $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list')));
 		$new_id		= 0;
 		$order		= $this->in->get('order','0.0');
 		$arrBanker	= $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list')));
