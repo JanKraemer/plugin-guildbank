@@ -67,7 +67,7 @@ class Manage_Auction extends page_generic {
 	}
 
 	public function delete() {
-		$tmp_ids	= $this->in->getArray('selections');
+		$tmp_ids	= $this->in->getArray('auction_ids');
 		$retu		= $names = array();
 		if(count($tmp_ids) > 0) {
 			foreach($tmp_ids as $s_id) {
