@@ -152,8 +152,8 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 
 					if(diffTime > 0){
 						setInterval(function(){
-							duration = moment.duration(duration - interval, 'milliseconds');
-							thisdata.text(optimize_time_output(duration.hours()) + ':' + optimize_time_output(duration.minutes()) + ':' + optimize_time_output(duration.seconds()));
+							duration	= moment.duration(duration - interval, 'milliseconds');
+							thisdata.text(optimize_time_output(Math.floor(duration.asHours())) + ':' + optimize_time_output(duration.minutes()) + ':' + optimize_time_output(duration.seconds()));
 						}, interval);
 					}
 				});
