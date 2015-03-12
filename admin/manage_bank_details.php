@@ -232,8 +232,8 @@ class Manage_BankDetails extends page_generic {
 			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($transactionID, true));
 		}
 
-		$rarity			= $this->pdh->get('guildbank_items', 'rarity', array($itemID));
-		$type			= $this->pdh->get('guildbank_items', 'type', array($itemID));
+		$rarity			= $this->pdh->get('guildbank_items', 'rarity', array($itemID, true));
+		$type			= $this->pdh->get('guildbank_items', 'type', array($itemID, true));
 		$this->tpl->assign_vars(array(
 			'S_EDIT'		=> $edit_mode,
 			'EDITMODE'		=> ($edit_mode) ? '1' : '0',
@@ -248,7 +248,7 @@ class Manage_BankDetails extends page_generic {
 			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
 			'ITEM'			=> new htext('name', array('value' => (($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : ''), 'size' => '40', 'autocomplete' => $this->pdh->aget('item', 'name', 0, array($this->pdh->get('item', 'id_list'))))),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
-			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($itemID)) : 0,
 			'AUCTIONTIME'	=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'auctiontime', array($edit_bankid)) : 48,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
 			'MS_MEMBERS'	=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
