@@ -44,6 +44,12 @@ if(!class_exists('gb_money')) {
 				.coin-large{
 					font-size:14px;
 				}
+				.faicon{
+					font-size:15px;
+				}
+				.faicon-large{
+					font-size:20px;
+				}
 				.coin-platin{
 					color:#EDEDEF;
 				}
@@ -67,6 +73,14 @@ if(!class_exists('gb_money')) {
 				}
 				.coin-bronze .coin-inner{
 					color:#e8c4a0;
+				}
+				img.moneysvg {
+					width: 20px;
+					height: 20px;
+				}
+				img.moneysvg-large {
+					width: 28px;
+					height: 28px;
 				}"
 			);
 		}
@@ -120,11 +134,14 @@ if(!class_exists('gb_money')) {
 			$imgsize	= ($size) ? ' width="'.$size.'"' : '';
 			switch($monValue['icon']['type']){
 				case 'svg':
-					$output	= "noch einbauen";
+					$output			= '<img src="'.$monValue['icon']['name'].'" class="'.(($large) ? 'moneysvg-large' : 'moneysvg').'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'" />';
+				break;
+				case 'icon':
+					$output			= '<span title="'.$monValue['language'].'"><i class="fa fa-'.$monValue['icon']['name'].' '.(($large) ? 'faicon-large' : 'faicon').'"></i></span>';
 				break;
 				default:
-					$large_tag	= ($large) ? ' coin-large' : '';
-					$output	= '<span class="fa-stack fa-fw coin coin-'.$monValue['icon']['name'].$large_tag.'" title="'.$monValue['language'].'"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-star fa-stack-1x fa-inverse coin-inner"></i></span>';
+					$large_tag		= ($large) ? ' coin-large' : '';
+					$output			= '<span class="fa-stack fa-fw coin coin-'.$monValue['icon']['name'].$large_tag.'" title="'.$monValue['language'].'"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-star fa-stack-1x fa-inverse coin-inner"></i></span>';
 				break;
 			}
 			return $output;

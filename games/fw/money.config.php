@@ -23,8 +23,8 @@
 	$money_data = array(
 		'diamond'		=> array(
 			'icon'			=> array(
-				'type'		=> 'svg',
-				'name'		=> 'fw/images/diamond.svg'
+				'type'		=> 'icon',
+				'name'		=> 'diamond',
 			),
 			'factor'		=> 1000000,
 			'size'			=> 'unlimited',
