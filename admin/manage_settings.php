@@ -37,7 +37,7 @@ class guildbankSettings extends page_generic {
 			message_die($this->user->lang('guildbank_not_installed'));
 
 		$handler = array(
-			'sb_save' => array('process' => 'save', 'csrf' => true, 'check' => 'a_guildbank_settings'),
+			'save' => array('process' => 'save', 'csrf' => true, 'check' => 'a_guildbank_settings'),
 		);
 		parent::__construct('a_guildbank_settings', $handler);
 
