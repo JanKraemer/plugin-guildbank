@@ -32,6 +32,7 @@ if(!class_exists('gb_money')) {
 			$f_moneydata		= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
 			$f_include			= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
 			include($f_include);
+			$this->gamename		= (is_file($f_moneydata)) ? $this->game->get_game() : 'default';
 			$this->data			= $money_data;
 			$this->load_css();
 		}
@@ -97,7 +98,6 @@ if(!class_exists('gb_money')) {
 		public function output($input, $variables){
 			if($input){
 				$outp = floor($input/$variables['factor']);
-				//echo 'test: '.$input.'/'.$variables['factor'].'='.$outp.'<br/>';
 				return ($variables['size'] == 'unlimited') ? $outp : substr($outp, ((isset($variables['size']) && is_int($variables['size']) && $variables['size'] > 0) ? -$variables['size'] : -2));
 			}
 			return '0';
@@ -133,8 +133,8 @@ if(!class_exists('gb_money')) {
 		public function image($monValue, $large=false, $size=false){
 			$imgsize	= ($size) ? ' width="'.$size.'"' : '';
 			switch($monValue['icon']['type']){
-				case 'svg':
-					$output			= '<img src="'.$monValue['icon']['name'].'" class="'.(($large) ? 'moneysvg-large' : 'moneysvg').'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'" />';
+				case 'image':
+					$output			= '<img src="'.$this->server_path.'plugins/guildbank/games/'.$this->gamename.'/images/'.$monValue['icon']['name'].'" class="'.(($large) ? 'moneysvg-large' : 'moneysvg').'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'" />';
 				break;
 				case 'icon':
 					$output			= '<span title="'.$monValue['language'].'"><i class="fa fa-'.$monValue['icon']['name'].' '.(($large) ? 'faicon-large' : 'faicon').'"></i></span>';

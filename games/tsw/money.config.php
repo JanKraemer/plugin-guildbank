@@ -23,8 +23,8 @@
 	$money_data = array(
 		'PAX'		=> array(
 			'icon'			=> array(
-				'type'		=> 'svg',
-				'name'=> $this->root_path.'plugins/guildbank/games/tsw/pax.png',
+				'type'		=> 'image',
+				'name'		=> 'pax.png',
 			),
 			'factor'		=> 1,
 			'size'			=> 'unlimited',
