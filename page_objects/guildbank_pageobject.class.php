@@ -51,9 +51,14 @@ class guildbank_pageobject extends pageobject {
 
 		foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
 			$bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
+			
+			// the tooltip
+			$myTooltip	 = $this->user->lang('gb_bankchar_name').": ".addslashes($this->pdh->get('guildbank_banker', 'bankchar', array($banker_id)))."<br/>";
+			$myTooltip	.= "".$this->user->lang('note').": ".addslashes($this->pdh->get('guildbank_banker', 'note', array($banker_id, true)));
+			
 			$this->tpl->assign_block_vars('banker_row', array(
 				'NAME'			=> $this->pdh->get('guildbank_banker', 'name', array($banker_id)),
-				//'TOOLTIP'		=> $khrml->HTMLTooltip($myTooltip, 'gb_charinfo', '' , $char['gb_char_name']),
+				'TOOLTIP'		=> $myTooltip,
 				'BANKCHAR'		=> ($bankchar != "") ? "(".addslashes($bankchar).")" : '',
 				'UPDATE'		=> $this->pdh->get('guildbank_banker', 'refresh_date', array($banker_id)),
 			));
@@ -117,9 +122,8 @@ class guildbank_pageobject extends pageobject {
 
 		$this->jquery->Tab_header('guildbank_tab', true);
 		$this->tpl->assign_vars(array(
-			'SHOW_BANKERS'		=> ($this->config->get('show_bankers',		'guildbank') == 1) ? true : false,
+			'MERGE_BANKERS'		=> ($this->config->get('merge_bankers',		'guildbank') == 1) ? true : false,
 			'SHOW_MONEY'		=> ($this->config->get('show_money',		'guildbank') == 1) ? true : false,
-			'SHOW_TOOLTIP'		=> ($this->config->get('show_tooltip',		'guildbank') == 1 ) ? true : false,
 			'SHOW_AUCTIONS'		=> $this->user->check_auth('u_guildbank_auction', false),
 			'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
 

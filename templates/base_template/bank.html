@@ -18,7 +18,7 @@
 					<!-- ENDIF -->
 					<th align="left" width="100%" nowrap="nowrap">{L_gb_update}</th> 
 				</tr>
-				<!-- IF SHOW_BANKERS -->
+				<!-- IF MERGE_BANKERS -->
 				<tr>
 					<td align="left" nowrap="nowrap">{L_gb_all_bankers}</td>
 					<!-- IF SHOW_MONEY -->
@@ -32,7 +32,7 @@
 				<!-- BEGIN banker_row -->
 				<tr>
 					<td align="right" nowrap="nowrap" >
-						<!-- IF SHOW_TOOLTIP --><a {banker_row.TOOLTIP}><!-- ENDIF -->{banker_row.NAME} {banker_row.BANKCHAR}<!-- IF SHOW_TOOLTIP --></a><!-- ENDIF -->
+						<span class="coretip" data-coretip="{banker_row.TOOLTIP}">{banker_row.NAME} {banker_row.BANKCHAR}</span>
 					</td>
 					<!-- IF SHOW_MONEY -->
 						<!-- BEGIN cmoney_row -->

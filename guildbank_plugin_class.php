@@ -111,7 +111,6 @@ class guildbank extends plugin_generic {
 		return array(
 			'merge_bankers'		=> 0,
 			'show_money'		=> 1,
-			'show_tooltip'		=> 0,
 			'adjustment_event'	=> 0,
 			'use_autoadjust'	=> 0,
 		);

@@ -67,9 +67,6 @@ class guildbankSettings extends page_generic {
 	private function fields(){
 		$arrFields = array(
 			'banker_display' => array(
-				'show_tooltip' => array(
-					'type'		=> 'radio',
-				),
 				'show_money' => array(
 					'type'		=> 'radio',
 				),
