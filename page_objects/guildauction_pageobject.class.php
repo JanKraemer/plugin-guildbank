@@ -38,7 +38,7 @@ class guildauction_pageobject extends pageobject {
 		$intMemberID	= $this->in->get('memberid', 0);
 		$intBidValue	= $this->in->get('bidvalue', 0);
 		$intMDKPID		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
-		$intCurrDKP		= $this->pdh->get('points', 'current', array($intMemberID, $intMDKPID));
+		$intCurrDKP		= $this->pdh->get('points', 'current', array($intMemberID, $intMDKPID, 0, 0, false));
 		$intAttendance	= $this->pdh->get('guildbank_auctions', 'raidattendance', array($this->url_id));
 
 		// check if the meber has enough DKP
@@ -77,7 +77,7 @@ class guildauction_pageobject extends pageobject {
 		$dkppool		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
 		$actual_bid		= $this->pdh->get('guildbank_auction_bids', 'highest_value', array($this->url_id));
 		$mainchar		= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
-		$points			= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
+		$points			= $this->pdh->get('points', 'current', array($mainchar, $dkppool, 0, 0, false));
 		$bidsteps		= $this->pdh->get('guildbank_auctions', 'bidsteps', array($this->url_id));
 		$bidspinner		= ((int)$actual_bid > 0) ? $actual_bid+$bidsteps : $this->pdh->get('guildbank_auctions', 'startvalue', array($this->url_id));
 

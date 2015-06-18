@@ -59,7 +59,7 @@ class bankshop_pageobject extends pageobject {
 		$amount_buy		= $this->in->get('amount', 1);
 		$item_cost		= $this->in->get('costs', 0);
 		$buyer			= $this->in->get('char', 1);
-		$charDKP		= $this->pdh->get('points', 'current', array($buyer, $this->in->get('dkppool', 1)));
+		$charDKP		= $this->pdh->get('points', 'current', array($buyer, $this->in->get('dkppool', 1), 0, 0, false));
 		$error			= false;
 		
 		if($old_amount > 0){
