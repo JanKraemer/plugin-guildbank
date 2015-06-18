@@ -69,9 +69,9 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				$this->pdh->put('guildbank_items', 'amount', array($trans_data['itemid'], $item_amount-$trans_data['amount']));
 				
 				// add auto correction
-				if($this->config->get('use_autoadjust',	'guildbank') > 0 && $this->config->get('adjustment_event',	'guildbank') > 0){
+				if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event', 'guildbank') > 0){
 					//add_adjustment($adjustment_value, $adjustment_reason, $member_ids, $event_id, $raid_id=NULL, $time=false, $group_key = null)
-					$this->pdh->put('adjustment', 'add_adjustment', array(-$trans_data['value'], $this->user->lang('gb_adjustment_text'), $trans_data['buyer'], $this->config->get('adjustment_event',	'guildbank')));
+					$this->pdh->put('adjustment', 'add_adjustment', array(-$trans_data['value'], $this->user->lang('gb_adjustment_text'), $trans_data['buyer'], $this->config->get('default_event', 'guildbank')));
 				}
 				
 				// now, delete the transaction on hold

@@ -99,9 +99,9 @@ class Manage_BankDetails extends page_generic {
 			$this->pdh->put('guildbank_items', 'amount', array($item, $amount_new));
 
 			// add a auto correction here...
-			if($this->config->get('use_autoadjust',	'guildbank') > 0 && $this->config->get('adjustment_event',	'guildbank') > 0){
+			if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event', 'guildbank') > 0){
 				//add_adjustment($adjustment_value, $adjustment_reason, $member_ids, $event_id, $raid_id=NULL, $time=false, $group_key = null)
-				$this->pdh->put('adjustment', 'add_adjustment', array($dkp, $this->user->lang('gb_adjustment_text'), $buyer, $this->config->get('adjustment_event',	'guildbank')));
+				$this->pdh->put('adjustment', 'add_adjustment', array($dkp, $this->user->lang('gb_adjustment_text'), $buyer, $this->config->get('default_event', 'guildbank')));
 			}
 			$this->pdh->process_hook_queue();
 
