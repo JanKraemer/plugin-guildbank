@@ -118,7 +118,7 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 		}
 
 		public function get_highest_value($auctionID){
-			$bidvalues	= $this->get_bidvalues_byauction($auctionID);d($bidvalues);
+			$bidvalues	= $this->get_bidvalues_byauction($auctionID);
 			$max		= (is_array($bidvalues) && count($bidvalues) > 0) ? max($bidvalues) : 0;
 			return ((int)$max > 0) ? $max : 0;
 		}
