@@ -81,8 +81,8 @@ class guildbank_pageobject extends pageobject {
 			));
 		}
 
-		$dd_type		= array_merge(array(0 => '--'), $this->user->lang('gb_a_type'));
-		$dd_rarity		= array_merge(array(0 => '--'), $this->user->lang('gb_a_rarity'));
+		$dd_type		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemtype'));
+		$dd_rarity		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemrarity'));
 		$dd_banker		= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
 
 		$guildbank_ids	= $guildbank_out = array();

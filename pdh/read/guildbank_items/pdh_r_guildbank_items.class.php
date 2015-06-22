@@ -134,7 +134,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 			if($raw){
 				return (isset($this->data[$id]) && $this->data[$id]['rarity'] > 0) ? $this->data[$id]['rarity'] : 0;
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['rarity'] > 0) ? $this->user->lang(array('gb_a_rarity', $this->data[$id]['rarity'])) : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['rarity'] > 0) ? $this->get_itemrarity($this->data[$id]['rarity']) : 0;
 		}
 
 		public function get_name($id){
@@ -164,7 +164,25 @@ if (!class_exists('pdh_r_guildbank_items')){
 			if($raw){
 				return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->data[$id]['type'] : 'none';
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->user->lang(array('gb_a_type', $this->data[$id]['type'])) : 'none';
+			return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->pdh->get('guildbank_items', 'itemtype', array($this->data[$id]['type'])) : 'none';
+		}
+
+		public function get_itemtype($id=0){
+			$gamefile_itemtype	= $this->game->callFunc('guildbank_itemtype', array());
+			if($gamefile_itemtype && is_array($gamefile_itemtype) && count($gamefile_itemtype) > 0){
+				return ($id > 0) ? $gamefile_itemtype[$id] : $gamefile_itemtype;
+			}else{
+				return ($id > 0) ? $this->user->lang(array('gb_a_type', $id)) : $this->user->lang('gb_a_type');
+			}
+		}
+
+		public function get_itemrarity($id=0){
+			$gamefile_itemrarity	= $this->game->callFunc('guildbank_itemrarity', array());
+			if($gamefile_itemrarity && is_array($gamefile_itemrarity) && count($gamefile_itemrarity) > 0){
+				return ($id > 0) ? $gamefile_itemrarity[$id] : $gamefile_itemrarity;
+			}else{
+				return ($id > 0) ? $this->user->lang(array('gb_a_rarity', $id)) : $this->user->lang('gb_a_rarity');
+			}
 		}
 
 		public function get_edit($id){
