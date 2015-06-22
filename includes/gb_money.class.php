@@ -35,7 +35,7 @@ if(!class_exists('gb_money')) {
 				$this->imagefolder	= 'games/'.$this->game->get_game().'/guildbank/';
 			}else{
 				$f_moneydata			= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
-				f_include				= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
+				$f_include				= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
 				include($f_include);
 				$this->data				= $money_data;
 				$this->imagefolder	= 'plugins/guildbank/games/'.((is_file($f_moneydata)) ? $this->game->get_game() : 'default').'/images/';
