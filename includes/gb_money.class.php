@@ -29,11 +29,18 @@ if(!class_exists('gb_money')) {
 	class gb_money extends gen_class {
 
 		public function __construct(){
-			$f_moneydata		= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
-			$f_include			= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
-			include($f_include);
-			$this->gamename		= (is_file($f_moneydata)) ? $this->game->get_game() : 'default';
-			$this->data			= $money_data;
+			$gamefile_moneydata	= $this->game->callFunc('guildbank_money', array());
+			if($gamefile_moneydata){
+				$this->data				= $gamefile_moneydata;
+				$this->imagefolder	= 'games/'.$this->game->get_game().'/guildbank/';
+			}else{
+				$f_moneydata			= $this->root_path.'plugins/guildbank/games/'.$this->game->get_game().'/money.config.php';
+				f_include				= (is_file($f_moneydata)) ? $f_moneydata : $this->root_path.'plugins/guildbank/games/default/money.config.php';
+				include($f_include);
+				$this->data				= $money_data;
+				$this->imagefolder	= 'plugins/guildbank/games/'.((is_file($f_moneydata)) ? $this->game->get_game() : 'default').'/images/';
+			}
+			
 			$this->load_css();
 		}
 		
@@ -134,7 +141,7 @@ if(!class_exists('gb_money')) {
 			$imgsize	= ($size) ? ' width="'.$size.'"' : '';
 			switch($monValue['icon']['type']){
 				case 'image':
-					$output			= '<img src="'.$this->server_path.'plugins/guildbank/games/'.$this->gamename.'/images/'.$monValue['icon']['name'].'" class="'.(($large) ? 'moneysvg-large' : 'moneysvg').'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'" />';
+					$output			= '<img src="'.$this->server_path.$this->imagefolder.$monValue['icon']['name'].'" class="'.(($large) ? 'moneysvg-large' : 'moneysvg').'" alt="'.$monValue['language'].'" title="'.$monValue['language'].'" />';
 				break;
 				case 'icon':
 					$output			= '<span title="'.$monValue['language'].'"><i class="fa fa-'.$monValue['icon']['name'].' '.(($large) ? 'faicon-large' : 'faicon').'"></i></span>';
