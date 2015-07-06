@@ -66,6 +66,7 @@ $lang = array(
 	'gb_shop'						=> 'Shop',
 	'gb_shop_error_nodkp'			=> 'Die vorhandenen DKP reichen nicht zum Kauf dieses Gegenstandes',
 	'gb_shop_error_noitem'			=> 'Es ist kein Gegenstand zum Kauf mehr vorhanden',
+	"gb_shop_error_noselection"		=> 'Es wurde versucht, null Gegenstände einzukaufen. Diese Auswahl ist nicht zulässig.',
 	'gb_shop_buy_subject'			=> 'Gegenstand eingekauft',
 	'gb_shop_buy_successmsg'		=> 'Der Gegenstand wurde zum einkaufen vorgemerkt. Die Transaktion wird nach der Bestätigung durch einen Admin vorgenommen und deinem Konto gutgeschrieben.',
 	'gb_confirm_shop_ta_head'		=> 'Gildenbank Gegenstandseinkäufe',

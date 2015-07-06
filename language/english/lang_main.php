@@ -61,6 +61,7 @@ $lang = array(
 	"gb_default_note" => 'No note available',
 	"gb_shop_error_nodkp" => 'There are not enough DKP to buy this item.',
 	"gb_shop_error_noitem" => 'There is no item available to purchase.',
+	"gb_shop_error_noselection" => 'You have not selected any amount of items to buy.',
 	"gb_shop_buy_subject" => 'Item received',
 	"gb_shop_buy_successmsg" => 'The item was flagged for shopping. The transaction will be made ​​after the confirmation by an admin and credited to your account',
 	"gb_confirm_shop_ta_head" => 'Guild bank item purchases',

@@ -62,22 +62,27 @@ class bankshop_pageobject extends pageobject {
 		$charDKP		= $this->pdh->get('points', 'current', array($buyer, $this->in->get('dkppool', 1), 0, 0, false));
 		$error			= false;
 		
-		if($old_amount > 0){
-			// check if the meber has enough DKP
-			if($charDKP >= ($amount_buy*$item_cost)){
-				// perform the process
-				$this->pdh->put('guildbank_transactions', 'buy_item', array($this->url_id, $buyer, $item_cost, $amount_buy));
+		if($amount_buy > 0){
+			if($old_amount > 0){
+				// check if the meber has enough DKP
+				if($charDKP >= ($amount_buy*$item_cost)){
+					// perform the process
+					$this->pdh->put('guildbank_transactions', 'buy_item', array($this->url_id, $buyer, $item_cost, $amount_buy));
 
-				// process the hook queue
-				$this->pdh->process_hook_queue();
+					// process the hook queue
+					$this->pdh->process_hook_queue();
+				}else{
+					// Error message if not enough DKP
+					$error	= $this->user->lang('gb_shop_error_nodkp');
+				}
 			}else{
-				// Error message if not enough DKP
-				$error	= $this->user->lang('gb_shop_error_nodkp');
+				// Error message if amount is too low
+				$error	= $this->user->lang('gb_shop_error_noitem');
 			}
 		}else{
-			// Error message if amount is too low
-			$error	= $this->user->lang('gb_shop_error_noitem');
+			$error	= $this->user->lang('gb_shop_error_noselection');
 		}
+		
 		if($error){
 			$this->tpl->assign_vars(array(
 				'SHOWMESSAGE'	=> true,
