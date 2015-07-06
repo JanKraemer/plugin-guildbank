@@ -97,7 +97,9 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 						$this->summ[(int)(int)$row['ta_banker']] += (int)$row['ta_value'];
 					}
 					$this->startvalues[(int)$row['ta_startvalue']] = $row['ta_value'];
-					if((int)$row['ta_item'] > 0){
+					
+					// item costs in money
+					if((int)$row['ta_item'] > 0 && $row['ta_subject'] == 'gb_item_added'){
 						$this->itemcost[(int)$row['ta_item']] = $row['ta_value'];
 					}
 				}
