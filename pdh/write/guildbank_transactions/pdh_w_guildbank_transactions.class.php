@@ -62,9 +62,14 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				$trans_data		= $this->pdh->get('guildbank_shop_ta', 'data', array($intShopID));
 				$intBanker		= $this->pdh->get('guildbank_items', 'banker', array($trans_data['itemid']));
 				$item_amount	= $this->pdh->get('guildbank_items', 'amount', array($trans_data['itemid']));
+				$currency		= (isset($trans_data['currency']) && (int)$trans_data['currency'] > 1) ? $trans_data['currency'] : 1;
 
 				// add a transaction
-				$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], $trans_data['value'], 0, $this->user->lang('gb_shop_buy_subject'));
+				if($currency == 2){
+					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], 0, $trans_data['value'], $this->user->lang('gb_shop_buy_subject'));
+				}else{
+					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], $trans_data['value'], 0, $this->user->lang('gb_shop_buy_subject'));
+				}
 				
 				// reduce the amount
 				$this->pdh->put('guildbank_items', 'amount', array($trans_data['itemid'], $item_amount-$trans_data['amount']));
