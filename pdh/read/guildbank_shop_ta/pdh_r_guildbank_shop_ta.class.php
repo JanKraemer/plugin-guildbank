@@ -62,6 +62,7 @@ if (!class_exists('pdh_r_guildbank_shop_ta')){
 						'value'			=> (int)$row['st_value'],
 						'amount'		=> (int)$row['st_amount'],
 						'buyer'			=> (int)$row['st_buyer'],
+						'currency'		=> (int)$row['st_currency'],
 					);
 				}
 				#$this->db->free_result($result);
@@ -100,6 +101,10 @@ if (!class_exists('pdh_r_guildbank_shop_ta')){
 
 		public function get_amount($id){
 			return (isset($this->data[$id]) && $this->data[$id]['amount']) ? $this->data[$id]['amount'] : 0;
+		}
+
+		public function get_currency($id, $raw=false){
+			return (isset($this->data[$id]) && $this->data[$id]['currency']) ? $this->data[$id]['currency'] : 0;
 		}
 
 		public function get_buyer($id, $raw=false){

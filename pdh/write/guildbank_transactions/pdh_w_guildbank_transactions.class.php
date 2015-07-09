@@ -43,7 +43,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 			return false;
 		}
 
-		public function buy_item($intItem, $intChar, $intDKP, $intAmount=1){
+		public function buy_item($intItem, $intChar, $intDKP, $intAmount=1, $currency=1){
 			#$intBanker	= $this->pdh->get('guildbank_items', 'banker', array($intItem));
 			$resQuery = $this->db->prepare("INSERT INTO __guildbank_shop_ta :p")->set(array(
 				'st_itemid'		=> $intItem,
@@ -51,6 +51,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				'st_value'		=> $intDKP,
 				'st_amount'		=> $intAmount,
 				'st_buyer'		=> $intChar,
+				'st_currency'	=> $currency
 			))->execute();
 			$this->pdh->enqueue_hook('guildbank_items_update');
 		}

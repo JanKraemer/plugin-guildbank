@@ -154,10 +154,13 @@ if(!class_exists('gb_money')) {
 			return $output;
 		}
 
-		public function editfields($mymoney=0, $name='money_{ID}', $plusminus=false){
+		public function editfields($mymoney=0, $name='money_{ID}', $plusminus=false, $readonly=false){
 			$monvalue = ($plusminus) ? new hdropdown(str_replace('{ID}', 'pm', $name), array('options' => array('+'=>'+', '-'=>'-'))) : '';
 			foreach($this->data as $monName=>$monValue){
-				$monvalue .= $this->image($monValue).' '.new htext(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size'])));
+				$monvalue .= $this->image($monValue).' '.new htext(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size']), 'attrdata' => array('value' => $this->output($mymoney, $monValue)), 'readonly'=>$readonly, 'class'=>'money'));
+				if($readonly){
+					$monvalue .= new hhidden(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size']), 'attrdata' => array('value' => $this->output($mymoney, $monValue)), 'class'=>'money'));
+				}
 			}
 			return $monvalue;
 		}

@@ -30,7 +30,7 @@ if (!class_exists('update_guildbank_200')){
 
 		public $author		= 'Wallenium';
 		public $version		= '2.0.0';    // new version
-		public $name		= 'Guild Bank 1.1.0 Update';
+		public $name		= 'Guild Bank 2.0.0 Update';
 		public $type		= 'plugin_update';
 		public $plugin_path	= 'guildbank'; // important!
 

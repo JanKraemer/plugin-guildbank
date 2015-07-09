@@ -52,18 +52,29 @@ if (!class_exists('guildbank_admintask_hook')) {
 		
 		public function admintask_shopTA_content(){
 			$arrContent		= array();
+			require_once($this->root_path.'plugins/guildbank/includes/gb_money.class.php');
+			$this->money	= new gb_money();
 		
 			//Confirm item transactions
 			$confirm		= $this->pdh->get('guildbank_shop_ta', 'id_list');
 			if (count($confirm) > 0){
 				$nothing	= false;
 				foreach ($confirm as $transaction){
+					$currency	= $this->pdh->get('guildbank_shop_ta',	'currency',	array($transaction));
+					$value		= $this->pdh->get('guildbank_shop_ta',	'value',	array($transaction));
+					$value_out	= $value;
+					if($currency == 2){
+						$value_out = '';
+						foreach($this->money->get_data() as $monName=>$monValue){
+							$value_out .= $this->money->image($monValue).' '.$this->money->output($value, $monValue).'  ';
+						}
+					}
 					$arrContent[]	= array(
 							'id'			=> $transaction,
 							'gb_item_name'	=> $this->pdh->get('guildbank_shop_ta',	'item',		array($transaction)),
 							'gb_amount'		=> $this->pdh->get('guildbank_shop_ta',	'amount',	array($transaction)),
 							'gb_item_date'	=> $this->pdh->get('guildbank_shop_ta',	'date',		array($transaction)),
-							'gb_item_value'	=> $this->pdh->get('guildbank_shop_ta',	'value',	array($transaction)),
+							'gb_item_value'	=> $value_out,
 							'buyer'			=> $this->pdh->get('guildbank_shop_ta',	'buyer',	array($transaction)),
 					);
 				}

@@ -57,24 +57,34 @@ class bankshop_pageobject extends pageobject {
 		$amount_temp	= $this->pdh->get('guildbank_shop_ta', 'amount', array($this->url_id));
 		$old_amount		= ($amount_temp > 0) ? $old_amount-$amount_temp : $old_amount;
 		$amount_buy		= $this->in->get('amount', 1);
-		$item_cost		= $this->in->get('costs', 0);
 		$buyer			= $this->in->get('char', 1);
+		$currency		= $this->in->get('currency', 'dkp');
 		$charDKP		= $this->pdh->get('points', 'current', array($buyer, $this->in->get('dkppool', 1), 0, 0, false));
 		$error			= false;
 		
 		if($amount_buy > 0){
 			if($old_amount > 0){
-				// check if the meber has enough DKP
-				if($charDKP >= ($amount_buy*$item_cost)){
-					// perform the process
-					$this->pdh->put('guildbank_transactions', 'buy_item', array($this->url_id, $buyer, $item_cost, $amount_buy));
+				if($currency == 'cash'){
+					$item_cost = $this->money->input();
+					$this->pdh->put('guildbank_transactions', 'buy_item', array($this->url_id, $buyer, $item_cost, $amount_buy, 2));
 
 					// process the hook queue
 					$this->pdh->process_hook_queue();
 				}else{
-					// Error message if not enough DKP
-					$error	= $this->user->lang('gb_shop_error_nodkp');
+					$item_cost		= $this->in->get('costs', 0);
+					// check if the meber has enough DKP
+					if($charDKP >= ($amount_buy*$item_cost)){
+						// perform the process
+						$this->pdh->put('guildbank_transactions', 'buy_item', array($this->url_id, $buyer, $item_cost, $amount_buy));
+
+						// process the hook queue
+						$this->pdh->process_hook_queue();
+					}else{
+						// Error message if not enough DKP
+						$error	= $this->user->lang('gb_shop_error_nodkp');
+					}
 				}
+				
 			}else{
 				// Error message if amount is too low
 				$error	= $this->user->lang('gb_shop_error_noitem');
@@ -109,12 +119,25 @@ class bankshop_pageobject extends pageobject {
 
 		$amount		= $this->pdh->get('guildbank_items', 'amount', array($this->url_id));
 		$dkp		= $this->pdh->get('guildbank_items', 'dkp', array($this->url_id));
+		$money		= $this->pdh->get('guildbank_transactions', 'itemvalue', array($this->url_id));
 		$dkppools	= $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
 		#$points	= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
 		$this->pdh->get('member', 'connection_id', array($user_id));
-
+		
+		// the money stuff
+		if($money > 0){
+			foreach($this->money->get_data() as $monName=>$monValue){
+				$this->tpl->assign_block_vars('money_row', array(
+					'NAME'		=> $monName,
+					'VALUE'		=> $this->money->output($money, $monValue),
+					'IMAGE'		=> $this->money->image($monValue)
+				));
+			}
+		}
+		
 		$this->tpl->assign_vars(array(
 			'NOSELECTION'		=> ($this->url_id > 0) ? true : false,
+			'BUYFORMONEY'		=> ($dkp == 0 && $money > 0) ? true : false,
 			'DD_ITEMS'			=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), 'value' => $this->url_id, 'id' => 'items_id')),
 			'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($this->url_id)),
 			'ITEM_ID'			=> $this->url_id,
@@ -122,6 +145,7 @@ class bankshop_pageobject extends pageobject {
 			'DD_AMOUNT'			=> new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
 			'DD_MULTIDKPPOOL'	=> (count($dkppools) > 1) ? new hdropdown('dkppool', array('options' => $dkppools, 'value' => 0)) : new hhidden('dkppool', array('value' => $dkppools[0])),
 			'DKP'				=> $dkp,
+			'MONEY'				=> $this->money->editfields($money, 'money_{ID}', false, true),
 		));
 
 		$this->core->set_vars(array(

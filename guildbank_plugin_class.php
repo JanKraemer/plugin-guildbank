@@ -24,7 +24,7 @@ if (!defined('EQDKP_INC')){
 }
 
 class guildbank extends plugin_generic {
-	public $vstatus		= 'Stable';
+	public $vstatus		= 'Beta';
 	public $version		= '2.2.0';
 	public $copyright 	= 'Wallenium';
 	
@@ -45,7 +45,7 @@ class guildbank extends plugin_generic {
 			'long_description'	=> $this->user->lang('guildbank_long_desc'),
 			'homepage'			=> EQDKP_PROJECT_URL,
 			'manuallink'		=> false,
-			'plus_version'		=> '2.0'
+			'plus_version'		=> '2.1'
 		));
 
 		// -- Register our permissions ------------------------
