@@ -63,7 +63,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				$intBanker		= $this->pdh->get('guildbank_items', 'banker', array($trans_data['itemid']));
 				$item_amount	= $this->pdh->get('guildbank_items', 'amount', array($trans_data['itemid']));
 				$currency		= (isset($trans_data['currency']) && (int)$trans_data['currency'] > 1) ? $trans_data['currency'] : 1;
-
+				
 				// add a transaction
 				if($currency == 2){
 					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], 0, $trans_data['value'], $this->user->lang('gb_shop_buy_subject'));
@@ -75,7 +75,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				$this->pdh->put('guildbank_items', 'amount', array($trans_data['itemid'], $item_amount-$trans_data['amount']));
 				
 				// add auto correction
-				if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event', 'guildbank') > 0){
+				if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event', 'guildbank') > 0 && $currency == 1){
 					//add_adjustment($adjustment_value, $adjustment_reason, $member_ids, $event_id, $raid_id=NULL, $time=false, $group_key = null)
 					$this->pdh->put('adjustment', 'add_adjustment', array(-$trans_data['value'], $this->user->lang('gb_adjustment_text'), $trans_data['buyer'], $this->config->get('default_event', 'guildbank')));
 				}

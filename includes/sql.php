@@ -92,6 +92,7 @@ $guildbankSQL = array(
 				st_value BIGINT(20) default 0,
 				st_amount mediumint(8) default 0,
 				st_buyer mediumint(8) default 0,
+				st_currency INT(2) NULL DEFAULT '1',
 				PRIMARY KEY (st_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 	)
