@@ -44,10 +44,20 @@ class guildbank_pageobject extends pageobject {
 	
 	public function display(){
 		$bankerID		= $this->in->get('banker', 0);
+		$rarityID		= $this->in->get('rarity', '');
+		$typeID			= $this->in->get('type', 0);
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
- 		//init infotooltip
- 		infotooltip_js();
+		//init infotooltip
+		infotooltip_js();
+
+		//caching parameter
+		$caching_parameter	= 'nofilter';
+		$filter_suffix		= '';
+		if($bankerID > 0 || $typeID > 0 || $rarityID != ''){
+			$caching_parameter	= 'banker'.$bankerID.'_type'.$typeID.'_rarity'.$rarityID;
+			$filter_suffix		= '&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID;
+		}
 
 		foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
 			$bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
@@ -87,16 +97,17 @@ class guildbank_pageobject extends pageobject {
 
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
-		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
-		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID, 0, $typeID, $rarityID));
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
+		$page_suffix	.= $filter_suffix;
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$item_count		= count($items_list);
 		$footer_item	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
 
 		// -- display entries TRANSACTIONS -----------------------------------------
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
-		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
 		//$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		//$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$ta_count		= count($ta_list);
@@ -106,9 +117,10 @@ class guildbank_pageobject extends pageobject {
 		if($this->user->check_auth('u_guildbank_auction', false)){
 			$this->pdh->get('guildbank_auctions', 'counterJS');		// init the auction clock
 			$auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array());
-			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
+			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
 			$page_suffix_a		= '&amp;astart='.$this->in->get('astart', 0);
 			$sort_suffix_a		= '&amp;asort='.$this->in->get('asort');
+			$page_suffix_a		.= $filter_suffix;
 			$auction_count		= count($auction_list);
 			$footer_auction		= sprintf($this->user->lang('listitems_footcount'), $auction_list, $this->user->data['user_ilimit']);
 			
@@ -135,9 +147,9 @@ class guildbank_pageobject extends pageobject {
 			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
 			'PAGINATION_TRANSA'	=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 
-			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $this->in->get('banker'), 'js' => 'onchange="javascript:form.submit();"')),
-			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $this->in->get('rarity'), 'js' => 'onchange="javascript:form.submit();"')),
-			'DD_TYPE'		=> new hdropdown('type', array('options' => $dd_type, 'value' => $this->in->get('type'), 'js' => 'onchange="javascript:form.submit();"')),
+			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')),
+			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')),
+			'DD_TYPE'		=> new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')),
 
 			'CREDITS'		=> sprintf($this->user->lang('gb_credits'), $this->pm->get_data('guildbank', 'version')),
 		));

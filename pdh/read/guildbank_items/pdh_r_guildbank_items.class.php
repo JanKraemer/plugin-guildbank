@@ -88,7 +88,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
 				}
-				#$this->db->free_result($result);
 			}
 
 			// add data to cache
@@ -98,7 +97,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_id_list($bankerID = 0, $priority = 0, $type = 0, $rarity = 0, $sellable = 0){
-			$data	= ($bankerID > 0) ? $this->banker_items[$bankerID] : $this->data;
+			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $this->data;
 			if (is_array($data)){
 				// filter the output
 				if($priority > 0 || $type > 0 || $rarity > 0 || $sellable > 0){
