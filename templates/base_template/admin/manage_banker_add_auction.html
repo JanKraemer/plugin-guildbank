@@ -1,6 +1,5 @@
 <form method="post" action="{ACTION}" name="addWC">
 <input type="hidden" name="auction" value="{AUCTIONID}">
-<input type="hidden" name="editmode" value="{EDITMODE}">
 
 <fieldset class="settings mediumsettings">
 	<legend id="header_name">
@@ -9,7 +8,7 @@
 	
 	<dl>
 		<dt><label>{L_gb_auction_item}:</label><br /><span>{L_gb_auction_item_help}</span></dt>
-		<dd>{ITEM}</dd>
+		<dd><!-- IF S_EDIT -->{ITEM_DD}<!-- ELSE -->{ITEM_MS}<!-- ENDIF --></dd>
 	</dl>
 	<dl>
 		<dt><label>{L_gb_auction_startdate}:</label></dt>

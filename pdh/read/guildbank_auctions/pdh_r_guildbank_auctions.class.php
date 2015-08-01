@@ -190,8 +190,13 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			}
 		}
 
+		public function get_itemid($id){
+			return (isset($this->data[$id]) && $this->data[$id]['item']) ? $this->data[$id]['item'] : 0;
+		}
+
 		public function get_name($id){
-			return (isset($this->data[$id]) && $this->data[$id]['item']) ? $this->pdh->get('guildbank_items', 'name', array($this->data[$id]['item'])) : 0;
+			$itemid	= $this->get_itemid($id);
+			return ($itemid > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemid)) : 0;
 		}
 
 		public function get_itt_itemname($id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {

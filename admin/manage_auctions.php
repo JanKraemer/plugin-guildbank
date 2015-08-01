@@ -39,17 +39,16 @@ class Manage_Auction extends page_generic {
 
 	public function save() {
 		$retu		= array();
-		$edit		= $this->in->get('editmode', 0);
-		$func		= ($edit > 0) ? 'update' : 'add';
-		$itemids	= $this->in->getArray('item', 0);
-		$retu		= array();
+		$auctionID	= $this->in->get('auction', 0);
+		$func		= ($auctionID > 0) ? 'update' : 'add';
+		$itemids	= ($auctionID > 0) ? array($this->in->get('itemedit', 0)) : $this->in->getArray('item', 0);
 
 		// save it to the database
-		if($itemids > 0){
+		if(is_array($itemids) && count($itemids) > 0){
 			foreach($itemids as $itemid){
 				$retu[]		= $this->pdh->put('guildbank_auctions', $func, array(
 					//$intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $strNote='', $boolActive=1
-					$this->in->get('transaction', 0), $itemid, $this->time->fromformat($this->in->get('startdate'), 1), $this->in->get('duration', 0),
+					$auctionID, $itemid, $this->time->fromformat($this->in->get('startdate'), 1), $this->in->get('duration', 0),
 					$this->in->get('bidsteps', 0), $this->in->get('startvalue', 0), $this->in->get('raidattendance', 0), $this->in->get('multidkppool', 1)
 				));
 			}
@@ -131,11 +130,11 @@ class Manage_Auction extends page_generic {
 
 		$this->tpl->assign_vars(array(
 			'S_EDIT'			=> ($auctionID > 0) ? true : false,
-			'EDITMODE'			=> ($auctionID > 0) ? '1' : '0',
 			'AUCTIONID'			=> $auctionID,
 			
-			'ITEM'				=> new hmultiselect('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => $this->config->get('calendar_raid_autocaddchars'))),
-			'STARTDATE'			=> new hdatepicker('startdate', array('timepicker' => true, 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID)) : $this->time->time))),
+			'ITEM_MS'				=> new hmultiselect('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => 0)),
+			'ITEM_DD'				=> new hdropdown('itemedit', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'itemid', array($auctionID)) : 0) )),
+			'STARTDATE'			=> new hdatepicker('startdate', array('timepicker' => true, 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID)) : (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID, true)) : $this->time->time)))),
 			'DURATION'			=> new hspinner('duration', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'duration', array($auctionID)) : 6), 'step'=> 1, 'min' => 0, 'max' => 100, 'onlyinteger' => true)),
 			'STARTVALUE'		=> new hspinner('startvalue', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startvalue', array($auctionID)) : 50), 'step'=> 10, 'min' => 0, 'onlyinteger' => true)),
 			'BIDSTEPS'			=> new hspinner('bidsteps', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'bidsteps', array($auctionID)) : 10), 'step'=> 1, 'min' => 1, 'onlyinteger' => true)),
