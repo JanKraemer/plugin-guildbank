@@ -106,6 +106,7 @@ $lang = array(
 	"gb_auction_timeleft" => 'Remaining auctiontime',
 	"gb_auction_bid_info" => 'Place a bid',
 	"gb_bids_footcount" => '... %1$d Bid(s) / %2$d per page',
+	'gb_bids_loading' => 'Loading...',
 	"gb_manage_bankers" => 'Manage guild bankers',
 	"gb_confirm_delete_bankers" => 'Should the bankers are deleted?',
 	"gb_banker_mainchar" => 'Bank-character',

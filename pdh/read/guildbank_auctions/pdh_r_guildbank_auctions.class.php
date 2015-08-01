@@ -116,7 +116,14 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		}
 
 		public function get_duration($id){
-			return (isset($this->data[$id]) && $this->data[$id]['duration']) ? $this->data[$id]['duration'] : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['duration']) ? (int)$this->data[$id]['duration'] : 0;
+		}
+
+		public function get_enddate($id){
+			$startdate	= $this->get_startdate($id, true);
+			$duration	= $this->get_duration($id);
+			$duration	= $duration*3600;
+			return ($startdate > 0 && $duration > 0) ? $startdate + $duration : 0;
 		}
 
 		public function get_atime_left($id){
@@ -137,7 +144,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		}
 
 		public function get_atime_left_html($id){
-			return '<span class="dyn_auctiontime" data-difftime="'.$this->get_atime_left($id).'">'.$this->format_time($this->get_atime_left($id)).'</span>';
+			return '<span class="dyn_auctiontime" data-endtime="'.$this->get_enddate($id).'"><i class="fa fa-refresh fa-spin"></i> '.$this->user->lang('gb_bids_loading').'</span>';
 		}
 
 		// the time left using momentJS
@@ -145,7 +152,12 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			$this->tpl->add_js('function optimize_time_output(n){return ((n) < 10 ? "0" : "") + n;}');
 			$this->tpl->add_js("
 				$('.dyn_auctiontime').each(function(){
-					var diffTime	= $(this).data('difftime');
+					var endTime		= $(this).data('endtime');
+					var currentTime	= moment().unix();
+					var diffTime	= endTime-currentTime;
+					console.log('end: ' + endTime)
+					console.log('current: ' + currentTime)
+					console.log('diff: '+diffTime);
 					var thisdata	= $(this);
 					var interval	= 1000;
 					var duration	= moment.duration(diffTime*1000, 'milliseconds');
