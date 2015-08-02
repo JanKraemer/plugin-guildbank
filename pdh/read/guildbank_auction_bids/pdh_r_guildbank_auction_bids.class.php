@@ -102,15 +102,18 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			return $bidvalues;
 		}
 
-		public function get_highest_bidder($auctionID, $raw=false){
+		public function get_highest_bidder($auctionID, $raw=false, $markwinner=false){
 			$bidvalues	= $this->get_bidvalues_byauction($auctionID);
 			$bidders	= array_keys($bidvalues, max($bidvalues));
 			if(!$raw){
-				$bidder_html	= array();
+				$bidder_html		= array();
+				$auctionended	= ($this->pdh->get('guildbank_auctions', 'atime_left', array($auctionID)) > 0) ? false : true;
 				if(is_array($bidders) && count($bidders) > 0){
 					foreach($bidders as $bidderID){
-						$bidder_html[]	= $this->pdh->get('member', 'name', array($bidderID));
+						$bidder_html[]	= (($markwinner && $auctionended) ? '<i class="fa fa-trophy"></i>' : '').$this->pdh->get('member', 'name', array($bidderID));
 					}
+				}else{
+					$bidder_html[]	= '<i class="fa fa-gavel"></i> '.$this->user->lang('gb_bids_nobids');
 				}
 				return implode(', ', $bidder_html);
 			}

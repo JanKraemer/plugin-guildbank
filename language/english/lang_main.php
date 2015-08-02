@@ -108,6 +108,7 @@ $lang = array(
 	"gb_bids_footcount" => '... %1$d Bid(s) / %2$d per page',
 	'gb_bids_loading' => 'Loading...',
 	"gb_bids_auctionended" => 'Ended',
+	"gb_bids_nobids" => 'No bids',
 	"gb_manage_bankers" => 'Manage guild bankers',
 	"gb_confirm_delete_bankers" => 'Should the bankers are deleted?',
 	"gb_banker_mainchar" => 'Bank-character',
