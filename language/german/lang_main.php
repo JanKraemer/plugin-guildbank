@@ -116,6 +116,7 @@ $lang = array(
 	'gb_auction_bid_info'			=> 'Gebot abgeben',
 	'gb_bids_footcount'				=> "... %1\$d Gebot(e) / %2\$d pro Seite",
 	'gb_bids_loading'				=> 'Lädt...',
+	'gb_bids_auctionended'			=> 'Beendet',
 
 	// manage_banker
 	'gb_manage_bankers'				=> 'Gilden-Bankiers verwalten',

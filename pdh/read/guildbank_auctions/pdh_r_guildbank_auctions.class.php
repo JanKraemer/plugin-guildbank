@@ -144,7 +144,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		}
 
 		public function get_atime_left_html($id){
-			return '<span class="dyn_auctiontime" data-endtime="'.$this->get_enddate($id).'"><i class="fa fa-refresh fa-spin"></i> '.$this->user->lang('gb_bids_loading').'</span>';
+			return ($this->get_atime_left($id) > 0) ? '<span class="dyn_auctiontime" data-endtime="'.$this->get_enddate($id).'"><i class="fa fa-refresh fa-spin"></i> '.$this->user->lang('gb_bids_loading').'</span>' : '<i class="fa fa-check-circle"></i> '.$this->user->lang('gb_bids_auctionended');
 		}
 
 		// the time left using momentJS
@@ -167,6 +167,8 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 							duration	= moment.duration(duration - interval, 'milliseconds');
 							thisdata.text(optimize_time_output(Math.floor(duration.asHours())) + ':' + optimize_time_output(duration.minutes()) + ':' + optimize_time_output(duration.seconds()));
 						}, interval);
+					}else{
+						thisdata.html('<i class=\"fa fa-check-circle\"></i> ".$this->user->lang('gb_bids_auctionended')."');
 					}
 				});
 				", 'docready');
