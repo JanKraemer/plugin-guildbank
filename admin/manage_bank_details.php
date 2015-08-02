@@ -111,8 +111,10 @@ class Manage_BankDetails extends page_generic {
 	}
 
 	public function delete() {
-		$tmp_ids = $this->in->getArray('selections');
-		if($tmp_ids){
+		$tmp_ids	= $this->in->getArray('selections');
+		$first_id	= explode("_", $tmp_ids[0]);
+		$banker_id	= (is_array($tmp_ids) && count($tmp_ids) > 0) ? $this->pdh->get('guildbank_items', 'banker', array($first_id[1])) : false;
+		if(is_array($tmp_ids) && count($tmp_ids) > 0){
 			// now, lets get the information..
 			foreach($tmp_ids as $id){
 				$tmp_id		= explode("_", $id);
@@ -139,7 +141,7 @@ class Manage_BankDetails extends page_generic {
 			$message = array('title' => '', 'text' => $this->user->lang('no_calendars_selected'), 'color' => 'grey');
 		}
 		$this->pdh->process_hook_queue();
-		$this->display($message);
+		$this->display($message, $banker_id);
 	}
 
 	public function display($messages=false, $banker = false){
