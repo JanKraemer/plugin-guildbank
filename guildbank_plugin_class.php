@@ -28,7 +28,7 @@ class guildbank extends plugin_generic {
 	public $version		= '2.2.0';
 	public $copyright 	= 'Wallenium';
 	
-	protected static $apiLevel = 20;
+	protected static $apiLevel = 23;
 
 	public function __construct(){
 		parent::__construct();
