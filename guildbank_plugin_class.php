@@ -18,17 +18,17 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 if (!defined('EQDKP_INC')){
 	header('HTTP/1.0 404 Not Found');exit;
 }
 
 class guildbank extends plugin_generic {
 	public $vstatus		= 'Stable';
-	public $version		= '2.1.5';
+	public $version		= '2.1.6';
 	public $copyright 	= 'Wallenium';
-	
-	protected static $apiLevel = 20;
+
+	protected static $apiLevel = 23;
 
 	public function __construct(){
 		parent::__construct();
@@ -71,7 +71,7 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_write_module('guildbank_transactions');
 		$this->add_pdh_write_module('guildbank_auctions');
 		$this->add_pdh_write_module('guildbank_auction_bids');
-		
+
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search',		'guildbank_search_hook',	'search');
 		$this->add_hook('admin_tasks',	'guildbank_admintask_hook',	'admin_tasks');
