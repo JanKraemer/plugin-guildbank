@@ -97,7 +97,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 						$this->summ[(int)(int)$row['ta_banker']] += (int)$row['ta_value'];
 					}
 					$this->startvalues[(int)$row['ta_startvalue']] = $row['ta_value'];
-					
+
 					// item costs in money
 					if((int)$row['ta_item'] > 0 && $row['ta_subject'] == 'gb_item_added'){
 						$this->itemcost[(int)$row['ta_item']] = $row['ta_value'];
@@ -186,7 +186,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		public function get_dkp($id){
 			return (isset($this->data[$id]) && $this->data[$id]['dkp'] > 0) ? $this->data[$id]['dkp'] : 0;
 		}
-		
+
 		public function get_deletename($id){
 			if($id > 0){
 				return $this->get_subject($id).' - '.$this->get_item($id);

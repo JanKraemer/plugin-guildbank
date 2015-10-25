@@ -32,12 +32,12 @@ if (!class_exists('pdh_w_guildbank_banker')){
 				'banker_bankchar'		=> $intBankChar,
 				'banker_note'			=> $strNote
 			))->execute();
-			
+
 			$id = $resQuery->insertId;
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
 			$this->pdh->put('guildbank_transactions', 'add', array(0, $id, $intBankChar, 0, 0, $intMoney, 'gb_banker_added', $id));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
-			
+
 			if ($resQuery) return $id;
 			return false;
 		}
@@ -53,14 +53,14 @@ if (!class_exists('pdh_w_guildbank_banker')){
 			if ($resQuery) return $intID;
 			return false;
 		}
-	
+
 		public function delete($intID){
 			$this->db->prepare("DELETE FROM __guildbank_banker WHERE banker_id=?")->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'delete_bybankerid', array($intID));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
 			return true;
 		}
-	
+
 		public function truncate(){
 			$this->db->query("TRUNCATE __guildbank_banker");
 			$this->pdh->enqueue_hook('guildbank_banker_update');

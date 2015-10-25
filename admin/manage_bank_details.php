@@ -66,7 +66,7 @@ class Manage_BankDetails extends page_generic {
 			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'
 			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char, $this->in->get('sellable', 0)));
 		}
-		
+
 		if($retu) {
 			$message = array('title' => $this->user->lang('save_nosuc'), 'text' => implode(', ', $names), 'color' => 'red');
 		} elseif(in_array(true, $retu)) {
@@ -84,7 +84,7 @@ class Manage_BankDetails extends page_generic {
 		$amount		= $this->in->get('amount', 0);
 		$dkp		= -$this->in->get('dkp', 0);
 		$money		= $this->money->input();
-		
+
 		if($buyer > 0 && $item > 0){
 			// calculate the new amount
 			$amount_new	= $this->pdh->get('guildbank_items', 'amount', array($item)) - $amount;
@@ -94,7 +94,7 @@ class Manage_BankDetails extends page_generic {
 				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
 				$this->in->get('transaction', 0), $this->in->get('banker', 0), $buyer, $item, $dkp, $money, 'gb_item_payout', 0
 			));
-		
+
 			// reduce amount of items
 			$this->pdh->put('guildbank_items', 'amount', array($item, $amount_new));
 
@@ -125,7 +125,7 @@ class Manage_BankDetails extends page_generic {
 				if($real_id > 0 && $type != ''){
 					$pdh_module	= ($type == 'transaction') ? 'guildbank_transactions' : 'guildbank_items';
 					$names[] = $this->pdh->get('guildbank_items', 'deletename', ($id));
-					
+
 					// now, delete it!
 					$retu[] = $this->pdh->put($pdh_module, 'delete', array($real_id));
 				}
@@ -147,7 +147,7 @@ class Manage_BankDetails extends page_generic {
 	public function display($messages=false, $banker = false){
 		$bankerID 		= ($banker > 0) ? $banker : $this->in->get('g', 0);
 		$banker_name	= $this->pdh->get('guildbank_banker', 'name', array($bankerID));
-		
+
 		//init infotooltip
 		infotooltip_js();
 		$this->money->loadMoneyClass();
@@ -169,18 +169,18 @@ class Manage_BankDetails extends page_generic {
 
 		// start ouptut
 		$this->jquery->Tab_header('guildbank_tab');
-		
+
 		// build the url for the dialogs
 		$redirect_url		= 'manage_bank_details.php'.$this->SID.'&g='.$bankerID.'&details=true';
 		$transactions_url	= 'manage_bank_details.php'.$this->SID.'&simple_head=true&addedit=true&g='.$bankerID;
 		$payout_url			= 'manage_bank_details.php'.$this->SID.'&simple_head=true&g='.$bankerID;
-		
+
 		$this->jquery->dialog('add_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url.'&mode=1', 'width' => 600, 'height' => 450, 'onclose'=> $redirect_url));
 		$this->jquery->dialog('edit_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url."&mode=1&t='+id+'", 'width' => 600, 'height' => 450, 'onclose'=> $redirect_url, 'withid' => 'id'));
 		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 580, 'onclose'=> $redirect_url));
 		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 580, 'onclose'=> $redirect_url, 'withid' => 'id'));
 		$this->jquery->dialog('payout_item', $this->user->lang('gb_ta_head_payout'), array('url' => $payout_url."&payout=true", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
-		
+
 		$this->confirm_delete($this->user->lang('confirm_delete_items'));
 		$this->tpl->assign_vars(array(
 			'BANKID'				=> $bankerID,
@@ -191,7 +191,7 @@ class Manage_BankDetails extends page_generic {
 			'ITEM_LIST'				=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $item_footer),
 			'PAGINATION_ITEMS'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 			'ITEMS_COLUMN_COUNT'	=> $hptt_items->get_column_count(),
-			
+
 			'TRANSA_LIST'			=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
 			'TRANSA_PAGINATION'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 			'TRANSA_COLUMN_COUNT'	=> $hptt_transa->get_column_count(),
@@ -219,7 +219,7 @@ class Manage_BankDetails extends page_generic {
 		$edit_charID	= 0;
 		$money			= 0;
 		$item_sellable	= 0;
-		
+
 		if($itemID > 0){
 			$mode_select		= 0;
 			$edit_mode			= true;

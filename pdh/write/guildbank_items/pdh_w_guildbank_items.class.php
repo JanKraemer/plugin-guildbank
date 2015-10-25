@@ -35,7 +35,7 @@ if (!class_exists('pdh_w_guildbank_items')){
 				'item_type'			=> $strType,
 				'item_amount'		=> $intAmount,
 				'item_sellable'		=> $intSellable,
-				
+
 			))->execute();
 			$id = $resQuery->insertId;
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
@@ -54,7 +54,7 @@ if (!class_exists('pdh_w_guildbank_items')){
 				'item_type'			=> $strType,
 				'item_amount'		=> $intAmount,
 				'item_sellable'		=> $intSellable,
-				
+
 			))->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'update_itemtransaction',	array($intID, $intMoney, $intDKP));
 			$this->pdh->enqueue_hook('guildbank_items_update');
@@ -82,7 +82,7 @@ if (!class_exists('pdh_w_guildbank_items')){
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			return true;
 		}
-	
+
 		public function truncate(){
 			$this->db->query("TRUNCATE __guildbank_items");
 			$this->pdh->enqueue_hook('guildbank_items_update');

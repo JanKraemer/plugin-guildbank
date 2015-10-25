@@ -41,7 +41,7 @@ if(!class_exists('gb_money')) {
 			}
 			$this->load_css();
 		}
-		
+
 		private function load_css(){
 			$this->tpl->add_css("
 				.coin{
@@ -90,12 +90,12 @@ if(!class_exists('gb_money')) {
 				}"
 			);
 		}
-		
+
 		public function loadMoneyClass(){
 			// this is just a pseudo class for the PDH to load the CSS in this construct... The PDH modules & the caching require this step
 			return true;
 		}
-		
+
 		public function get_data(){
 			return $this->data;
 		}
@@ -116,7 +116,7 @@ if(!class_exists('gb_money')) {
 				}else{
 					$total		+= ($this->in->exists(str_replace('{ID}', $mname, $name))) ? ($this->in->get(str_replace('{ID}', $mname, $name), 0)*$value['factor']) : 0;
 				}
-				
+
 			}
 
 			// add the operator..
@@ -164,4 +164,5 @@ if(!class_exists('gb_money')) {
 		}
 	}
 }
+
 ?>

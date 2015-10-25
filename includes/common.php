@@ -21,8 +21,7 @@
 
 if(!defined('EQDKP_INC'))
 {
-	header('HTTP/1.0 Not Found');
-	exit;
+	header('HTTP/1.0 Not Found'); exit;
 }
 
 include_once($eqdkp_root_path.'common.php');

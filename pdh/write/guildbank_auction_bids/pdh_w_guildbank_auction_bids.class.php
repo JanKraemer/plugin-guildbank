@@ -46,7 +46,7 @@ if (!class_exists('pdh_w_guildbank_auction_bids')){
 			$this->pdh->enqueue_hook('guildbank_auction_bid_update');
 			return true;
 		}
-		
+
 		public function delete_byauction($intID){
 			$this->db->prepare("DELETE FROM __guildbank_auction_bids WHERE bid_auctionid=?")->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_auction_bid_update');

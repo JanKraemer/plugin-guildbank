@@ -28,6 +28,7 @@ $eqdkp_root_path = './../../../';
 include_once('./../includes/common.php');
 
 class guildbankSettings extends page_generic {
+
 	/**
 	* Constructor
 	*/
@@ -107,7 +108,7 @@ class guildbankSettings extends page_generic {
 		$objForm->validate		= true;
 		$objForm->use_fieldsets	= true;
 		$objForm->add_fieldsets($this->fields());
-		
+
 		// Output the form, pass values in
 		$objForm->output($arrValues);
 

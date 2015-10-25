@@ -74,7 +74,7 @@ class Manage_Auction extends page_generic {
 				$names[]	= $this->pdh->get('guildbank_auctions', 'name', ($id));
 			}
 		}
-		
+
 		if(in_array(false, $retu)) {
 			$message = array('title' => $this->user->lang('del_no_suc'), 'text' => implode(', ', $names), 'color' => 'red');
 		}else{
@@ -121,7 +121,7 @@ class Manage_Auction extends page_generic {
 			'display'			=> true)
 		);
 	}
-	
+
 	// ---------------------------------------------------------
 	// Displays add/edit auction dialog
 	// ---------------------------------------------------------
@@ -131,7 +131,7 @@ class Manage_Auction extends page_generic {
 		$this->tpl->assign_vars(array(
 			'S_EDIT'			=> ($auctionID > 0) ? true : false,
 			'AUCTIONID'			=> $auctionID,
-			
+
 			'ITEM_MS'				=> new hmultiselect('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => 0)),
 			'ITEM_DD'				=> new hdropdown('itemedit', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'itemid', array($auctionID)) : 0) )),
 			'STARTDATE'			=> new hdatepicker('startdate', array('timepicker' => true, 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID)) : (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID, true)) : $this->time->time)))),

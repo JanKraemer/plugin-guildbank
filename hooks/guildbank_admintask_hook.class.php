@@ -49,12 +49,12 @@ if (!class_exists('guildbank_admintask_hook')) {
 				),
 			);
 		}
-		
+
 		public function admintask_shopTA_content(){
 			$arrContent		= array();
 			require_once($this->root_path.'plugins/guildbank/includes/gb_money.class.php');
 			$this->money	= new gb_money();
-		
+
 			//Confirm item transactions
 			$confirm		= $this->pdh->get('guildbank_shop_ta', 'id_list');
 			if (count($confirm) > 0){
@@ -81,7 +81,7 @@ if (!class_exists('guildbank_admintask_hook')) {
 			}
 			return $arrContent;
 		}
-	
+
 		public function admintask_shopTA_ntfy(){
 			$confirm		= $this->pdh->get('guildbank_shop_ta', 'id_list');
 			if (count($confirm) > 0){
@@ -96,7 +96,7 @@ if (!class_exists('guildbank_admintask_hook')) {
 			}
 			return array();
 		}
-	
+
 		public function admintask_shopTA_handle($strAction, $arrIDs, $strTaskID){
 			if ($strAction == 'confirm'){
 				if (count($arrIDs)){
@@ -115,10 +115,11 @@ if (!class_exists('guildbank_admintask_hook')) {
 					}
 					$this->pdh->process_hook_queue();
 					$this->core->message($this->user->lang('gb_confirm_msg_delete'), $this->user->lang('success'),'green');
-			
+
 				}
 			}
 		}
 	}
 }
+
 ?>

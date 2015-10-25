@@ -18,12 +18,12 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 if (!defined('EQDKP_INC')) {
 	die('You cannot access this file directly.');
 }
 
-//Language: English	
+//Language: English
 //Created by EQdkp Plus Translation Tool on  2014-12-17 23:17
 //File: plugins/guildbank/pdh/read/guildbank_items/language/english.php
 //Source-Language: german
@@ -57,6 +57,6 @@ $module_lang = array(
 	"gb_idkp" => 'DKP',
 	"gb_ishop" => 'Itemshop Link',
 	);
-	
+
 
 ?>

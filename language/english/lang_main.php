@@ -19,17 +19,17 @@
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
+
 if (!defined('EQDKP_INC')) {
 	die('You cannot access this file directly.');
 }
 
-//Language: English	
+//Language: English
 //Created by EQdkp Plus Translation Tool on  2014-12-17 23:17
 //File: plugins/guildbank/language/english/lang_main.php
 //Source-Language: german
 
-$lang = array( 
+$lang = array(
 	"guildbank" => 'Guild bank',
 	"guildbank_short_desc" => 'Manage items and transactions of guild bankers',
 	"guildbank_long_desc" => 'Guild bank is a Plugin to manage raiditems.',
@@ -192,7 +192,7 @@ $lang = array(
 	"diamond_s" => 'D',
 	),
 	"gb_credits" => 'Guild bank %s',
-	
+
 );
 
 ?>

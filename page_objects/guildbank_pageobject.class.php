@@ -41,7 +41,7 @@ class guildbank_pageobject extends pageobject {
 		parent::__construct('u_guildbank_view', $handler);
 		$this->process();
 	}
-	
+
 	public function display(){
 		$bankerID		= $this->in->get('banker', 0);
 		$rarityID		= $this->in->get('rarity', '');
@@ -61,11 +61,11 @@ class guildbank_pageobject extends pageobject {
 
 		foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
 			$bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
-			
+
 			// the tooltip
 			$myTooltip	 = $this->user->lang('gb_bankchar_name').": ".addslashes($this->pdh->get('guildbank_banker', 'bankchar', array($banker_id)))."<br/>";
 			$myTooltip	.= "".$this->user->lang('note').": ".addslashes($this->pdh->get('guildbank_banker', 'note', array($banker_id, true)));
-			
+
 			$this->tpl->assign_block_vars('banker_row', array(
 				'NAME'			=> $this->pdh->get('guildbank_banker', 'name', array($banker_id)),
 				'TOOLTIP'		=> $myTooltip,
@@ -123,10 +123,10 @@ class guildbank_pageobject extends pageobject {
 			$page_suffix_a		.= $filter_suffix;
 			$auction_count		= count($auction_list);
 			$footer_auction		= sprintf($this->user->lang('listitems_footcount'), $auction_list, $this->user->data['user_ilimit']);
-			
+
 			$this->tpl->assign_vars(array(
 				'AUCTION_TABLE'		=> $hptt_auction->get_html_table($this->in->get('sort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),
-				'PAGINATION_AUCTION'=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0)),
+				'PAGINATION_AUCTION'=> generate_pagination($this->strPath.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0)),
 			));
 		}
 
@@ -141,11 +141,11 @@ class guildbank_pageobject extends pageobject {
 
 			// Table & pagination for items
 			'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_item),
-			'PAGINATION_ITEM'	=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'PAGINATION_ITEM'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 
 			// Table & pagination for transactions
 			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
-			'PAGINATION_TRANSA'	=> generate_pagination('guildbank.php'.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 
 			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')),
 			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')),

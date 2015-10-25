@@ -132,7 +132,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			$startts	= $this->get_startdate($id, true);
 			$duration	= (isset($this->data[$id]) && $this->data[$id]['duration'] && (int)$this->data[$id]['duration'] > 0) ? ((int)$this->data[$id]['duration'])*3600 : 0;
 			$now		= $this->time->time;
-			
+
 			if($duration > 0){
 				$end	= $startts+$duration;
 				return ($end > $now) ? $end - $now : 0;
@@ -237,7 +237,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		public function get_name_itt($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
 			return $this->get_itt_itemname($item_id, $lang, $direct, $onlyicon, $noicon, $in_span);
 		}
-		
+
 		public function get_highest_bidder($id){
 			return $this->pdh->get('guildbank_auction_bids', 'highest_bidder', array($id, false, true));
 		}
