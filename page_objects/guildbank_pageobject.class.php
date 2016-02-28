@@ -103,7 +103,7 @@ class guildbank_pageobject extends pageobject {
 		$page_suffix	.= $filter_suffix;
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$item_count		= count($items_list);
-		$footer_item	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
+		$footer_item	= sprintf($this->user->lang('gb_footer_item'), $item_count, $this->user->data['user_ilimit']);
 
 		// -- display entries TRANSACTIONS -----------------------------------------
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
@@ -111,7 +111,7 @@ class guildbank_pageobject extends pageobject {
 		//$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		//$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$ta_count		= count($ta_list);
-		$footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
+		$footer_transa	= sprintf($this->user->lang('gb_footer_transaction'), $ta_count, $this->user->data['user_ilimit']);
 
 		 // -- display entries AUCTIONS -----------------------------------------
 		if($this->user->check_auth('u_guildbank_auction', false)){
@@ -122,7 +122,7 @@ class guildbank_pageobject extends pageobject {
 			$sort_suffix_a		= '&amp;asort='.$this->in->get('asort');
 			$page_suffix_a		.= $filter_suffix;
 			$auction_count		= count($auction_list);
-			$footer_auction		= sprintf($this->user->lang('listitems_footcount'), $auction_list, $this->user->data['user_ilimit']);
+			$footer_auction		= sprintf($this->user->lang('gb_footer_auction'), $auction_count, $this->user->data['user_ilimit']);
 
 			$this->tpl->assign_vars(array(
 				'AUCTION_TABLE'		=> $hptt_auction->get_html_table($this->in->get('sort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),

@@ -159,13 +159,13 @@ class Manage_BankDetails extends page_generic {
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$item_count		= count($view_items);
-		$item_footer	= sprintf($this->user->lang('listitems_footcount'), $item_count, $this->user->data['user_ilimit']);
+		$item_footer	= sprintf($this->user->lang('gb_footer_item'), $item_count, $this->user->data['user_ilimit']);
 
 		// -- display entries TRANSACTIONS -----------------------------------------
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
 		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
 		$ta_count		= count($ta_list);
-		$footer_transa	= sprintf($this->user->lang('listitems_footcount'), $ta_count, $this->user->data['user_ilimit']);
+		$footer_transa	= sprintf($this->user->lang('gb_footer_transaction'), $ta_count, $this->user->data['user_ilimit']);
 
 		// start ouptut
 		$this->jquery->Tab_header('guildbank_tab');
