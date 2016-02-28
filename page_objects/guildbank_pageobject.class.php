@@ -116,7 +116,7 @@ class guildbank_pageobject extends pageobject {
 		 // -- display entries AUCTIONS -----------------------------------------
 		if($this->user->check_auth('u_guildbank_auction', false)){
 			$this->pdh->get('guildbank_auctions', 'counterJS');		// init the auction clock
-			$auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array());
+			$auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array(true,true));
 			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
 			$page_suffix_a		= '&amp;astart='.$this->in->get('astart', 0);
 			$sort_suffix_a		= '&amp;asort='.$this->in->get('asort');

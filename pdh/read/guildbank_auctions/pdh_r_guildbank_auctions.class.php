@@ -88,12 +88,24 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			return true;
 		}
 
-		public function get_id_list($future = true, $past=false, $active=false){
+		public function get_id_list($future = true, $past=false, $active=false, $limitpast=30){
 			if (is_array($this->data)){
-				$ids	= array_keys($this->data);
+				$ids		= array_keys($this->data);
+				$pastday	= ($this->time->time - ($limitpast*86400));
 				// filter future
 				foreach($ids as $key => $id) {
-					if(($future && $this->get_atime_left($id) == 0) || ($past && $this->get_atime_left($id) > 0) || ($active && $this->get_active($id) == 0)){
+					$time_left	= $this->get_atime_left($id);
+					$start_time	= $this->get_startdate($id,true);
+					$not_active	= ($this->get_active($id) == 0) ? true : false;
+
+					// do the stuff
+					if($future && !$past && !$active && $time_left == 0){
+						unset($ids[$key]);
+					}elseif($active && $not_active){
+						unset($ids[$key]);
+					}elseif(!$future && $past && !$active && ($start_time < $pastday)){
+						unset($ids[$key]);
+					}elseif($future && $past && !$active && ($start_time < $pastday)){
 						unset($ids[$key]);
 					}
 				}
@@ -103,7 +115,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		}
 
 		function get_count_active_auction(){
-			$auctions = $this->get_id_list(true,false,true);
+			$auctions = $this->get_id_list(true);d($auctions);
 			return (count($auctions) > 0) ? count($auctions) : 0;
 		}
 
