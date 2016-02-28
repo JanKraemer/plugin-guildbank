@@ -151,6 +151,8 @@ class guildbank_pageobject extends pageobject {
 			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')),
 			'DD_TYPE'		=> new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')),
 
+			'AUCTIONCOUNT'	=> $this->pdh->get('guildbank_auctions', 'count_active_auction', array()),
+
 			'CREDITS'		=> sprintf($this->user->lang('gb_credits'), $this->pm->get_data('guildbank', 'version')),
 		));
 

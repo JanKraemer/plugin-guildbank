@@ -102,6 +102,11 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			return array();
 		}
 
+		function get_count_active_auction(){
+			$auctions = $this->get_id_list(true,false,true);
+			return (count($auctions) > 0) ? count($auctions) : 0;
+		}
+
 		public function get_note($id){
 			return (isset($this->data[$id]) && $this->data[$id]['note']) ? $this->data[$id]['note'] : '';
 		}
