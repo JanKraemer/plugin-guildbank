@@ -1,9 +1,9 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	Siggenerator Plugin
+ *	Package:	Guildbanker Plugin
  *	Link:		http://eqdkp-plus.eu
  *
- *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
+ *	Copyright (C) 2006-2016 EQdkp-Plus Developer Team
  *
  *	This program is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU Affero General Public License as published
@@ -18,7 +18,7 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 if (!defined('EQDKP_INC')){
 	header('HTTP/1.0 404 Not Found');exit;
 }
@@ -27,7 +27,7 @@ class guildbank extends plugin_generic {
 	public $vstatus		= 'Beta';
 	public $version		= '2.2.0';
 	public $copyright 	= 'Wallenium';
-	
+
 	protected static $apiLevel = 23;
 
 	public function __construct(){
@@ -71,7 +71,7 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_write_module('guildbank_transactions');
 		$this->add_pdh_write_module('guildbank_auctions');
 		$this->add_pdh_write_module('guildbank_auction_bids');
-		
+
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search',		'guildbank_search_hook',	'search');
 		$this->add_hook('admin_tasks',	'guildbank_admintask_hook',	'admin_tasks');
