@@ -121,7 +121,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		function get_unapproved_auctions(){
 			if (is_array($this->data)){
 				$ids		= array_keys($this->data);
-				$pastday	= ($this->time->time - ($limitpast*86400));
+
 				// filter future
 				foreach($ids as $key => $id) {
 					$time_left		= $this->get_atime_left($id);
