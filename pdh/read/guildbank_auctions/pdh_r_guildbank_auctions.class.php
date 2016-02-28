@@ -44,6 +44,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			'gb_aalink'		=> array('auctionlink',		array('%auction_id%'), array()),
 			'gb_left_atime'	=> array('atime_left_html',	array('%auction_id%'), array()),
 			'gb_ahibidder'	=> array('highest_bidder',	array('%auction_id%'), array()),
+			'gb_endvalue'	=> array('highest_value', 	array('%auction_id%'), array()),
 		);
 
 		public function reset(){
@@ -240,6 +241,11 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 
 		public function get_highest_bidder($id){
 			return $this->pdh->get('guildbank_auction_bids', 'highest_bidder', array($id, false, true));
+		}
+
+		public function get_highest_value($id){
+			$bidvalue = $this->pdh->get('guildbank_auction_bids', 'highest_value', array($id));
+			return ($bidvalue > 0) ? $bidvalue : $this->user->lang('gb_bids_nobids');
 		}
 	} //end class
 } //end if class not exists

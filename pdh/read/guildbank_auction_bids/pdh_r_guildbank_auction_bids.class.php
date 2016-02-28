@@ -110,7 +110,7 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 				$auctionended	= ($this->pdh->get('guildbank_auctions', 'atime_left', array($auctionID)) > 0) ? false : true;
 				if(is_array($bidders) && count($bidders) > 0){
 					foreach($bidders as $bidderID){
-						$bidder_html[]	= (($markwinner && $auctionended) ? '<i class="fa fa-trophy"></i>' : '').$this->pdh->get('member', 'name', array($bidderID));
+						$bidder_html[]	= (($markwinner && $auctionended) ? '<i class="fa fa-trophy"></i> ' : '').$this->pdh->get('member', 'name', array($bidderID));
 					}
 				}else{
 					$bidder_html[]	= '<i class="fa fa-gavel"></i> '.$this->user->lang('gb_bids_nobids');

@@ -168,6 +168,7 @@ $systems_guildbank = array(
 				array('name' => 'gb_abidsteps',		'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 				array('name' => 'gb_left_atime',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 				array('name' => 'gb_ahibidder',		'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
+				array('name' => 'gb_endvalue',		'sort' => true,		'th_add' => 'align="center width="100px"',	'td_add' => ''),
 			)
 		),
 	)

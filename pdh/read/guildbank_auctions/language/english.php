@@ -41,6 +41,8 @@ $module_lang = array(
 	"auctionlink" => '',
 	"atime_left" => 'Time left',
 	"atime_left_html" => 'Time left',
+	"highest_bidder" => 'Highest bidder',
+	"highest_value" => 'highest bidding',
 	);
 	$preset_lang = array(
 	"gb_astartdate" => 'Date',

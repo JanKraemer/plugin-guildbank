@@ -36,6 +36,8 @@ $module_lang = array(
 	'auctionlink'		=> '',
 	'atime_left'		=> 'Restzeit',
 	'atime_left_html'	=> 'Restzeit',
+	"highest_bidder" 	=> 'Höchstbietender',
+	'highest_value'		=> 'Höchstgebot'
 );
 
 $preset_lang = array(
