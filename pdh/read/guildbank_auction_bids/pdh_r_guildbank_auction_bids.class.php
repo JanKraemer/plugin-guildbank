@@ -93,6 +93,10 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			return $this->get_id_list($auctionID);
 		}
 
+		public function get_amount_bids($auctionID){
+			return count($this->get_bids_byauction($auctionID));
+		}
+
 		public function get_bidvalues_byauction($auctionID){
 			$auctionlist	= $this->get_bids_byauction($auctionID);
 			$bidvalues		= array();

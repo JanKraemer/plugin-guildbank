@@ -66,9 +66,9 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 
 				// add a transaction
 				if($currency == 2){
-					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], 0, $trans_data['value'], $this->user->lang('gb_shop_buy_subject'));
+					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], 0, $trans_data['value'], 'gb_shop_buy_subject');
 				}else{
-					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], $trans_data['value'], 0, $this->user->lang('gb_shop_buy_subject'));
+					$this->add(0, $intBanker, $trans_data['buyer'], $trans_data['itemid'], $trans_data['value'], 0, 'gb_shop_buy_subject');
 				}
 
 				// reduce the amount
@@ -82,6 +82,37 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 
 				// now, delete the transaction on hold
 				$this->delete_itemta($intShopID);
+			}
+			return false;
+		}
+
+		public function confirm_auctionta($intAuctionID){
+			if($intAuctionID > 0){
+				$auction_data	= $this->pdh->get('guildbank_auctions', 'data', array($intAuctionID));
+				$intBanker		= $this->pdh->get('guildbank_items', 'banker', array($auction_data['item']));
+				$item_amount	= $this->pdh->get('guildbank_items', 'amount', array($auction_data['item']));
+
+				// add a transaction
+				if(count($auction_data) > 0){
+					$buyer	= $this->pdh->get('guildbank_auctions', 'auctionwinner', array($intAuctionID));
+					$value	= $this->pdh->get('guildbank_auctions', 'highest_value', array($intAuctionID));
+
+					if($buyer > 0 && $value > 0){
+						$this->add(0, $intBanker, $buyer, $auction_data['item'], $value, 0, 'gb_auction_won_subject');
+
+						// reduce the amount
+						$this->pdh->put('guildbank_items', 'amount', array($auction_data['item'], $item_amount-1));
+
+						// add auto correction
+						if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event', 'guildbank') > 0){
+							//add_adjustment($adjustment_value, $adjustment_reason, $member_ids, $event_id, $raid_id=NULL, $time=false, $group_key = null)
+							$this->pdh->put('adjustment', 'add_adjustment', array(-$value, $this->user->lang('gb_adjustment_text'), $buyer, $this->config->get('default_event', 'guildbank')));
+						}
+
+						// now, set the status of the auction to inactive
+						$this->pdh->put('guildbank_auctions', 'set_inactive', array($intAuctionID));
+					}
+				}
 			}
 			return false;
 		}

@@ -88,6 +88,10 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			return true;
 		}
 
+		public function get_data($id){
+			return (isset($this->data[$id])) ? $this->data[$id] : array();
+		}
+
 		public function get_id_list($future = true, $past=false, $active=false, $limitpast=30){
 			if (is_array($this->data)){
 				$ids		= array_keys($this->data);
@@ -106,6 +110,25 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 					}elseif(!$future && $past && !$active && ($start_time < $pastday)){
 						unset($ids[$key]);
 					}elseif($future && $past && !$active && ($start_time < $pastday)){
+						unset($ids[$key]);
+					}
+				}
+				return $ids;
+			}
+			return array();
+		}
+
+		function get_unapproved_auctions(){
+			if (is_array($this->data)){
+				$ids		= array_keys($this->data);
+				$pastday	= ($this->time->time - ($limitpast*86400));
+				// filter future
+				foreach($ids as $key => $id) {
+					$time_left		= $this->get_atime_left($id);
+					$not_active		= ($this->get_active($id) == 0) ? true : false;
+					$highest_value	= $this->get_highest_value($id);
+
+					if($not_active || $time_left > 0 || $highest_value == 0){
 						unset($ids[$key]);
 					}
 				}
@@ -256,13 +279,21 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			return $this->get_itt_itemname($item_id, $lang, $direct, $onlyicon, $noicon, $in_span);
 		}
 
-		public function get_highest_bidder($id){
-			return $this->pdh->get('guildbank_auction_bids', 'highest_bidder', array($id, false, true));
+		public function get_highest_bidder($id, $raw=false){
+			return $this->pdh->get('guildbank_auction_bids', 'highest_bidder', array($id, $raw, true));
+		}
+
+		public function get_auctionwinner($auctionID){
+			return max($this->get_highest_bidder($auctionID, true));
 		}
 
 		public function get_highest_value($id){
 			$bidvalue = $this->pdh->get('guildbank_auction_bids', 'highest_value', array($id));
 			return ($bidvalue > 0) ? $bidvalue : $this->user->lang('gb_bids_nobids');
+		}
+
+		public function get_amount_bids($id){
+			return $this->pdh->get('guildbank_auction_bids', 'amount_bids', array($id));
 		}
 	} //end class
 } //end if class not exists

@@ -70,6 +70,7 @@ $lang = array(
 	'gb_shop_error_noitem'			=> 'Es ist kein Gegenstand zum Kauf mehr vorhanden',
 	"gb_shop_error_noselection"		=> 'Es wurde versucht, null Gegenstände einzukaufen. Diese Auswahl ist nicht zulässig.',
 	'gb_shop_buy_subject'			=> 'Gegenstand eingekauft',
+	'gb_auction_won_subject'		=> 'Gegenstand ersteigert',
 	'gb_shop_buy_successmsg'		=> 'Der Gegenstand wurde zum einkaufen vorgemerkt. Die Transaktion wird nach der Bestätigung durch einen Admin vorgenommen und deinem Konto gutgeschrieben.',
 	'gb_confirm_shop_ta_head'		=> 'Gildenbank Gegenstandseinkäufe',
 	'gb_confirm_shop_ta_button'		=> 'Einkauf bestätigen',
@@ -80,6 +81,13 @@ $lang = array(
 	'gb_notify_shopta_confirm_req1'	=> 'Ein Einkauf wartet auf Freigabe',
 	'gb_notify_shopta_confirm_req2'	=> "%s Einkäufe warten auf Freigabe",
 	'gb_no_item_id_missing'			=> "Die item-ID fehlt. Bitte versuche es erneut oder benachrichtige den Administrator.",
+
+	'gb_confirm_auction_ta_head'	=> 'Gildenbank beendete Auktionen',
+	'gb_confirm_auction_ta_button'	=> 'Auktionen bestätigen',
+	'gb_decline_auction_ta_button'	=> 'Auktionen ablehnen',
+	'gb_notify_auctionta_header'	=> 'Beendete Auktionen freigeben',
+	'gb_notify_auctionta_confirm1'	=> 'Eine Auktion wartet auf Freigabe',
+	'gb_notify_auctionta_confirm2'	=> "%s Auktionen warten auf Freigabe",
 
 	// manage_auction
 	'gb_manage_auctions'			=> 'Auktionen verwalten',
@@ -96,6 +104,9 @@ $lang = array(
 	'gb_auction_item'				=> 'Gegenstand',
 	'gb_auction_item_help'			=> 'Ein oder mehrere Gegenstände zum versteigern. Bei Mehrfachauswahl werden mehrere Auktionen erstellt',
 	'gb_auction_startdate'			=> 'Startzeitpunkt',
+	'gb_auction_winner'				=> 'Gewinner',
+	'gb_auction_price'				=> 'Maximalgebot',
+	'gb_auction_amountbids'			=> 'Anzahl Gebote',
 	'gb_auction_duration'			=> 'Auktionsdauer',
 	'gb_auction_duration_help'		=> 'Die Auktionsdauer in Stunden',
 	'gb_auction_startvalue'			=> 'Startgebotswert',

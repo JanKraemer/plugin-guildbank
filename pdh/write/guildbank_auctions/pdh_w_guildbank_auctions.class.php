@@ -63,6 +63,14 @@ if (!class_exists('pdh_w_guildbank_auctions')){
 			return false;
 		}
 
+		public function set_inactive($intID){
+			$resQuery = $this->db->prepare("UPDATE __guildbank_auctions :p WHERE auction_id=?")->set(array(
+				'auction_active'	=> 0,
+			))->execute($intID);
+			$this->pdh->enqueue_hook('guildbank_auction_update');
+			return true;
+		}
+
 		public function delete($intID){
 			$this->db->prepare("DELETE FROM __guildbank_auctions WHERE auction_id=?")->execute($intID);
 			$this->pdh->put('guildbank_auction_bids', 'delete_byauction', array($intID));

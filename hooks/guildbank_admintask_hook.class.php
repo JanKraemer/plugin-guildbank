@@ -47,7 +47,75 @@ if (!class_exists('guildbank_admintask_hook')) {
 						'delete'	=> array('icon' => 'fa-times', 'title' => 'gb_decline_shop_ta_button', 'permissions' => array('a_guildbank_manage')),
 					),
 				),
+
+				//
+				'gb_confirm_auction'	=> array(
+					'name'			=> 'gb_confirm_auction_ta_head',
+					'icon'			=> 'fa fa-check',
+					'notify_func'	=> array($this, 'admintask_auctionTA_ntfy'),
+					'content_func'	=> array($this, 'admintask_auctionTA_content'),
+					'action_func'	=> array($this, 'admintask_auctionTA_handle'),
+					'actions'		=> array(
+						'confirm'	=> array('icon' => 'fa fa-check', 'title' => 'gb_confirm_auction_ta_button', 'permissions' => array('a_guildbank_manage')),
+						'delete'	=> array('icon' => 'fa-times', 'title' => 'gb_decline_auction_ta_button', 'permissions' => array('a_guildbank_manage')),
+					),
+				),
 			);
+		}
+
+		public function admintask_auctionTA_ntfy(){
+			$confirm		= $this->pdh->get('guildbank_auctions', 'unapproved_auctions');
+			if (count($confirm) > 0){
+				return array(array(
+					'type'		=> 'gb_notify_auctionta',
+					'count'		=> count($confirm),
+					'msg'		=> (count($confirm) > 1) ? sprintf($this->user->lang('gb_notify_shopta_confirm_req2'), count($confirm)) : $this->user->lang('gb_notify_shopta_confirm_req1'),
+					'icon'		=> 'fa-gavel',
+					'prio'		=> 1,
+				));
+			}
+			return array();
+		}
+
+		public function admintask_auctionTA_handle($strAction, $arrIDs, $strTaskID){
+			if ($strAction == 'confirm'){
+				if (count($arrIDs)){
+					foreach($arrIDs as $ta_id){
+						$this->pdh->put('guildbank_transactions', 'confirm_auctionta', array((int)$ta_id));
+					}
+					$this->pdh->process_hook_queue();
+					$this->core->message($this->user->lang('gb_confirm_msg_success'), $this->user->lang('success'), 'green');
+				}
+			}
+
+			if($strAction == 'delete'){
+				if (count($arrIDs)){
+					foreach($arrIDs as $ta_id){
+						$this->pdh->put('guildbank_auctions', 'set_inactive', array((int)$ta_id));
+					}
+					$this->pdh->process_hook_queue();
+					$this->core->message($this->user->lang('gb_confirm_msg_delete'), $this->user->lang('success'),'green');
+
+				}
+			}
+		}
+
+		public function admintask_auctionTA_content(){
+			$confirm		= $this->pdh->get('guildbank_auctions', 'unapproved_auctions');
+			$arrContent		= array();
+			if (count($confirm) > 0){
+				foreach ($confirm as $transaction){
+					$arrContent[]	= array(
+							'id'					=> $transaction,
+							'gb_item_name'			=> $this->pdh->get('guildbank_auctions',	'name_itt',				array($transaction)),
+							'gb_auction_startdate'	=> $this->pdh->get('guildbank_auctions',	'startdate',			array($transaction)),
+							'gb_auction_winner'		=> $this->pdh->get('guildbank_auctions',	'highest_bidder',		array($transaction)),
+							'gb_auction_price'		=> $this->pdh->get('guildbank_auctions',	'highest_value',		array($transaction)),
+							'gb_auction_amountbids'	=> $this->pdh->get('guildbank_auctions',	'amount_bids',		array($transaction)),
+					);
+				}
+			}
+			return $arrContent;
 		}
 
 		public function admintask_shopTA_content(){
