@@ -35,6 +35,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		private $startvalues;
 		private $summ;
 		private $itemcost;
+		private $bankertransactions;
 
 		public $hooks = array(
 			'guildbank_items_update'
@@ -57,24 +58,27 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			$this->pdc->del('pdh_guildbank_ta_table.startvalues');
 			$this->pdc->del('pdh_guildbank_ta_table.summ');
 			$this->pdc->del('pdh_guildbank_ta_table.itemcost');
+			$this->pdc->get('pdh_guildbank_ta_table.bankertransactions');
 			unset($this->data);
 			unset($this->startvalues);
 			unset($this->summ);
 			unset($this->itemcost);
+			unset($this->bankertransactions);
 		}
 
 		public function init(){
 			// try to get from cache first
-			$this->data			= $this->pdc->get('pdh_guildbank_ta_table.transactions');
-			$this->startvalues	= $this->pdc->get('pdh_guildbank_ta_table.startvalues');
-			$this->summ			= $this->pdc->get('pdh_guildbank_ta_table.summ');
-			$this->itemcost		= $this->pdc->get('pdh_guildbank_ta_table.itemcost');
-			if($this->data !== NULL && $this->startvalues !== NULL && $this->summ !== NULL && $this->itemcost !== NULL){
+			$this->data					= $this->pdc->get('pdh_guildbank_ta_table.transactions');
+			$this->startvalues			= $this->pdc->get('pdh_guildbank_ta_table.startvalues');
+			$this->summ					= $this->pdc->get('pdh_guildbank_ta_table.summ');
+			$this->itemcost				= $this->pdc->get('pdh_guildbank_ta_table.itemcost');
+			$this->bankertransactions	= $this->pdc->get('pdh_guildbank_ta_table.bankertransactions');
+			if($this->data !== NULL && $this->startvalues !== NULL && $this->summ !== NULL && $this->itemcost !== NULL && $this->bankertransactions !== NULL){
 				return true;
 			}
 
 			// empty array as default
-			$this->data = $this->startvalues = $this->summ = $this->itemcost = array();
+			$this->data = $this->startvalues = $this->summ = $this->itemcost = $this->bankertransactions = array();
 
 			$sql = 'SELECT * FROM `__guildbank_transactions` ORDER BY ta_id ASC;';
 			$result = $this->db->query($sql);
@@ -93,6 +97,9 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 						'date'			=> (int)$row['ta_date'],
 						'startvalue'	=> (int)$row['ta_startvalue'],
 					);
+
+					$this->bankertransactions[(int)$row['ta_banker']][(int)$row['ta_id']] = (int)$row['ta_id'];
+
 					if((int)$row['ta_type'] != 1){
 						$this->summ[(int)(int)$row['ta_banker']] += (int)$row['ta_value'];
 					}
@@ -107,16 +114,23 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			}
 
 			// add data to cache
-			$this->pdc->put('pdh_guildbank_ta_table.transactions',	$this->data,		null);
-			$this->pdc->put('pdh_guildbank_ta_table.startvalues',	$this->startvalues,	null);
-			$this->pdc->put('pdh_guildbank_ta_table.summ',			$this->summ,		null);
-			$this->pdc->put('pdh_guildbank_ta_table.itemcost',		$this->itemcost,	null);
+			$this->pdc->put('pdh_guildbank_ta_table.transactions',			$this->data,				null);
+			$this->pdc->put('pdh_guildbank_ta_table.startvalues',			$this->startvalues,			null);
+			$this->pdc->put('pdh_guildbank_ta_table.summ',					$this->summ,				null);
+			$this->pdc->put('pdh_guildbank_ta_table.itemcost',				$this->itemcost,			null);
+			$this->pdc->put('pdh_guildbank_ta_table.bankertransactions',	$this->bankertransactions,	null);
 			return true;
 		}
 
-		public function get_id_list(){
-			if (is_array($this->data)){
-				return array_keys($this->data);
+		public function get_id_list($bankerID=0){
+			if($bankerID > 0){
+				if (isset($this->bankertransactions[$bankerID]) && is_array($this->bankertransactions[$bankerID])){
+					return array_keys($this->bankertransactions[$bankerID]);
+				}
+			}else{
+				if (is_array($this->data)){
+					return array_keys($this->data);
+				}
 			}
 			return array();
 		}
