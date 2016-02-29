@@ -34,7 +34,7 @@ $systems_guildbank = array(
 			'show_select_boxes' 	=> false,
 			'selectboxes_checkall'	=> false,
 			'table_sort_dir'		=> 'desc',
-			'table_sort_col'		=> 1,
+			'table_sort_col'		=> 0,
 			'table_presets'			=> array(
 				array('name' => 'gb_iname_itt',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_iamount',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
@@ -54,7 +54,7 @@ $systems_guildbank = array(
 			'show_select_boxes' 	=> false,
 			'selectboxes_checkall'	=> false,
 			'table_sort_dir'		=> 'desc',
-			'table_sort_col'		=> 1,
+			'table_sort_col'		=> 0,
 			'table_presets'			=> array(
 				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_tsubject',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
@@ -74,7 +74,7 @@ $systems_guildbank = array(
 			'show_select_boxes' 	=> false,
 			'selectboxes_checkall'	=> false,
 			'table_sort_dir'		=> 'desc',
-			'table_sort_col'		=> 0,
+			'table_sort_col'		=> 1,
 			'table_presets'			=> array(
 				array('name' => 'gb_aalink',		'sort' => false,	'th_add' => 'align="center width="20px"',	'td_add' => ''),
 				array('name' => 'gb_astartdate',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
@@ -112,7 +112,7 @@ $systems_guildbank = array(
 			'selectbox_name'		=> 'selections',
 			'selectbox_valueprefix'	=> 'item_',
 			'table_sort_dir'		=> 'desc',
-			'table_sort_col'		=> 1,
+			'table_sort_col'		=> 2,
 			'table_presets' => array(
 				array('name' => 'gb_iedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
 				array('name' => 'gb_iname_itt',	'sort' => true,		'th_add' => '',								'td_add' => 'style="height:21px;"'),
@@ -135,7 +135,7 @@ $systems_guildbank = array(
 			'selectbox_name'		=> 'selections',
 			'selectbox_valueprefix'	=> 'transaction_',
 			'table_sort_dir'		=> 'desc',
-			'table_sort_col'		=> 0,
+			'table_sort_col'		=> 1,
 			'table_presets'			=> array(
 				array('name' => 'gb_tedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
 				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
