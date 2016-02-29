@@ -269,15 +269,17 @@ $this->user->data['user_ilimit'] = 10;
 	}
 
 	public function display_payout(){
-		$bankerID		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
-		$money			= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
+		#$bankerID		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
+		$itemID			= 0;
+		$bankerID		= $this->in->get('g', 0);
+		$money			= $this->pdh->get('guildbank_transactions', 'money', array($bankerID));
 
 		$this->tpl->assign_vars(array(
 			'MONEY'			=> $this->money->editfields($money),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
-			'DD_ITEMS'		=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => 0)),
+			'DD_ITEMS'		=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array($bankerID)))), 'value' => 0)),
 			'DD_CHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
 		));
 
