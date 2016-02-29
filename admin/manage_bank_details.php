@@ -269,11 +269,15 @@ $this->user->data['user_ilimit'] = 10;
 	}
 
 	public function display_payout(){
-		#$bankerID		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
-		$itemID			= 0;
-		$bankerID		= $this->in->get('g', 0);
+		$itemID	= 0;
+		if($itemID > 0){
+			$bankerID		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
+			$edit_charID	= 0;
+		}else{
+			$bankerID		= $this->in->get('g', 0);
+			$edit_charID	= 0;
+		}
 		$money			= $this->pdh->get('guildbank_transactions', 'money', array($bankerID));
-
 		$this->tpl->assign_vars(array(
 			'MONEY'			=> $this->money->editfields($money),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,

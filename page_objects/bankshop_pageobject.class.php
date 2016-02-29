@@ -18,7 +18,7 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 class bankshop_pageobject extends pageobject {
 
 	public static function __shortcuts(){
@@ -43,7 +43,7 @@ class bankshop_pageobject extends pageobject {
 		$this->process();
 	}
 
-	// confirm the 
+	// confirm the
 	public function moderate(){
 		$this->pdh->put('guildbank_transactions', 'confirm_transaction', array($this->in->get('moderate', 0)));
 	}
@@ -61,7 +61,7 @@ class bankshop_pageobject extends pageobject {
 		$currency		= $this->in->get('currency', 'dkp');
 		$charDKP		= $this->pdh->get('points', 'current', array($buyer, $this->in->get('dkppool', 1), 0, 0, false));
 		$error			= false;
-		
+
 		if($amount_buy > 0){
 			if($old_amount > 0){
 				if($currency == 'cash'){
@@ -84,7 +84,7 @@ class bankshop_pageobject extends pageobject {
 						$error	= $this->user->lang('gb_shop_error_nodkp');
 					}
 				}
-				
+
 			}else{
 				// Error message if amount is too low
 				$error	= $this->user->lang('gb_shop_error_noitem');
@@ -92,7 +92,7 @@ class bankshop_pageobject extends pageobject {
 		}else{
 			$error	= $this->user->lang('gb_shop_error_noselection');
 		}
-		
+
 		if($error){
 			$this->tpl->assign_vars(array(
 				'SHOWMESSAGE'	=> true,
@@ -122,8 +122,8 @@ class bankshop_pageobject extends pageobject {
 		$money		= $this->pdh->get('guildbank_transactions', 'itemvalue', array($this->url_id));
 		$dkppools	= $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
 		#$points	= $this->pdh->get('points', 'current', array($mainchar, $dkppool));
-		$this->pdh->get('member', 'connection_id', array($user_id));
-		
+		#$this->pdh->get('member', 'connection_id', array($user_id));
+
 		// the money stuff
 		if($money > 0){
 			foreach($this->money->get_data() as $monName=>$monValue){
@@ -134,7 +134,7 @@ class bankshop_pageobject extends pageobject {
 				));
 			}
 		}
-		
+
 		$this->tpl->assign_vars(array(
 			'NOSELECTION'		=> ($this->url_id > 0) ? true : false,
 			'BUYFORMONEY'		=> ($dkp == 0 && $money > 0) ? true : false,
@@ -149,7 +149,7 @@ class bankshop_pageobject extends pageobject {
 		));
 
 		$this->core->set_vars(array(
- 			'page_title'		=> sprintf($this->user->lang('admin_title_prefix'), $this->config->get('guildtag'), $this->config->get('dkp_name')).': '.$user->lang['guildbank_title'],
+ 			'page_title'		=> sprintf($this->user->lang('admin_title_prefix'), $this->config->get('guildtag'), $this->config->get('dkp_name')).': '.$this->user->lang('guildbank_title'),
  			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
  			'template_file'		=> 'bankshop.html',
  			'display'			=> true,

@@ -108,6 +108,9 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 
 		public function get_highest_bidder($auctionID, $raw=false, $markwinner=false){
 			$bidvalues	= $this->get_bidvalues_byauction($auctionID);
+			if(is_array($bidvalues) && count($bidvalues) == 0){
+				return ($raw) ? 0 : '<i class="fa fa-gavel"></i> '.$this->user->lang('gb_bids_nobids');
+			}
 			$bidders	= array_keys($bidvalues, max($bidvalues));
 			if(!$raw){
 				$bidder_html		= array();

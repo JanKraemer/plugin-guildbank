@@ -132,8 +132,8 @@ class Manage_Auction extends page_generic {
 			'S_EDIT'			=> ($auctionID > 0) ? true : false,
 			'AUCTIONID'			=> $auctionID,
 
-			'ITEM_MS'				=> new hmultiselect('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => 0)),
-			'ITEM_DD'				=> new hdropdown('itemedit', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'itemid', array($auctionID)) : 0) )),
+			'ITEM_MS'			=> new hmultiselect('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => 0)),
+			'ITEM_DD'			=> new hdropdown('itemedit', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list'))), 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'itemid', array($auctionID)) : 0) )),
 			'STARTDATE'			=> new hdatepicker('startdate', array('timepicker' => true, 'value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID)) : (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startdate', array($auctionID, true)) : $this->time->time)))),
 			'DURATION'			=> new hspinner('duration', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'duration', array($auctionID)) : 6), 'step'=> 1, 'min' => 0, 'max' => 100, 'onlyinteger' => true)),
 			'STARTVALUE'		=> new hspinner('startvalue', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'startvalue', array($auctionID)) : 50), 'step'=> 10, 'min' => 0, 'onlyinteger' => true)),
@@ -143,7 +143,7 @@ class Manage_Auction extends page_generic {
 		));
 
 		$this->core->set_vars(array(
-			'page_title'		=> ($itemID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_auction_title'),
+			'page_title'		=> ($auctionID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_auction_title'),
 			'template_file'		=> 'admin/manage_banker_add_auction.html',
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'header_format'		=> ($this->in->get('simple_head')) ? 'simple' : 'full',
