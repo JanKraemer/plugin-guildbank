@@ -155,7 +155,6 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_item=?")->set(array(
 				'ta_dkp'		=> $intDKP,
 				'ta_value'		=> $intValue,
-				'ta_date'		=> $this->time->time,
 			))->execute($intBanker);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intBanker;
