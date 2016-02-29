@@ -156,7 +156,7 @@ class Manage_BankDetails extends page_generic {
 		// -- display entries ITEMS ------------------------------------------------
 		$view_items		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
 		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_items, $view_items, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
-		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
+		$page_suffix	= '&amp;start='.$this->in->get('start', 0).'&amp;g='.$bankerID.'#fragment-items';
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$item_count		= count($view_items);
 		$item_footer	= sprintf($this->user->lang('gb_footer_item'), $item_count, $this->user->data['user_ilimit']);
@@ -165,6 +165,7 @@ class Manage_BankDetails extends page_generic {
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
 		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0));
 		$ta_count		= count($ta_list);
+		$page_suffix_ta	= '&amp;start='.$this->in->get('start', 0).'&amp;g='.$bankerID.'#fragment-transactions';
 		$footer_transa	= sprintf($this->user->lang('gb_footer_transaction'), $ta_count, $this->user->data['user_ilimit']);
 
 		// start ouptut
@@ -189,10 +190,10 @@ class Manage_BankDetails extends page_generic {
 			'BANKNAME'				=> $this->pdh->get('guildbank_banker', 'name', array($bankerID)),
 
 			'ITEM_LIST'				=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $item_footer),
-			'PAGINATION_ITEMS'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'PAGINATION_ITEMS'		=> generate_pagination('manage_bank_details.php'.$this->SID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 			'ITEMS_COLUMN_COUNT'	=> $hptt_items->get_column_count(),
 
-			'TRANSA_LIST'			=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
+			'TRANSA_LIST'			=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix_ta, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
 			'TRANSA_PAGINATION'		=> generate_pagination('manage_bank_details.php'.$this->SID.'&g='.$bankerID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 			'TRANSA_COLUMN_COUNT'	=> $hptt_transa->get_column_count(),
 			'L_BC_CURRENTPAGE'		=> sprintf($this->user->lang('gb_manage_bank_items_title'), $banker_name),
