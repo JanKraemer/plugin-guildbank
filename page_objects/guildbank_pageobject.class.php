@@ -94,22 +94,22 @@ class guildbank_pageobject extends pageobject {
 		$dd_type		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemtype'));
 		$dd_rarity		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemrarity'));
 		$dd_banker		= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
-
+$this->user->data['user_ilimit'] = 10;
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
 		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID, 0, $typeID, $rarityID));
-		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
-		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
-		$page_suffix	.= $filter_suffix;
-		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'isort');
+		$page_suffix_i	= '&amp;start='.$this->in->get('istart', 0);
+		$page_suffix_i	.= $filter_suffix.'#fragment-auctions';
+		$sort_suffix_i	= '&amp;isort='.$this->in->get('isort');
 		$item_count		= count($items_list);
 		$footer_item	= sprintf($this->user->lang('gb_footer_item'), $item_count, $this->user->data['user_ilimit']);
 
 		// -- display entries TRANSACTIONS -----------------------------------------
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
-		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
-		//$page_suffix	= '&amp;start='.$this->in->get('start', 0);
-		//$sort_suffix	= '&amp;sort='.$this->in->get('sort');
+		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'tsort');
+		$page_suffix_t	= '&amp;start='.$this->in->get('tstart', 0).'#fragment-transactions';
+		$sort_suffix_t	= '&amp;sort='.$this->in->get('tsort');
 		$ta_count		= count($ta_list);
 		$footer_transa	= sprintf($this->user->lang('gb_footer_transaction'), $ta_count, $this->user->data['user_ilimit']);
 
@@ -117,15 +117,15 @@ class guildbank_pageobject extends pageobject {
 		if($this->user->check_auth('u_guildbank_auction', false)){
 			$this->pdh->get('guildbank_auctions', 'counterJS');		// init the auction clock
 			$auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array(true,true));
-			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter);
+			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'asort');
 			$page_suffix_a		= '&amp;astart='.$this->in->get('astart', 0);
+			$page_suffix_a		.= $filter_suffix.'#fragment-auctions';
 			$sort_suffix_a		= '&amp;asort='.$this->in->get('asort');
-			$page_suffix_a		.= $filter_suffix;
 			$auction_count		= count($auction_list);
 			$footer_auction		= sprintf($this->user->lang('gb_footer_auction'), $auction_count, $this->user->data['user_ilimit']);
 
 			$this->tpl->assign_vars(array(
-				'AUCTION_TABLE'		=> $hptt_auction->get_html_table($this->in->get('sort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),
+				'AUCTION_TABLE'		=> $hptt_auction->get_html_table($this->in->get('asort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),
 				'PAGINATION_AUCTION'=> generate_pagination($this->strPath.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0)),
 			));
 		}
@@ -140,12 +140,12 @@ class guildbank_pageobject extends pageobject {
 			'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
 
 			// Table & pagination for items
-			'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_item),
-			'PAGINATION_ITEM'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix, $item_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('isort'), $page_suffix_i, $this->in->get('istart', 0), $this->user->data['user_ilimit'], $footer_item),
+			'PAGINATION_ITEM'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_i, $item_count, $this->user->data['user_ilimit'], $this->in->get('istart', 0)),
 
 			// Table & pagination for transactions
-			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_transa),
-			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix, $ta_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('tsort'), $page_suffix_t, $this->in->get('tstart', 0), $this->user->data['user_ilimit'], $footer_transa),
+			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_t, $ta_count, $this->user->data['user_ilimit'], $this->in->get('sttart', 0)),
 
 			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')),
 			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')),
