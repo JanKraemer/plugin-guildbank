@@ -94,7 +94,7 @@ class guildbank_pageobject extends pageobject {
 		$dd_type		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemtype'));
 		$dd_rarity		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemrarity'));
 		$dd_banker		= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
-$this->user->data['user_ilimit'] = 10;
+
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
 		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID, 0, $typeID, $rarityID));
@@ -109,7 +109,7 @@ $this->user->data['user_ilimit'] = 10;
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
 		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'tsort');
 		$page_suffix_t	= '&amp;start='.$this->in->get('tstart', 0).'#fragment-transactions';
-		$sort_suffix_t	= '&amp;sort='.$this->in->get('tsort');
+		$sort_suffix_t	= '&amp;tsort='.$this->in->get('tsort');
 		$ta_count		= count($ta_list);
 		$footer_transa	= sprintf($this->user->lang('gb_footer_transaction'), $ta_count, $this->user->data['user_ilimit']);
 
@@ -126,10 +126,10 @@ $this->user->data['user_ilimit'] = 10;
 
 			$this->tpl->assign_vars(array(
 				'AUCTION_TABLE'		=> $hptt_auction->get_html_table($this->in->get('asort'), $page_suffix_a, $this->in->get('astart', 0), $this->user->data['user_ilimit'], $footer_auction),
-				'PAGINATION_AUCTION'=> generate_pagination($this->strPath.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0)),
+				'PAGINATION_AUCTION'=> generate_pagination($this->strPath.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0), 'astart'),
 			));
 		}
-
+$this->user->data['user_ilimit'] = 10;
 		$this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&item='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $this->routing->build('guildbank'), 'withid' => 'id'));
 
 		$this->jquery->Tab_header('guildbank_tab', true);
@@ -141,11 +141,11 @@ $this->user->data['user_ilimit'] = 10;
 
 			// Table & pagination for items
 			'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('isort'), $page_suffix_i, $this->in->get('istart', 0), $this->user->data['user_ilimit'], $footer_item),
-			'PAGINATION_ITEM'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_i, $item_count, $this->user->data['user_ilimit'], $this->in->get('istart', 0)),
+			'PAGINATION_ITEM'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_i, $item_count, $this->user->data['user_ilimit'], $this->in->get('istart', 0), 'istart'),
 
 			// Table & pagination for transactions
 			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('tsort'), $page_suffix_t, $this->in->get('tstart', 0), $this->user->data['user_ilimit'], $footer_transa),
-			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_t, $ta_count, $this->user->data['user_ilimit'], $this->in->get('sttart', 0)),
+			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_t, $ta_count, $this->user->data['user_ilimit'], $this->in->get('sttart', 0), 'tstart'),
 
 			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')),
 			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')),
