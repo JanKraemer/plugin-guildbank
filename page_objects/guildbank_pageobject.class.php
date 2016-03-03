@@ -98,7 +98,7 @@ class guildbank_pageobject extends pageobject {
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
 		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID, 0, $typeID, $rarityID));
-		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'isort');
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'i'.$caching_parameter, 'isort');
 		$page_suffix_i	= '&amp;start='.$this->in->get('istart', 0);
 		$page_suffix_i	.= $filter_suffix.'#fragment-auctions';
 		$sort_suffix_i	= '&amp;isort='.$this->in->get('isort');
@@ -107,7 +107,7 @@ class guildbank_pageobject extends pageobject {
 
 		// -- display entries TRANSACTIONS -----------------------------------------
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
-		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'tsort');
+		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'ta'.$caching_parameter, 'tsort');
 		$page_suffix_t	= '&amp;start='.$this->in->get('tstart', 0).'#fragment-transactions';
 		$sort_suffix_t	= '&amp;tsort='.$this->in->get('tsort');
 		$ta_count		= count($ta_list);
@@ -117,7 +117,7 @@ class guildbank_pageobject extends pageobject {
 		if($this->user->check_auth('u_guildbank_auction', false)){
 			$this->pdh->get('guildbank_auctions', 'counterJS');		// init the auction clock
 			$auction_list		= $this->pdh->get('guildbank_auctions', 'id_list', array(true,true));
-			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), $caching_parameter, 'asort');
+			$hptt_auction		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_auctions'], $auction_list, $auction_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'a'.$caching_parameter, 'asort');
 			$page_suffix_a		= '&amp;astart='.$this->in->get('astart', 0);
 			$page_suffix_a		.= $filter_suffix.'#fragment-auctions';
 			$sort_suffix_a		= '&amp;asort='.$this->in->get('asort');
@@ -129,7 +129,7 @@ class guildbank_pageobject extends pageobject {
 				'PAGINATION_AUCTION'=> generate_pagination($this->strPath.$this->SID.$sort_suffix_a, $auction_count, $this->user->data['user_ilimit'], $this->in->get('astart', 0), 'astart'),
 			));
 		}
-$this->user->data['user_ilimit'] = 10;
+
 		$this->jquery->dialog('open_shop', $this->user->lang('gb_shop_window'), array('url' => $this->routing->build('bankshop')."&simple_head=true&item='+id+'", 'width' => 600, 'height' => 400, 'onclose'=> $this->routing->build('guildbank'), 'withid' => 'id'));
 
 		$this->jquery->Tab_header('guildbank_tab', true);
