@@ -46,17 +46,20 @@ if (!class_exists('update_guildbank_220')){
 					'update_guildbank_220' => 'Guild Banker 2.2.0 Update Package',
 					// SQL
 					1 => 'Add currency field to item shop transaction table',
+					2 => 'Remove transaction startvalue field in transaction table as it is not used any longer',
 				),
 				'german' => array(
 					'update_guildbank_200' => 'Guild Banker 2.2.0 Update Paket',
 					// SQL
 					1 => 'Füge Währungsfeld zu itemshop transaction Tabelle hinzu',
+					2 => 'Entferne das Datenbankfeld startvalue aus der Transaktionentabelle, da es nicht länger verwendet wird.'
 				),
 			);
 
 			// init SQL querys
 			$this->sqls = array(
 				1 => "ALTER TABLE __guildbank_shop_ta ADD `st_currency` INT(2)  NULL  DEFAULT '1'  AFTER `st_buyer`;",
+				2 => "ALTER TABLE __guildbank_transactions DROP `ta_startvalue`;",
 			);
 		}
 
