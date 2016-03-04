@@ -26,7 +26,7 @@ if (!defined('EQDKP_INC')){
 if (!class_exists('pdh_w_guildbank_transactions')){
 	class pdh_w_guildbank_transactions extends pdh_w_generic {
 
-		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue, $intType=0){
+		public function add($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intType=0){
 			$resQuery = $this->db->prepare("INSERT INTO __guildbank_transactions :p")->set(array(
 				'ta_banker'		=> $intBanker,
 				'ta_type'		=> $intType,
@@ -36,7 +36,6 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				'ta_value'		=> $intValue,
 				'ta_subject'	=> $strSubject,
 				'ta_date'		=> $this->time->time,
-				'ta_startvalue'	=> $intStartvalue,
 			))->execute();
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $resQuery->insertId;;
@@ -124,7 +123,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 			}
 		}
 
-		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue, $intType=0){
+		public function update($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intType=0){
 			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_id=?")->set(array(
 				'ta_banker'		=> $intBanker,
 				'ta_type'		=> $intType,
@@ -134,7 +133,6 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				'ta_value'		=> $intValue,
 				'ta_subject'	=> $strSubject,
 				'ta_date'		=> $this->time->time,
-				'ta_startvalue'	=> $intStartvalue,
 			))->execute($intID);
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $intID;
@@ -142,12 +140,19 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 		}
 
 		public function update_money($intBanker, $intValue){
-			$resQuery = $this->db->prepare("UPDATE __guildbank_transactions :p WHERE ta_startvalue=?")->set(array(
-				'ta_value'		=> $intValue,
-				'ta_date'		=> $this->time->time,
-			))->execute($intBanker);
-			$this->pdh->enqueue_hook('guildbank_items_update');
-			if ($resQuery) return $intBanker;
+			// first, calculate the difference
+			$intCurrentValue	= $this->pdh->get('guildbank_transactions', 'money_summ', array($intBanker));
+			$intDiffValue		= $intValue - $intCurrentValue;		# Current Value + (New value - current value) = New summ in database
+
+			// get banker char
+			$intBankChar		= $this->pdh->get('guildbank_banker', 'bankchar', array($intBanker, true));
+
+			// set a new transaction
+			if($intDiffValue != 0){
+				$this->add(0, $intBanker, $intBankChar, 0, 0, $intDiffValue, 'gb_money_updated');
+				$this->pdh->enqueue_hook('guildbank_items_update');
+				return $intBanker;
+			}
 			return false;
 		}
 

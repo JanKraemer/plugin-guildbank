@@ -38,8 +38,8 @@ if (!class_exists('pdh_w_guildbank_items')){
 
 			))->execute();
 			$id = $resQuery->insertId;
-			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
-			$this->pdh->put('guildbank_transactions', 'add', array(0, $strBanker, $intChar, $id, $intDKP, $intMoney, $strSubject, $id, 1));
+			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject)
+			$this->pdh->put('guildbank_transactions', 'add', array(0, $strBanker, $intChar, $id, $intDKP, $intMoney, $strSubject, 1));
 			$this->pdh->enqueue_hook('guildbank_items_update');
 			if ($resQuery) return $id;
 			return false;

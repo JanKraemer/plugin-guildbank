@@ -56,7 +56,7 @@ class Manage_BankDetails extends page_generic {
 			$money		= $this->money->input();
 			$retu		= $this->pdh->put('guildbank_transactions', $func, array(
 				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
-				$this->in->get('transaction', 0), $this->in->get('banker', 0), $char, 0, 0, $money, $this->in->get('subject', ''), 0
+				$this->in->get('transaction', 0), $this->in->get('banker', 0), $char, 0, 0, $money, $this->in->get('subject', '')
 			));
 
 		// items
@@ -92,7 +92,7 @@ class Manage_BankDetails extends page_generic {
 			// add the transaction
 			$retu		= $this->pdh->put('guildbank_transactions', 'add', array(
 				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
-				$this->in->get('transaction', 0), $this->in->get('banker', 0), $buyer, $item, $dkp, $money, 'gb_item_payout', 0
+				$this->in->get('transaction', 0), $this->in->get('banker', 0), $buyer, $item, $dkp, $money, 'gb_item_payout'
 			));
 
 			// reduce amount of items
@@ -227,7 +227,7 @@ class Manage_BankDetails extends page_generic {
 			$edit_mode			= true;
 			$item_sellable		= $this->pdh->get('guildbank_items', 'sellable', array($itemID));
 			$edit_bankid		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
-			$money				= $this->pdh->get('guildbank_transactions', 'money', array($edit_bankid));
+			$money				= $this->pdh->get('guildbank_transactions', 'money_summ', array($edit_bankid));
 			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
 		}elseif($transactionID > 0){
 			$mode_select		= 1;
@@ -278,7 +278,7 @@ class Manage_BankDetails extends page_generic {
 			$bankerID		= $this->in->get('g', 0);
 			$edit_charID	= 0;
 		}
-		$money			= $this->pdh->get('guildbank_transactions', 'money', array($bankerID));
+		$money			= $this->pdh->get('guildbank_transactions', 'money_summ', array($bankerID));
 		$this->tpl->assign_vars(array(
 			'MONEY'			=> $this->money->editfields($money),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,

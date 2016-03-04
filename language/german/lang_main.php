@@ -174,7 +174,8 @@ $lang = array(
 	'gb_ta_head_transaction'		=> 'Transaktion verwalten',
 	'gb_ta_head_payout'				=> 'Gegenstand ausbezahlen',
 	'gb_ta_head_item'				=> 'Gegenstand verwalten',
-	'gb_banker_added'				=> 'Banker added',
+	'gb_banker_added'				=> 'Banker hinzugefügt',
+	'gb_money_updated'				=> 'Bankguthaben aktualisiert',
 
 	// settings
 	'gb_header_global'				=> "Gildenbank Einstellungen",

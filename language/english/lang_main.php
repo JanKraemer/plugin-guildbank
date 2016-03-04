@@ -158,6 +158,7 @@ $lang = array(
 	"gb_ta_head_payout" => 'Payout item',
 	"gb_ta_head_item" => 'Manage item',
 	"gb_banker_added" => 'Banker added',
+	'gb_money_updated'	=> 'Updated bank deposits',
 	"gb_header_global" => 'Guild bank settings',
 	"gb_breadcrumb_settings" => 'Guild bank: settings',
 	"gb_saved" => 'The settings were successfully saved',
