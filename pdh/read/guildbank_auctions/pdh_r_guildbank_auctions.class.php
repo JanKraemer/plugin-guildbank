@@ -33,7 +33,6 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 
 		public $presets = array(
 			'gb_aname'		=> array('name',			array('%auction_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
-			'gb_aname_itt'	=> array('name_itt',		array('%auction_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
 			'gb_astartdate'	=> array('startdate',		array('%auction_id%'), array()),
 			'gb_astartvalue'=> array('startvalue',		array('%auction_id%'), array()),
 			'gb_aduration'	=> array('duration',		array('%auction_id%'), array()),
@@ -275,7 +274,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			return $this->get_name($id);
 		}
 
-		public function get_name_itt($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
+		public function get_html_name($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
 			return $this->get_itt_itemname($item_id, $lang, $direct, $onlyicon, $noicon, $in_span);
 		}
 

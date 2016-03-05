@@ -38,7 +38,6 @@ $module_lang = array(
 $preset_lang = array(
 	'gb_tdate'			=> 'Datum',
 	'gb_titem'			=> 'Gegenstand',
-	'gb_titem_itt'		=> 'Gegenstand',
 	'gb_tbuyer'			=> 'Käufer',
 	'gb_tsubject'		=> 'Betreff',
 	'gb_tbanker'		=> 'Bankier',

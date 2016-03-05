@@ -107,11 +107,11 @@ if (!class_exists('guildbank_admintask_hook')) {
 				foreach ($confirm as $transaction){
 					$arrContent[]	= array(
 							'id'					=> $transaction,
-							'gb_item_name'			=> $this->pdh->get('guildbank_auctions',	'name_itt',				array($transaction)),
+							'gb_item_name'			=> $this->pdh->get('guildbank_auctions',	'html_name',			array($transaction)),
 							'gb_auction_startdate'	=> $this->pdh->get('guildbank_auctions',	'startdate',			array($transaction)),
 							'gb_auction_winner'		=> $this->pdh->get('guildbank_auctions',	'highest_bidder',		array($transaction)),
 							'gb_auction_price'		=> $this->pdh->get('guildbank_auctions',	'highest_value',		array($transaction)),
-							'gb_auction_amountbids'	=> $this->pdh->get('guildbank_auctions',	'amount_bids',		array($transaction)),
+							'gb_auction_amountbids'	=> $this->pdh->get('guildbank_auctions',	'amount_bids',			array($transaction)),
 					);
 				}
 			}

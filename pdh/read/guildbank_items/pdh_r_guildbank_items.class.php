@@ -40,7 +40,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public $presets = array(
 			'gb_idate'		=> array('html_date',	array('%item_id%'), array()),
 			'gb_iname'		=> array('name',		array('%item_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
-			'gb_iname_itt'	=> array('name_itt',	array('%item_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
 			'gb_iamount'	=> array('amount',		array('%item_id%'), array()),
 			'gb_itype'		=> array('type',		array('%item_id%'), array()),
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
@@ -228,7 +227,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return $this->get_name($id);
 		}
 
-		public function get_name_itt($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
+		public function get_html_name($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
 			return $this->get_itt_itemname($item_id, $lang, $direct, $onlyicon, $noicon, $in_span);
 		}
 

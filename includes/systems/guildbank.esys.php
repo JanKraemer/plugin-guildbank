@@ -36,7 +36,7 @@ $systems_guildbank = array(
 			'table_sort_dir'		=> 'desc',
 			'table_sort_col'		=> 0,
 			'table_presets'			=> array(
-				array('name' => 'gb_iname_itt',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_iname',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_iamount',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 				array('name' => 'gb_itype',		'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
 				array('name' => 'gb_ibanker',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
@@ -58,7 +58,7 @@ $systems_guildbank = array(
 			'table_presets'			=> array(
 				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_tsubject',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
-				array('name' => 'gb_titem_itt',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_titem',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_tbuyer',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 				array('name' => 'gb_tbanker',	'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
 				array('name' => 'gb_tvalue',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
@@ -78,7 +78,7 @@ $systems_guildbank = array(
 			'table_presets'			=> array(
 				array('name' => 'gb_aalink',		'sort' => false,	'th_add' => 'align="center width="20px"',	'td_add' => ''),
 				array('name' => 'gb_astartdate',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
-				array('name' => 'gb_aname_itt',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_aname',			'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_left_atime',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_astartvalue',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_bidhibidder',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
@@ -115,7 +115,7 @@ $systems_guildbank = array(
 			'table_sort_col'		=> 2,
 			'table_presets' => array(
 				array('name' => 'gb_iedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
-				array('name' => 'gb_iname_itt',	'sort' => true,		'th_add' => '',								'td_add' => 'style="height:21px;"'),
+				array('name' => 'gb_iname',		'sort' => true,		'th_add' => '',								'td_add' => 'style="height:21px;"'),
 				array('name' => 'gb_idate',		'sort' => true,		'th_add' => '',								'td_add' => ''),
 				array('name' => 'gb_itype',		'sort' => true,		'th_add' => '',								'td_add' => ''),
 				array('name' => 'gb_irarity',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
@@ -140,7 +140,7 @@ $systems_guildbank = array(
 				array('name' => 'gb_tedit',		'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
 				array('name' => 'gb_tdate',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_tsubject',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
-				array('name' => 'gb_titem_itt',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_titem',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_tbuyer',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 				array('name' => 'gb_tbanker',	'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
 				array('name' => 'gb_tvalue',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
@@ -161,7 +161,7 @@ $systems_guildbank = array(
 			'table_presets'			=> array(
 				array('name' => 'gb_aedit',			'sort' => false,	'th_add' => 'align="center width="40px"',	'td_add' => ''),
 				array('name' => 'gb_aactive',		'sort' => false,	'th_add' => 'align="center"',				'td_add' => ''),
-				array('name' => 'gb_aname_itt',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
+				array('name' => 'gb_aname',			'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_astartdate',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_aduration',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_astartvalue',	'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),

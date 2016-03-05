@@ -31,7 +31,6 @@ if (!defined('EQDKP_INC')) {
 $module_lang = array(
 	"html_date" => 'Date',
 	"name" => 'Item',
-	"name_itt" => 'Item',
 	"amount" => 'Amount',
 	"type" => 'Type',
 	"gb_icost" => 'Cost',
@@ -46,7 +45,6 @@ $module_lang = array(
 	$preset_lang = array(
 	"gb_idate" => 'Date',
 	"gb_iname" => 'Item',
-	"gb_iname_itt" => 'Item',
 	"gb_iamount" => 'Amount',
 	"gb_itype" => 'Type',
 	"gb_iedit" => 'Edit',
