@@ -113,7 +113,12 @@ class Manage_BankDetails extends page_generic {
 	public function delete() {
 		$tmp_ids	= $this->in->getArray('selections');
 		$first_id	= explode("_", $tmp_ids[0]);
-		$banker_id	= (is_array($tmp_ids) && count($tmp_ids) > 0) ? $this->pdh->get('guildbank_items', 'banker', array($first_id[1])) : false;
+		if($first_id[0] == 'transaction'){
+			$banker_id	= (isset($first_id[1]) && $first_id[1] > 0) ? $this->pdh->get('guildbank_transactions', 'banker', array($first_id[1], true)) : false;
+		}else{
+			$banker_id	= (isset($first_id[1]) && $first_id[1] > 0) ? $this->pdh->get('guildbank_items', 'banker', array($first_id[1])) : false;
+		}
+
 		if(is_array($tmp_ids) && count($tmp_ids) > 0){
 			// now, lets get the information..
 			foreach($tmp_ids as $id){

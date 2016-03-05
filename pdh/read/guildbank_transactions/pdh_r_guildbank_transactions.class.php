@@ -44,7 +44,6 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		public $presets = array(
 			'gb_tdate'		=> array('date',		array('%trans_id%'), array()),
 			'gb_titem'		=> array('item',		array('%trans_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
-			#'gb_titem'		=> array('item',		array('%trans_id%'), array()),
 			'gb_tbuyer'		=> array('char',		array('%trans_id%'), array()),
 			'gb_tsubject'	=> array('subject',		array('%trans_id%'), array()),
 			'gb_tbanker'	=> array('banker',		array('%trans_id%'), array()),
