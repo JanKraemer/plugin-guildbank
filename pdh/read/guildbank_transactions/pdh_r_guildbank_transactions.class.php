@@ -222,10 +222,11 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			return (isset($this->data[$id]) && $this->data[$id]['startvalue'] > 0) ? $this->data[$id]['startvalue'] : 0;
 		}
 
-		public function get_date($id, $raw=false){
-			if($raw){
-				return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->data[$id]['date'] : 0;
-			}
+		public function get_date($id){
+			return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->data[$id]['date'] : 0;
+		}
+
+		public function get_html_date($id){
 			return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->time->user_date($this->data[$id]['date']) : '--';
 		}
 

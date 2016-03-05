@@ -141,7 +141,7 @@ if (!class_exists('guildbank_admintask_hook')) {
 							'id'			=> $transaction,
 							'gb_item_name'	=> $this->pdh->get('guildbank_shop_ta',	'item',		array($transaction)),
 							'gb_amount'		=> $this->pdh->get('guildbank_shop_ta',	'amount',	array($transaction)),
-							'gb_item_date'	=> $this->pdh->get('guildbank_shop_ta',	'date',		array($transaction)),
+							'gb_item_date'	=> $this->pdh->get('guildbank_shop_ta',	'html_date',array($transaction)),
 							'gb_item_value'	=> $value_out,
 							'buyer'			=> $this->pdh->get('guildbank_shop_ta',	'buyer',	array($transaction)),
 					);

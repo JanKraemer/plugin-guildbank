@@ -137,9 +137,16 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			return (isset($this->data[$id]) && $this->data[$id]['auctionid']) ? $this->data[$id]['auctionid'] : 0;
 		}
 
-		public function get_date($id, $raw=false){
+		public function get_date($id){
 			if(isset($this->data[$id]) && $this->data[$id]['date']){
-				return ($raw) ? $this->data[$id]['date'] : $this->time->user_date($this->data[$id]['date'], true, false, true);
+				return $this->data[$id]['date'];
+			}
+			return 0;
+		}
+
+		public function get_html_date($id, $raw=false){
+			if(isset($this->data[$id]) && $this->data[$id]['date']){
+				return $this->time->user_date($this->data[$id]['date'], true, false, true);
 			}
 			return 0;
 		}
