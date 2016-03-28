@@ -160,7 +160,7 @@ class Manage_BankDetails extends page_generic {
 
 		// -- display entries ITEMS ------------------------------------------------
 		$view_items		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID));
-		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_items, $view_items, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'admin_i', 'isort');
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_items'], $view_items, $view_items, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'admin_i'.$bankerID, 'isort');
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0).'&amp;g='.$bankerID.'#fragment-items';
 		$sort_suffix_i	= '&amp;isort='.$this->in->get('isort');
 		$item_count		= count($view_items);
@@ -168,7 +168,7 @@ class Manage_BankDetails extends page_generic {
 
 		// -- display entries TRANSACTIONS -----------------------------------------
 		$ta_list		= $this->pdh->get('guildbank_transactions', 'id_list', array($bankerID));
-		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'admin_ta', 'tsort');
+		$hptt_transa	= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_admin_transactions'], $ta_list, $ta_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'admin_ta'.$bankerID, 'tsort');
 		$ta_count		= count($ta_list);
 		$page_suffix_ta	= '&amp;tastart='.$this->in->get('tastart', 0).'&amp;g='.$bankerID.'#fragment-transactions';
 		$sort_suffix_ta	= '&amp;tsort='.$this->in->get('tsort');

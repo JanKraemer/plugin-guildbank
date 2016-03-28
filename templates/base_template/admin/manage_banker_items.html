@@ -2,7 +2,7 @@
 	<ul class="breamcrumb">
 		<li><a href="{EQDKP_CONTROLLER_PATH}{SID}" title="{L_home}"><i class="fa fa-home"></i></a></li>
 		<li><a href="{EQDKP_ROOT_PATH}admin/{SID}">{L_menu_admin_panel}</a>
-		<li><a href="{EQDKP_ROOT_PATH}plugins/guildbank/admin/manage_banker.php?s=/{SID}">{L_gb_manage_bankers}</a></li>
+		<li><a href="{EQDKP_ROOT_PATH}plugins/guildbank/admin/manage_banker.php{SID}">{L_gb_manage_bankers}</a></li>
 		<li class="current"><a>{L_BC_CURRENTPAGE}</a></li>
 	</ul>
 	<div class="clear"></div>
@@ -35,11 +35,11 @@
 					<button class="mainoption" type="button" name="additem" onclick="javascript:add_item();"><i class="fa fa-plus"></i>{L_add_item}</button>
 			</div>
 			<div class="clear"></div>
-			
+
 			<table class="table fullwidth colorswitch">
 				{ITEM_LIST}
 			</table>
-			
+
 			<div class="center pagination_wrapper">
 				{PAGINATION_ITEMS}
 			</div>
@@ -48,7 +48,7 @@
 				<input type="hidden" name="del" value="1" disabled="disabled" id="mass_del_submit" />
 			</div>
 		</div>
-		
+
 		<div id="fragment-transactions">
 			<div class="contentHeader">
 				<h1 class="contentTitle">{L_gb_title_transaction}</h1>
@@ -57,11 +57,11 @@
 					<button class="mainoption" type="button" name="addtransaction" onclick="javascript:add_transaction();"><i class="fa fa-plus"></i>{L_add_transaction}</button>
 			</div>
 			<div class="clear"></div>
-			
+
 			<table class="table fullwidth colorswitch">
 				{TRANSA_LIST}
 			</table>
-			
+
 			<div class="center pagination_wrapper">
 				{TRANSA_PAGINATION}
 			</div>
