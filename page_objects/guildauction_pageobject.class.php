@@ -18,7 +18,7 @@
  *	You should have received a copy of the GNU Affero General Public License
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 class guildauction_pageobject extends pageobject {
 
 	private $data = array();
@@ -67,7 +67,7 @@ class guildauction_pageobject extends pageobject {
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
 		$bid_list		= $this->pdh->get('guildbank_auction_bids', 'id_list', array($this->url_id));
-		$hptt_bids		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_bids'], $bid_list, $bid_list, array());
+		$hptt_bids		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_bids'], $bid_list, $bid_list, array(), 'bids'.$this->url_id);
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$bids_count		= count($bid_list);
@@ -93,7 +93,7 @@ class guildauction_pageobject extends pageobject {
 			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_bids),
 			'PAGINATION_BIDS'	=> generate_pagination($this->routing->build('guildauction').$sort_suffix, $bids_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
 		));
-		
+
 		$this->core->set_vars(array(
 			'page_title'		=> $this->user->lang('gb_auction_window'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
