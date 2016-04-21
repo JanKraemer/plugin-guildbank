@@ -98,7 +98,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 				// filter future
 				foreach($ids as $key => $id) {
 					$time_left	= $this->get_atime_left($id);
-					$start_time	= $this->get_startdate($id,true);
+					$start_time	= $this->get_startdate($id);
 					$not_active	= ($this->get_active($id) == 0) ? true : false;
 
 					// do the stuff
@@ -137,7 +137,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		}
 
 		function get_count_active_auction(){
-			$auctions = $this->get_id_list(true);d($auctions);
+			$auctions = $this->get_id_list(true);
 			return (count($auctions) > 0) ? count($auctions) : 0;
 		}
 
@@ -145,11 +145,18 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 			return (isset($this->data[$id]) && $this->data[$id]['note']) ? $this->data[$id]['note'] : '';
 		}
 
-		public function get_startdate($id, $raw=false){
+		public function get_startdate($id){
 			if(isset($this->data[$id]) && $this->data[$id]['startdate']){
-				return ($raw) ? $this->data[$id]['startdate'] : $this->time->user_date($this->data[$id]['startdate'], true, false, true);
+				return $this->data[$id]['startdate'];
 			}
 			return 0;
+		}
+
+		public function get_html_startdate($id){
+			if($this->get_startdate($id) > 0){
+				return $this->time->user_date($this->data[$id]['startdate'], true, false, true);
+			}
+			return '--';
 		}
 
 		public function get_auction_byitem($itemID){
@@ -169,7 +176,7 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 
 		public function get_atime_left($id){
 			// calculate the time left
-			$startts	= $this->get_startdate($id, true);
+			$startts	= $this->get_startdate($id);
 			$duration	= (isset($this->data[$id]) && $this->data[$id]['duration'] && (int)$this->data[$id]['duration'] > 0) ? ((int)$this->data[$id]['duration'])*3600 : 0;
 			$now		= $this->time->time;
 
