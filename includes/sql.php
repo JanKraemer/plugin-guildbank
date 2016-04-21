@@ -60,7 +60,6 @@ $guildbankSQL = array(
 				ta_value BIGINT(20) default 0,
 				ta_dkp int(20) default 0,
 				ta_date int(11) default NULL,
-				ta_startvalue mediumint(8) default 0,
 				ta_subject varchar(255) default NULL,
 				PRIMARY KEY  (ta_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",

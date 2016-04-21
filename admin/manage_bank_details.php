@@ -55,7 +55,7 @@ class Manage_BankDetails extends page_generic {
 		if($mode == 1){
 			$money		= $this->money->input();
 			$retu		= $this->pdh->put('guildbank_transactions', $func, array(
-				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
+				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject
 				$this->in->get('transaction', 0), $this->in->get('banker', 0), $char, 0, 0, $money, $this->in->get('subject', '')
 			));
 
@@ -91,7 +91,7 @@ class Manage_BankDetails extends page_generic {
 
 			// add the transaction
 			$retu		= $this->pdh->put('guildbank_transactions', 'add', array(
-				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue
+				//$intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject
 				$this->in->get('transaction', 0), $this->in->get('banker', 0), $buyer, $item, $dkp, $money, 'gb_item_payout'
 			));
 

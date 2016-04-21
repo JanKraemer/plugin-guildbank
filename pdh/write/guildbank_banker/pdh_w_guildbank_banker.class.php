@@ -34,7 +34,7 @@ if (!class_exists('pdh_w_guildbank_banker')){
 			))->execute();
 
 			$id = $resQuery->insertId;
-			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject, $intStartvalue)
+			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject)
 			$this->pdh->put('guildbank_transactions', 'add', array(0, $id, $intBankChar, 0, 0, $intMoney, 'gb_banker_added'));
 			$this->pdh->enqueue_hook('guildbank_banker_update');
 
