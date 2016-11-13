@@ -100,7 +100,7 @@ class Manage_Auction extends page_generic {
 		$page_suffix		= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix		= '&amp;sort='.$this->in->get('sort');
 		$auctions_count		= count($view_auctions);
-		$auctions_footer	= sprintf($this->user->lang('gb_footer_auction'), $auctions_count, $this->user->data['user_ilimit']);
+		$auctions_footer	= sprintf($this->user->lang('gb_footer_auction'), $auctions_count, $this->user->data['user_rlimit']);
 
 		$redirect_url		= 'manage_auctions.php'.$this->SID;
 		$transactions_url	= 'manage_auctions.php'.$this->SID.'&simple_head=true&addedit=true';
@@ -110,8 +110,8 @@ class Manage_Auction extends page_generic {
 
 		$this->confirm_delete($this->user->lang('gb_confirm_delete_auctions'));
 		$this->tpl->assign_vars(array(
-			'AUCTION_LIST'				=> $hptt_auctions->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $auctions_footer),
-			'PAGINATION_AUCTION'		=> generate_pagination('manage_auctions.php'.$this->SID.$sort_suffix, $auctions_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'AUCTION_LIST'				=> $hptt_auctions->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_rlimit'], $auctions_footer),
+			'PAGINATION_AUCTION'		=> generate_pagination('manage_auctions.php'.$this->SID.$sort_suffix, $auctions_count, $this->user->data['user_rlimit'], $this->in->get('start', 0)),
 		));
 
 		$this->core->set_vars(array(

@@ -71,7 +71,7 @@ class guildauction_pageobject extends pageobject {
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$bids_count		= count($bid_list);
-		$footer_bids	= sprintf($this->user->lang('gb_bids_footcount'), $bid_list, $this->user->data['user_ilimit']);
+		$footer_bids	= sprintf($this->user->lang('gb_bids_footcount'), $bid_list, $this->user->data['user_rlimit']);
 
 		// data
 		$dkppool		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
@@ -90,8 +90,8 @@ class guildauction_pageobject extends pageobject {
 			'BID_SPINNER'		=> new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points, 'onlyinteger' => true)),
 			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
 
-			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_ilimit'], $footer_bids),
-			'PAGINATION_BIDS'	=> generate_pagination($this->routing->build('guildauction').$sort_suffix, $bids_count, $this->user->data['user_ilimit'], $this->in->get('start', 0)),
+			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_rlimit'], $footer_bids),
+			'PAGINATION_BIDS'	=> generate_pagination($this->routing->build('guildauction').$sort_suffix, $bids_count, $this->user->data['user_rlimit'], $this->in->get('start', 0)),
 		));
 
 		$this->core->set_vars(array(
