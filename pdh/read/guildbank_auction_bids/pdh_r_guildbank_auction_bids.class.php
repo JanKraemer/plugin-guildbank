@@ -108,8 +108,9 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 							$charbids_tmp[]	= $auctionid;
 						}
 					}
-					return $charbids_tmp;
 				}
+				return $charbids_tmp;
+			}
 			return $charbids;
 		}
 
