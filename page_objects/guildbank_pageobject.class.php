@@ -44,8 +44,8 @@ class guildbank_pageobject extends pageobject {
 
 	public function display(){
 		$bankerID		= $this->in->get('banker', 0);
-		$rarityID		= $this->in->get('rarity', '');
-		$typeID			= $this->in->get('type', 0);
+		$rarityID		= $this->in->get('rarity', 0);
+		$typeID			= $this->in->get('type', '');
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
 		//init infotooltip
@@ -91,7 +91,7 @@ class guildbank_pageobject extends pageobject {
 			));
 		}
 
-		$dd_type		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemtype'));
+		$dd_type		= array_merge(array('' => '--'), $this->pdh->get('guildbank_items', 'itemtype'));
 		$dd_rarity		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemrarity'));
 		$dd_banker		= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
 

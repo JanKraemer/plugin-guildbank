@@ -186,11 +186,12 @@ $lang = array(
 	"misc" => 'Others',
 	),
 	"gb_a_rarity" => array(
-	5 => 'Legendary',
-	4 => 'Epic',
-	3 => 'Rare',
-	2 => 'Normal',
 	1 => 'Other',
+	2 => 'Normal',
+	3 => 'Rare',
+	4 => 'Epic',
+	5 => 'Legendary',
+
 	),
 	"gb_currency" => array(
 	"platin" => 'Platinum',

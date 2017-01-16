@@ -95,13 +95,14 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return true;
 		}
 
-		public function get_id_list($bankerID = 0, $priority = 0, $type = 0, $rarity = 0, $sellable = 0){
+		public function get_id_list($bankerID = 0, $priority = 0, $type = '', $rarity = 0, $sellable = 0){
 			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $this->data;
 			if (is_array($data)){
 				// filter the output
-				if($priority > 0 || $type > 0 || $rarity > 0 || $sellable > 0){
+				if($priority > 0 || $type != '' || $rarity > 0 || $sellable > 0){
 					foreach($data as $itemid=>$itemvalues) {
-						if(($type > 0 && $this->get_type($itemid) != $type) ||	($priority > 0 && $this->get_priority($itemid) != $priority) || ($rarity > 0 && $this->get_rarity($itemid) != $rarity) || ($sellable > 0 && $this->get_sellable($itemid) != '1')){
+						if(($type != '' && $this->get_type($itemid, true) != $type) || ($priority > 0 && $this->get_priority($itemid) != $priority) || ($rarity > 0 && $this->get_rarity($itemid, true) != $rarity) || ($sellable > 0 && $this->get_sellable($itemid) != '1')){
+							echo 'remove: '.$itemid.' / '.$rarity.' ('.$this->get_rarity($itemid, true).') <br>';
 							unset($data[$itemid]);
 						}
 					}
@@ -160,9 +161,9 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_type($id, $raw=false){
 			if($raw){
-				return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->data[$id]['type'] : 'none';
+				return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->data[$id]['type'] : '';
 			}
-			return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->get_itemtype($this->data[$id]['type']) : 'none';
+			return (isset($this->data[$id]) && $this->data[$id]['type']) ? $this->get_itemtype($this->data[$id]['type']) : '';
 		}
 
 		public function get_itemtype($id=false){

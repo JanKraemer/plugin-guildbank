@@ -209,11 +209,11 @@ $lang = array(
 		'misc'		=> "Verschiedenes"
 	),
 	'gb_a_rarity'					=> array(
-		'5'			=> "Legendär",
-		'4'			=> "Episch",
-		'3'			=> "Rar",
-		'2'			=> "Normal",
-		'1'			=> "Rest"
+		1			=> "Rest",
+		2			=> "Normal",
+		3			=> "Rar",
+		4			=> "Episch",
+		5			=> "Legendär",
 	),
 
 	// default currency
