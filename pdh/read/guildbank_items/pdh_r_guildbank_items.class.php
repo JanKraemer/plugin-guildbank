@@ -102,7 +102,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 				if($priority > 0 || $type != '' || $rarity > 0 || $sellable > 0){
 					foreach($data as $itemid=>$itemvalues) {
 						if(($type != '' && $this->get_type($itemid, true) != $type) || ($priority > 0 && $this->get_priority($itemid) != $priority) || ($rarity > 0 && $this->get_rarity($itemid, true) != $rarity) || ($sellable > 0 && $this->get_sellable($itemid) != '1')){
-							echo 'remove: '.$itemid.' / '.$rarity.' ('.$this->get_rarity($itemid, true).') <br>';
 							unset($data[$itemid]);
 						}
 					}
