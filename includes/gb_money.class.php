@@ -153,11 +153,11 @@ if(!class_exists('gb_money')) {
 		}
 
 		public function editfields($mymoney=0, $name='money_{ID}', $plusminus=false, $readonly=false){
-			$monvalue = ($plusminus) ? new hdropdown(str_replace('{ID}', 'pm', $name), array('options' => array('+'=>'+', '-'=>'-'))) : '';
+			$monvalue = ($plusminus) ? (new hdropdown(str_replace('{ID}', 'pm', $name), array('options' => array('+'=>'+', '-'=>'-'))))->output() : '';
 			foreach($this->data as $monName=>$monValue){
-				$monvalue .= $this->image($monValue).' '.new htext(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size']), 'attrdata' => array('value' => $this->output($mymoney, $monValue)), 'readonly'=>$readonly, 'class'=>'money'));
+				$monvalue .= $this->image($monValue).' '.(new htext(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size']), 'attrdata' => array('value' => $this->output($mymoney, $monValue)), 'readonly'=>$readonly, 'class'=>'money')))->output();
 				if($readonly){
-					$monvalue .= new hhidden(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size']), 'attrdata' => array('value' => $this->output($mymoney, $monValue)), 'class'=>'money'));
+					$monvalue .= (new hhidden(str_replace('{ID}', $monName, $name), array('value' => $this->output($mymoney, $monValue), 'size' => (($monValue['size'] == 'unlimited') ? 9 : $monValue['size']), 'attrdata' => array('value' => $this->output($mymoney, $monValue)), 'class'=>'money')))->output();
 				}
 			}
 			return $monvalue;

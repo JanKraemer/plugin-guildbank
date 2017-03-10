@@ -89,9 +89,9 @@ class guildauction_pageobject extends pageobject {
 		$this->tpl->assign_vars(array(
 			'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
 			'ERROR_WARNING'		=> (!$this->url_id || !$this->user->is_signedin()) ? true : false,
-			'DD_MYCHARS'		=> new hdropdown('memberid', array('value' => $mainchar, 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
+			'DD_MYCHARS'		=> (new hdropdown('memberid', array('value' => $mainchar, 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))))->output(),
 			'MY_DKPPOINTS'		=> $points.' '.$this->config->get('dkp_name'),
-			'BID_SPINNER'		=> new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points, 'onlyinteger' => true)),
+			'BID_SPINNER'		=> (new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points, 'onlyinteger' => true)))->output(),
 			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
 
 			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_rlimit'], $footer_bids),

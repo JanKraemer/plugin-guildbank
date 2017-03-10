@@ -138,12 +138,12 @@ class bankshop_pageobject extends pageobject {
 		$this->tpl->assign_vars(array(
 			'NOSELECTION'		=> ($this->url_id > 0) ? true : false,
 			'BUYFORMONEY'		=> ($dkp == 0 && $money > 0) ? true : false,
-			'DD_ITEMS'			=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), 'value' => $this->url_id, 'id' => 'items_id')),
+			'DD_ITEMS'			=> (new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array(0,0,0,0,1)))), 'value' => $this->url_id, 'id' => 'items_id')))->output(),
 			'ITEM'				=> $this->pdh->get('guildbank_items', 'name', array($this->url_id)),
 			'ITEM_ID'			=> $this->url_id,
-			'DD_MYCHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))),
-			'DD_AMOUNT'			=> new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)),
-			'DD_MULTIDKPPOOL'	=> (count($dkppools) > 1) ? new hdropdown('dkppool', array('options' => $dkppools, 'value' => 0)) : new hhidden('dkppool', array('value' => $dkppools[0])),
+			'DD_MYCHARS'		=> (new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))))->output(),
+			'DD_AMOUNT'			=> (new hdropdown('amount', array('options' => (($amount > 0) ? range(0, $amount) : 1), 'value' => 0)))->output(),
+			'DD_MULTIDKPPOOL'	=> (count($dkppools) > 1) ? (new hdropdown('dkppool', array('options' => $dkppools, 'value' => 0)))->output() : (new hhidden('dkppool', array('value' => $dkppools[0])))->output(),
 			'DKP'				=> $dkp,
 			'MONEY'				=> $this->money->editfields($money, 'money_{ID}', false, true),
 		));
