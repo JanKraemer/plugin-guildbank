@@ -148,9 +148,9 @@ class guildbank_pageobject extends pageobject {
 			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('tsort'), $page_suffix_t, $this->in->get('tstart', 0), $this->user->data['user_rlimit'], $footer_transa),
 			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_t, $ta_count, $this->user->data['user_rlimit'], $this->in->get('tstart', 0), 'tstart'),
 
-			'DD_BANKER'		=> new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')),
-			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')),
-			'DD_TYPE'		=> new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')),
+			'DD_BANKER'		=> (new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
+			'DD_RARITY'		=> (new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
+			'DD_TYPE'		=> (new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 
 			'AUCTIONCOUNT'	=> $this->pdh->get('guildbank_auctions', 'count_active_auction', array()),
 

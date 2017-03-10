@@ -252,17 +252,17 @@ class Manage_BankDetails extends page_generic {
 			'TAID'			=> $transactionID,
 			'MONEY_TRANS'	=> $this->money->editfields($money, 'money_{ID}', true),
 			'MONEY_ITEM'	=> $this->money->editfields($money, 'money2_{ID}'),
-			'DD_RARITY'		=> new hdropdown('rarity', array('options' => $this->pdh->get('guildbank_items', 'itemrarity'), 'value' => (($itemID > 0) ? $rarity : ''))),
-			'DD_TYPE'		=> new hdropdown('type', array('options' => $this->pdh->get('guildbank_items', 'itemtype'), 'value' => $type)),
+			'DD_RARITY'		=> (new hdropdown('rarity', array('options' => $this->pdh->get('guildbank_items', 'itemrarity'), 'value' => (($itemID > 0) ? $rarity : ''))))->output(),
+			'DD_TYPE'		=> (new hdropdown('type', array('options' => $this->pdh->get('guildbank_items', 'itemtype'), 'value' => $type)))->output(),
 			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
-			'ITEM'			=> new htext('name', array('value' => (($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : ''), 'size' => '40', 'autocomplete' => $this->pdh->aget('item', 'name', 0, array($this->pdh->get('item', 'id_list'))))),
+			'ITEM'			=> (new htext('name', array('value' => (($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : ''), 'size' => '40', 'autocomplete' => $this->pdh->aget('item', 'name', 0, array($this->pdh->get('item', 'id_list'))))))->output(),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($itemID)) : 0,
 			'AUCTIONTIME'	=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'auctiontime', array($edit_bankid)) : 48,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
-			'MS_MEMBERS'	=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
-			'DD_MODE'		=> new hdropdown('mode', array('options' => $this->user->lang('gb_a_mode'), 'value' => $mode_select, 'id' => 'selectmode', 'disabled' => $edit_mode)),
-			'R_SELLABLE'	=> new hradio('sellable', array('value' => $item_sellable, 'options' => array('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')))),
+			'MS_MEMBERS'	=> (new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)))->output(),
+			'DD_MODE'		=> (new hdropdown('mode', array('options' => $this->user->lang('gb_a_mode'), 'value' => $mode_select, 'id' => 'selectmode', 'disabled' => $edit_mode)))->output(),
+			'R_SELLABLE'	=> (new hradio('sellable', array('value' => $item_sellable, 'options' => array('0'=>$this->user->lang('no'),'1'=>$this->user->lang('yes')))))->output(),
 		));
 
 		$this->core->set_vars(array(
@@ -289,8 +289,8 @@ class Manage_BankDetails extends page_generic {
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
 			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
-			'DD_ITEMS'		=> new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array($bankerID)))), 'value' => 0)),
-			'DD_CHARS'		=> new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)),
+			'DD_ITEMS'		=> (new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array($bankerID)))), 'value' => 0)))->output(),
+			'DD_CHARS'		=> (new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)))->output(),
 		));
 
 		$this->core->set_vars(array(
