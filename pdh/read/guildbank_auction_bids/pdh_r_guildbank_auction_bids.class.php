@@ -98,8 +98,12 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			return $this->get_id_list($auctionID);
 		}
 
+		public function get_charbids($characterid){
+			return (isset($this->charbids[$characterid])) ? $this->charbids[$characterid] : false;
+		}
+
 		public function get_bids_bycharacter($characterid, $active=true){
-			$charbids	= $this->charbids[$characterid];
+			$charbids	= $this->charbids($characterid);
 			if($active){
 				$charbids_tmp	= array();
 				if(is_array($charbids)){
