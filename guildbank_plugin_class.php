@@ -72,6 +72,9 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_write_module('guildbank_auctions');
 		$this->add_pdh_write_module('guildbank_auction_bids');
 
+		// -- Portal Modules -----------------------------------
+		$this->add_portal_module('gb_auctions');
+
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search',		'guildbank_search_hook',	'search');
 		$this->add_hook('admin_tasks',	'guildbank_admintask_hook',	'admin_tasks');
