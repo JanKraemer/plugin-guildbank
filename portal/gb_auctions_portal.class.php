@@ -39,7 +39,7 @@ class gb_auctions_portal extends portal_generic{
 	* Portal data
 	*/
 	protected static $data = array(
-		'name'			=> 'Guildbank number of open auctions',
+		'name'			=> 'Guildbank auctions',
 		'version'		=> '0.1.0',
 		'author'			=> 'Wallenium',
 		'contact'		=> 'https://eqdkp-plus.eu',
@@ -47,19 +47,19 @@ class gb_auctions_portal extends portal_generic{
 		'lang_prefix'	=> 'gb_',
 		'multiple'		=> true,
 	);
-	
+
 	protected static $apiLevel = 20;
 	protected static $multiple = true;
-	
+
 	public function get_settings($state){
 		$settings = array(
 			'show_list_future_auctions'	=> array(
 				'type'		=> 'radio',
 				'default'	=> '0',
 			),
-			'show_count_future_auctions'	=> array(
+			'hide_count_future_auctions'	=> array(
 				'type'		=> 'radio',
-				'default'	=> '1',
+				'default'	=> '0',
 			),
 			'show_timeleft'	=> array(
 				'type'		=> 'radio',
@@ -79,10 +79,10 @@ class gb_auctions_portal extends portal_generic{
 		$output			= "";
 		$arrAuctions	= $this->pdh->geth('guildbank_auctions', 'id_list', array(true));
 
-		$output = '<table class="table fullwidth nextraid_table">';
+		$output = '<table class="table fullwidth gbauctions_table">';
 		// the number of auctions
-		if($this->config('show_count_future_auctions')){
-			$output .= '<tr class="gbportalAuctionCount"><td colsüan="4">'.count($arrAuctions).'</td></tr>';
+		if($this->config('hide_count_future_auctions') != 1){
+			$output .= '<tr class="gbportalAuctionCount"><td>'.$this->user->lang('gb_auctions_auctioncount').':</td><td>'.count($arrAuctions).'</td></tr>';
 		}
 
 		// show the single auctions
@@ -92,23 +92,25 @@ class gb_auctions_portal extends portal_generic{
 					if($this->config('show_timeleft')){
 						$this->pdh->get('guildbank_auctions', 'counterJS');
 					}
-					$strItemName	= $this->pdh->geth('guildbank_auctions', 'html_name', array($strAuctionsData['item']));
-					$strMaxValue	= $this->pdh->geth('guildbank_auction_bids', 'highest_value', array($intAuctionID));
-					$strMaxBidder	= $this->pdh->geth('guildbank_auction_bids', 'highest_bidder', array($intAuctionID));
-					$strEndDate		= $this->pdh->geth('guildbank_auctions', 'enddate', array($intAuctionID));
-					$strTimeLeft	= $this->pdh->geth('guildbank_auctions', 'atime_left_html', array($intAuctionID));
+					$strItemName	= $this->pdh->get('guildbank_auctions', 'html_name', array($strAuctionsData));
+					$strMaxValue	= $this->pdh->get('guildbank_auction_bids', 'highest_value', array($strAuctionsData));
+					$strMaxBidder	= $this->pdh->get('guildbank_auction_bids', 'highest_bidder', array($strAuctionsData));
+					$strEndDate		= $this->pdh->get('guildbank_auctions', 'enddate', array($strAuctionsData));
+					$strTimeLeft	= $this->pdh->get('guildbank_auctions', 'atime_left_html', array($strAuctionsData));
 					$output .= '<tr>
-										<td width="70%">'.$strItemName.'</td>
-										<td width="15%">'.(($this->config('show_timeleft')) ? $strTimeLeft : $strEndDate).'</td>
-										<td width="15%">'.$strMaxBidder.'</td>
-										<td width="15%">'.$strMaxValue.'</td>
+										<td colspan="2">'.$strItemName.'
+											</br>
+											<div>'.(($this->config('show_timeleft')) ? $strTimeLeft : $this->time->user_date($strEndDate, true)).'</div>
+											<div>'.$this->user->lang('gb_auctions_maxbidder').': '.$strMaxBidder.'</div>
+											<div>'.$this->user->lang('gb_auctions_maxbid').': '.$strMaxValue.'</div>
+										</td>
 									</tr>';
 				}
 			}else{
 				$output .= '<tr><td colsüan="4">No entries</td></tr>';
 			}
 		}
-		
+
 		$output .= '</table>';
 		return $output;
 	}

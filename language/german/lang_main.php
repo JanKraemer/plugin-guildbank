@@ -232,5 +232,14 @@ $lang = array(
 
 	// credits
 	'gb_credits'					=> "Gildenbank %s",
+
+	// portal module
+	'gb_auctions'					=> "Auktionen",
+	'gb_auctions_auctioncount' => "Amount auctions",
+	'gb_f_show_list_future_auctions' => "Zeige Liste offener Auktionen",
+	'gb_f_hide_count_future_auctions' => "Verberge Anzahl offener Auktionen",
+	'gb_f_show_timeleft' => "Zeige verbleibende Zeit anstelle Datum",
+	'gb_auctions_maxbid' => 'Höchstgebot',
+	'gb_auctions_maxbidder' => 'Hochgstbieter',
 );
 ?>

@@ -206,7 +206,13 @@ $lang = array(
 	"diamond_s" => 'D',
 	),
 	"gb_credits" => 'Guild bank %s',
-
+	// portal module
+	'gb_auctions'					=> "Auctions",
+	'gb_auctions_auctioncount' => "Anzahl Auktionen",
+	'gb_f_show_list_future_auctions' => "Show list of open auctions",
+	'gb_f_hide_count_future_auctions' => "Hide amount of open auctions",
+	'gb_f_show_timeleft' => "Show countdown instead of fixed end date",
+	'gb_auctions_maxbid' => 'Max Bid value',
 );
 
 ?>
