@@ -47,7 +47,9 @@ class guildauction_pageobject extends pageobject {
 		$bid_allowed	= ($intCurrDKP >= $intBidValue) ? true : false;
 
 		// check if there is another bid acive with a bid
-		$bid_allowed	= (($intVirtualDKP > 0) && $bid_allowed && ($intVirtualDKP <= ($intCurrDKP + $intBidValue))) ? true : false;
+		if($bid_allowed && ($intVirtualDKP > 0)){
+			$bid_allowed = ($intVirtualDKP <= ($intCurrDKP + $intBidValue)) ? true : false;
+		}
 
 		// now, check if the other requirements are met
 		if($bid_allowed){
