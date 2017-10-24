@@ -90,6 +90,7 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 				$auction_data	= $this->pdh->get('guildbank_auctions', 'data', array($intAuctionID));
 				$intBanker		= $this->pdh->get('guildbank_items', 'banker', array($auction_data['item']));
 				$item_amount	= $this->pdh->get('guildbank_items', 'amount', array($auction_data['item']));
+				$mdkppool		= (int)$auction_data['multidkppool'];
 
 				// add a transaction
 				if(count($auction_data) > 0){
@@ -103,9 +104,9 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 						$this->pdh->put('guildbank_items', 'amount', array($auction_data['item'], $item_amount-1));
 
 						// add auto correction
-						if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event', 'guildbank') > 0){
+						if($this->config->get('use_autoadjust', 'guildbank') > 0 && $this->config->get('default_event_'.$mdkppool, 'guildbank') > 0){
 							//add_adjustment($adjustment_value, $adjustment_reason, $member_ids, $event_id, $raid_id=NULL, $time=false, $group_key = null)
-							$this->pdh->put('adjustment', 'add_adjustment', array(-$value, $this->user->lang('gb_adjustment_text'), $buyer, $this->config->get('default_event', 'guildbank')));
+							$this->pdh->put('adjustment', 'add_adjustment', array(-$value, $this->user->lang('gb_adjustment_text'), $buyer, $this->config->get('default_event_'.$mdkppool, 'guildbank')));
 						}
 
 						// now, set the status of the auction to inactive

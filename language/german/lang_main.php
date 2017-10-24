@@ -186,12 +186,13 @@ $lang = array(
 	'gb_f_help_show_money'			=> "Zeige Bankvermögen (wenn aus: Keine Goldanzeige)",
 	'gb_f_merge_bankers'			=> "Alle Banken zusammenfassen",
 	'gb_f_help_merge_bankers'		=> "Fasse alle Banken in einer Bank zusammen",
-	'gb_fs_itemshop'				=> "Gegenstandstransatkionen",
+	'gb_fs_itemshop'				=> "Gegenstandstransaktionen",
 	'gb_f_use_autoadjust'			=> 'Automatische Korrektur für verkaufte Gegenstände',
 	'gb_f_help_use_autoadjust'		=> 'Sollen für jeden verkauften Gegenstand automatische Korrekturen eingetragen werden?',
 	'gb_f_default_event'			=> 'Standardereignis für die automatische Korrektur',
 	'gb_f_help_default_event'		=> 'Falls die automatische Korrektur verwendet werden soll, muss ein Standardereignis gesetzt werden',
-
+	'gb_fs_auctions'				=> 'Auktionen',
+		
 	//filter translations
 	'gb_filter_banker'				=> "Bankier auswählen",
 	'gb_filter_type'				=> "Gegenstandsart auswählen",

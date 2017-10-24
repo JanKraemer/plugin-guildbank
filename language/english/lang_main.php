@@ -206,6 +206,7 @@ $lang = array(
 	"diamond_s" => 'D',
 	),
 	"gb_credits" => 'Guild bank %s',
+	'gb_fs_auctions' => 'Auctions',
 	// portal module
 	'gb_auctions'					=> "Auctions",
 	'gb_auctions_auctioncount' => "Anzahl Auktionen",

@@ -82,10 +82,22 @@ class guildbankSettings extends page_generic {
 				'default_event' => array(
 					'type'		=> 'dropdown',
 					'options'	=> $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))),
-					'value'		=> $this->config->get('default_event',	'guildbank'),
 				),
 			)
 		);
+		
+		$arrMultidkpPools = $this->pdh->get('multidkp', 'id_list');
+		
+		foreach($arrMultidkpPools as $intMultiDKPID){
+			$arrEvents = $this->pdh->aget('event', 'name', 0, array($this->pdh->get('multidkp', 'event_ids', array($intMultiDKPID))));
+			
+			$arrFields['auctions']['default_event_'.$intMultiDKPID] = array(
+					'type'		=> 'dropdown',
+					'options'	=> $arrEvents,
+					'lang'		=> $this->user->lang('gb_f_default_event').': '.$this->pdh->get('multidkp', 'name', array($intMultiDKPID))
+			);
+			
+		}
 		return $arrFields;
 	}
 
