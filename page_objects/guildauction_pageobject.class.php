@@ -87,7 +87,7 @@ class guildauction_pageobject extends pageobject {
 		$page_suffix	= '&amp;start='.$this->in->get('start', 0);
 		$sort_suffix	= '&amp;sort='.$this->in->get('sort');
 		$bids_count		= count($bid_list);
-		$footer_bids	= sprintf($this->user->lang('gb_bids_footcount'), $bid_list, $this->user->data['user_rlimit']);
+		$footer_bids	= sprintf($this->user->lang('gb_bids_footcount'), $bids_count, $this->user->data['user_rlimit']);
 
 		// data
 		$dkppool		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
