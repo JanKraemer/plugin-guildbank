@@ -103,7 +103,7 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 		}
 
 		public function get_bids_bycharacter($characterid, $active=true){
-			$charbids	= $this->charbids($characterid);
+			$charbids	= $this->get_charbids($characterid);
 			if($active){
 				$charbids_tmp	= array();
 				if(is_array($charbids)){
