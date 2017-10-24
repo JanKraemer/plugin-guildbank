@@ -128,7 +128,7 @@ class guildauction_pageobject extends pageobject {
 			'DD_MYCHARS'		=> (new hdropdown('memberid', array('value' => $mainchar, 'js' => 'onchange="getcurrentdkp(this.value)"', 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))))->output(),
 			'MY_DKPPOINTS'		=> $available_points,
 			'DKP_NAME'			=> $this->config->get('dkp_name'),
-			'BID_SPINNER'		=> (new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => $points, 'onlyinteger' => true)))->output(),
+			'BID_SPINNER'		=> (new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> 10, 'min' => $bidspinner, 'max' => ($bidspinner+100), 'onlyinteger' => true)))->output(),
 			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
 			'BUTTON_DISABLED'	=> ($actual_bid+$bidsteps > $available_points|| $startvalue > $available_points) ? 'disabled="disabled"' : '',
 			'NEXT_BID_AMOUNT'	=> $bidspinner,
