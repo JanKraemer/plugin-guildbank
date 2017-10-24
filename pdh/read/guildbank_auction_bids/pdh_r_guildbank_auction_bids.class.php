@@ -103,37 +103,10 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 		}
 
 		public function get_bids_bycharacter($characterid, $active=true){
-			$charbids	= $this->charbids($characterid);
+			$charbids	= $this->get_charbids($characterid);
 			if($active){
 				$charbids_tmp	= array();
-				if(is_array($charbids)){
-					foreach($charbids as $bidid=>$auctionid){
-						if($this->pdh->get('guildbank_auctions', 'atime_left', array($auctionid)) > 0){
-							$charbids_tmp[]	= $auctionid;
-						}
-					}
-				}
-				return $charbids_tmp;
-			}
-			return $charbids;
-		}
-
-		public function get_virtual_bid_dkps($characterid){
-			$charbids	= $this->get_bids_bycharacter($characterid);
-			$virtualdkp	= 0;
-			if(is_array($charbids) && count($charbids) > 0){
-				foreach($charbids as $auctionid){
-					$virtualdkp_tmp = $this->get_bidvalue($auctionid);
-					if($virtualdkp_tmp > 0){
-						$virtualdkp		= $virtualdkp + $virtualdkp_tmp;
-					}
-				}
-			}
-			return $virtualdkp;
-		}
-
-		public function get_amount_bids($auctionID){
-			return count($this->get_bids_byauction($auctionID));
+				if(is_array($charbids)){Fix
 		}
 
 		public function get_bidvalues_byauction($auctionID){
