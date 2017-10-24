@@ -118,17 +118,22 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 			return $charbids;
 		}
 
-		public function get_virtual_bid_dkps($characterid){
+		public function get_virtual_bid_dkps($characterid, $intAuctionID){
 			$charbids	= $this->get_bids_bycharacter($characterid);
+			$arrDone = array();
 			$virtualdkp	= 0;
 			if(is_array($charbids) && count($charbids) > 0){
 				foreach($charbids as $auctionid){
-					$virtualdkp_tmp = $this->get_bidvalue($auctionid);
-					if($virtualdkp_tmp > 0){
-						$virtualdkp		= $virtualdkp + $virtualdkp_tmp;
+					if(isset($arrDone[$auctionid]) || $auctionid == $intAuctionID) continue;
+					$arrAuctionBids = $this->get_bidvalues_byauction($auctionid);
+					
+					if(isset($arrAuctionBids[$characterid])){
+						$virtualdkp += $arrAuctionBids[$characterid];
 					}
+					$arrDone[$auctionid] = $auctionid;
 				}
 			}
+
 			return $virtualdkp;
 		}
 

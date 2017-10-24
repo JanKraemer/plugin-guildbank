@@ -214,6 +214,10 @@ $lang = array(
 	'gb_f_hide_count_future_auctions' => "Hide amount of open auctions",
 	'gb_f_show_timeleft' => "Show countdown instead of fixed end date",
 	'gb_auctions_maxbid' => 'Max Bid value',
+		'gb_bids_error_virtual'			=> 'You do not have enough DKP, as you have already bid for other auctions.',
+		'gb_bids_error_dkp'				=> 'You do not have enough DKP.',
+		'gb_bids_error_step'			=> 'Your bid must be higher than the highest bid plus the bid increament.',
+		
 );
 
 ?>

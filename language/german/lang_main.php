@@ -131,6 +131,9 @@ $lang = array(
 	'gb_bids_loading'				=> 'Lädt...',
 	'gb_bids_auctionended'			=> 'Beendet',
 	'gb_bids_nobids'				=> 'Keine Gebote',
+	'gb_bids_error_virtual'			=> 'Dir stehen leider nicht genug DKP zur Verfügung, da du bereits deine DKP für Gebote bei anderen Auktionen verwendest.',
+	'gb_bids_error_dkp'				=> 'Du hast leider nicht genug DKP zur Verfügung.',
+	'gb_bids_error_step'			=> 'Dein Gebot muss größer sein als das Höchstgebot plus die Gebotsschrittweite.',
 
 	// manage_banker
 	'gb_manage_bankers'				=> 'Gilden-Bankiers verwalten',
