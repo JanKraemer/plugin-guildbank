@@ -41,15 +41,24 @@ class guildauction_pageobject extends pageobject {
 		$intCurrDKP		= $this->pdh->get('points', 'current', array($intMemberID, $intMDKPID, 0, 0, false));
 		$intAttendance	= $this->pdh->get('guildbank_auctions', 'raidattendance', array($this->url_id));
 		$intVirtualDKP	= $this->pdh->get('guildbank_auction_bids', 'virtual_bid_dkps', array($intMemberID));
+		$intHighestValue= $this->pdh->get('guildbank_auction_bids', 'highest_value', array($this->url_id));
 		$this->pdl->log('guildbank', 'Virtual FKP for this char '.$intVirtualDKP);
 
 		// check if the meber has enough DKP
 		$bid_allowed	= ($intCurrDKP >= $intBidValue) ? true : false;
-
+		
 		// check if there is another bid acive with a bid
 		if($bid_allowed && ($intVirtualDKP > 0)){
 			$bid_allowed = ($intVirtualDKP <= ($intCurrDKP + $intBidValue)) ? true : false;
 		}
+		
+		// check if value is bigger than the highest one
+		$bidsteps		= $this->pdh->get('guildbank_auctions', 'bidsteps', array($this->url_id));
+		if($bid_allowed && $intBidValue < ($intHighestValue+$bidsteps)){
+			$bid_allowed = false;
+		}
+		
+		
 
 		// now, check if the other requirements are met
 		if($bid_allowed){
