@@ -157,7 +157,8 @@ class guildauction_pageobject extends pageobject {
 			'NEXT_BID_AMOUNT'	=> $bidspinner,
 			'LATEST_BID_ID'		=> max($arrBids),
 			'NEW_BID_INFO'		=> sprintf($this->user->lang('gb_new_bid_info'), $this->controller_path.'Guildauction/'.$this->SID.'&auction='.$this->url_id),
-
+			'S_AUCTION_RUNNING' => ($intTimeLeft > 0),
+				
 			'BIDS_TABLE'		=> $hptt_bids->get_html_table($this->in->get('sort'), $page_suffix, $this->in->get('start', 0), $this->user->data['user_rlimit'], $footer_bids),
 			'PAGINATION_BIDS'	=> generate_pagination($this->routing->build('guildauction').$sort_suffix, $bids_count, $this->user->data['user_rlimit'], $this->in->get('start', 0)),
 		));

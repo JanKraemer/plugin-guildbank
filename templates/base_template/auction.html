@@ -11,8 +11,8 @@
 <script>
 var nextbid = {NEXT_BID_AMOUNT};
 var latestbidid = {LATEST_BID_ID};
+
 function getcurrentdkp(intMember){
-	
 	$.get("{EQDKP_CONTROLLER_PATH}/Guildauction/{SID}&auction={AUCTION_ID}&dkp=1&memberid="+intMember,
 			function(data){
 				if(data){
@@ -32,9 +32,8 @@ function getcurrentdkp(intMember){
 				}
 	});
 }
-
+<!-- IF S_AUCTION_RUNNING -->
 function checknewbids(){
-	
 	$.get("{EQDKP_CONTROLLER_PATH}/Guildauction/{SID}&auction={AUCTION_ID}&pull=1",
 			function(data){
 				if(data){
@@ -45,8 +44,8 @@ function checknewbids(){
 				}
 	});
 }
-
 setInterval(checknewbids, 1000*60);
+<!-- ENDIF -->
 </script>
 <div class="breadcrumb-container">
 	<ul class="breadcrumb">
