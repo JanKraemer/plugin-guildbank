@@ -134,7 +134,9 @@ $lang = array(
 	'gb_bids_error_virtual'			=> 'Dir stehen leider nicht genug DKP zur Verfügung, da du bereits deine DKP für Gebote bei anderen Auktionen verwendest.',
 	'gb_bids_error_dkp'				=> 'Du hast leider nicht genug DKP zur Verfügung.',
 	'gb_bids_error_step'			=> 'Dein Gebot muss größer sein als das Höchstgebot plus die Gebotsschrittweite.',
-
+	'gb_bids_error_time'			=> 'Die Auktion ist leider schon beendet.',
+	'gb_new_bid_info'				=> 'Es wurde ein neues Gebot für diese Auktion abgegeben.<br /><br /><a href="%s">Klicke hier, um die Seite neu zu laden.</a>',
+		
 	// manage_banker
 	'gb_manage_bankers'				=> 'Gilden-Bankiers verwalten',
 	'gb_confirm_delete_bankers'		=> "Sollen die Bankiers %s gelöscht werden?",

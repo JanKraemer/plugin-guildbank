@@ -10,6 +10,7 @@
 </style>
 <script>
 var nextbid = {NEXT_BID_AMOUNT};
+var latestbidid = {LATEST_BID_ID};
 function getcurrentdkp(intMember){
 	
 	$.get("{EQDKP_CONTROLLER_PATH}/Guildauction/{SID}&auction={AUCTION_ID}&dkp=1&memberid="+intMember,
@@ -31,6 +32,21 @@ function getcurrentdkp(intMember){
 				}
 	});
 }
+
+function checknewbids(){
+	
+	$.get("{EQDKP_CONTROLLER_PATH}/Guildauction/{SID}&auction={AUCTION_ID}&pull=1",
+			function(data){
+				if(data){
+					if(data > 0 && data > latestbidid){
+						$('#new_bid_info').show();
+						latestbidid = data;
+					}
+				}
+	});
+}
+
+setInterval(checknewbids, 1000*60);
 </script>
 <div class="breadcrumb-container">
 	<ul class="breadcrumb">
@@ -49,6 +65,11 @@ function getcurrentdkp(intMember){
 	</div>
 </div>
 <div class="clear"></div>
+
+		<div class="infobox infobox-large infobox-blue clearfix" id="new_bid_info" style="display:none;">
+			<i class="fa fa-info-circle fa-4x pull-left"></i>{NEW_BID_INFO}
+		</div>
+
 <form method="post" action="{ACTION}" name="addWC">
 	<input type="hidden" name="banker" value="{BANKERID}">
 	<div class="table">

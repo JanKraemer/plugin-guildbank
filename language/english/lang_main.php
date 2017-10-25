@@ -217,6 +217,8 @@ $lang = array(
 		'gb_bids_error_virtual'			=> 'You do not have enough DKP, as you have already bid for other auctions.',
 		'gb_bids_error_dkp'				=> 'You do not have enough DKP.',
 		'gb_bids_error_step'			=> 'Your bid must be higher than the highest bid plus the bid increament.',
+		'gb_bids_error_time'			=> 'The auction has already ended.',
+		'gb_new_bid_info'				=> 'A new bid was submitted for this auction.<br /><br /><a href="%s">Click here to reload this page.</a>',
 		
 );
 
