@@ -209,6 +209,11 @@ class Manage_BankDetails extends page_generic {
 			'page_title'		=> sprintf($this->user->lang('gb_manage_bank_items_title'), $banker_name),
 			'template_file'		=> 'admin/manage_banker_items.html',
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
+				'page_path'			=> [
+						['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+						['title'=>$this->user->lang('guildbank').': '.$this->user->lang('gb_manage_bankers'), 'url'=>$this->root_path.'plugins/guildbank/admin/manage_banker.php'.$this->SID],
+						['title'=>sprintf($this->user->lang('gb_manage_bank_items_title'), $banker_name), 'url'=>' '],
+				],
 			'display'			=> true)
 		);
 	}

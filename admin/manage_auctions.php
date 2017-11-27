@@ -118,6 +118,10 @@ class Manage_Auction extends page_generic {
 			'page_title'		=> $this->user->lang('gb_manage_auctions'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'template_file'		=> 'admin/manage_auctions.html',
+				'page_path'			=> [
+						['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+						['title'=>$this->user->lang('guildbank').': '.$this->user->lang('gb_manage_auctions'), 'url'=>' '],
+				],
 			'display'			=> true)
 		);
 	}
@@ -142,11 +146,17 @@ class Manage_Auction extends page_generic {
 			'MULTIDKPPOOL'		=> (new hdropdown('multidkppool', array('value' => (($auctionID > 0) ? $this->pdh->get('guildbank_auctions', 'multidkppool', array($auctionID)) : 1), 'options' => $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list'))))))->output(),
 		));
 
+		$strPagetitle = ($auctionID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_auction_title');
+		
 		$this->core->set_vars(array(
-			'page_title'		=> ($auctionID > 0) ? $this->user->lang('gb_edit_item_title') : $this->user->lang('gb_add_auction_title'),
+			'page_title'		=> $strPagetitle,
 			'template_file'		=> 'admin/manage_banker_add_auction.html',
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'header_format'		=> ($this->in->get('simple_head')) ? 'simple' : 'full',
+				'page_path'			=> [
+						['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+						['title'=>$this->user->lang('guildbank').': '.$this->user->lang('gb_manage_auctions'), 'url'=>' '],
+				],
 			'display'			=> true)
 		);
 	}

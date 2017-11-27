@@ -161,6 +161,9 @@ class guildbank_pageobject extends pageobject {
 			'page_title'		=> $this->user->lang('gb_title_page'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'template_file'		=> 'bank.html',
+				'page_path'			=> [
+						['title'=>$this->user->lang('gb_title_page'), 'url'=> ' '],
+				],
 			'display'			=> true,
 			)
 		);

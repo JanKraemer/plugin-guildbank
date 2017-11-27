@@ -167,6 +167,10 @@ class guildauction_pageobject extends pageobject {
 			'page_title'		=> $this->user->lang('gb_auction_window'),
 			'template_path'		=> $this->pm->get_data('guildbank', 'template_path'),
 			'template_file'		=> 'auction.html',
+				'page_path'			=> [
+						['title'=>$this->user->lang('gb_title_page'), 'url'=> $this->routing->build('guildbank')],
+						['title'=>$this->user->lang('gb_auction_title'), 'url'=>' '],
+				],
 			'display'			=> true,
 		));
 	}
