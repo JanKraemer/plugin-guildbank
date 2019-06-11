@@ -83,6 +83,11 @@ class guildbankSettings extends page_generic {
 					'type'		=> 'dropdown',
 					'options'	=> $this->pdh->aget('event', 'name', 0, array($this->pdh->get('event', 'id_list'))),
 				),
+			),
+			'auctions' => array(
+				'allow_manualentry' => array(
+					'type'		=> 'radio',
+				),
 			)
 		);
 		

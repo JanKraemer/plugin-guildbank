@@ -197,6 +197,8 @@ $lang = array(
 	'gb_f_default_event'			=> 'Standardereignis für die automatische Korrektur',
 	'gb_f_help_default_event'		=> 'Falls die automatische Korrektur verwendet werden soll, muss ein Standardereignis gesetzt werden',
 	'gb_fs_auctions'				=> 'Auktionen',
+	'gb_f_allow_manualentry'		=> 'Manuelle Eingabe in Bietfeld erlauben',
+	'gb_f_help_allow_manualentry'	=> 'Wenn aktiviert, kann in das Bieten Feld ein eigener Wert eingetragen werden. Wenn ausgeschaltet, kann nur das Auswahlfeld verwendet werden.',
 		
 	//filter translations
 	'gb_filter_banker'				=> "Bankier auswählen",

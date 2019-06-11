@@ -144,10 +144,10 @@ class guildauction_pageobject extends pageobject {
 		$startvalue		= $this->pdh->get('guildbank_auctions', 'startvalue', array($this->url_id));
 		$bidspinner		= ((int)$actual_bid > 0) ? $actual_bid+$bidsteps : $startvalue;
 		$intTimeLeft 	= $this->pdh->get('guildbank_auctions', 'atime_left', array($this->url_id));
+		$available_points = (($points - $intVirtualDKP) < 0) ? 0 : ($points - $intVirtualDKP);		
+		$arrBids		= $this->pdh->get('guildbank_auction_bids', 'bids_byauction', array($this->url_id));
+		$bidvalueopt	= ($this->config->get('allow_manualentry',	'guildbank') == 1) ? false : true;
 
-		$available_points = (($points - $intVirtualDKP) < 0) ? 0 : ($points - $intVirtualDKP);
-		
-		$arrBids = $this->pdh->get('guildbank_auction_bids', 'bids_byauction', array($this->url_id));		
 		
 		$this->pdh->get('guildbank_auctions', 'counterJS');
 		$this->tpl->assign_vars(array(
@@ -157,7 +157,7 @@ class guildauction_pageobject extends pageobject {
 			'DD_MYCHARS'		=> (new hdropdown('memberid', array('value' => $mainchar, 'js' => 'onchange="getcurrentdkp(this.value)"', 'options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'connection_id', array($this->user->data['user_id'])))))))->output(),
 			'MY_DKPPOINTS'		=> $available_points,
 			'DKP_NAME'			=> $this->config->get('dkp_name'),
-			'BID_SPINNER'		=> (new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> $bidsteps, 'min' => $bidspinner, 'max' => $bidspinner+($bidsteps*10), 'onlyinteger' => true)))->output(),
+			'BID_SPINNER'		=> (new hspinner('bidvalue', array('value' => $bidspinner, 'step'=> $bidsteps, 'min' => $bidspinner, 'max' => $available_points, 'onlyinteger' => true, 'readonly' => $bidvalueopt)))->output(),
 			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
 			'BUTTON_DISABLED'	=> ($actual_bid+$bidsteps > $available_points|| $startvalue > $available_points || $intTimeLeft == 0) ? 'disabled="disabled"' : '',
 			'NEXT_BID_AMOUNT'	=> $bidspinner,
