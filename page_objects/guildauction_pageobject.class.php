@@ -132,17 +132,23 @@ class guildauction_pageobject extends pageobject {
 		$dkppool		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
 		$actual_bid		= $this->pdh->get('guildbank_auction_bids', 'highest_value', array($this->url_id));
 		$mainchar		= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
-		$points			= $this->pdh->get('points', 'current', array($mainchar, $dkppool, 0, 0, false));
+		if($mainchar){
+			$points			= $this->pdh->get('points', 'current', array($mainchar, $dkppool, 0, 0, false));
+			$intVirtualDKP	= $this->pdh->get('guildbank_auction_bids', 'virtual_bid_dkps', array($mainchar, $this->url_id));
+		} else {
+			$points = 0;
+			$intVirtualDKP = 0;
+		}
+		
 		$bidsteps		= $this->pdh->get('guildbank_auctions', 'bidsteps', array($this->url_id));
 		$startvalue		= $this->pdh->get('guildbank_auctions', 'startvalue', array($this->url_id));
 		$bidspinner		= ((int)$actual_bid > 0) ? $actual_bid+$bidsteps : $startvalue;
-		$intVirtualDKP	= $this->pdh->get('guildbank_auction_bids', 'virtual_bid_dkps', array($mainchar, $this->url_id));
-		$intTimeLeft = $this->pdh->get('guildbank_auctions', 'atime_left', array($this->url_id));
+		$intTimeLeft 	= $this->pdh->get('guildbank_auctions', 'atime_left', array($this->url_id));
 
 		$available_points = (($points - $intVirtualDKP) < 0) ? 0 : ($points - $intVirtualDKP);
 		
-		$arrBids =		$this->pdh->get('guildbank_auction_bids', 'bids_byauction', array($this->url_id));
-
+		$arrBids = $this->pdh->get('guildbank_auction_bids', 'bids_byauction', array($this->url_id));		
+		
 		$this->pdh->get('guildbank_auctions', 'counterJS');
 		$this->tpl->assign_vars(array(
 			'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
@@ -155,7 +161,7 @@ class guildauction_pageobject extends pageobject {
 			'TIMELEFT'			=> $this->pdh->get('guildbank_auctions', 'atime_left_html', array($this->url_id)),
 			'BUTTON_DISABLED'	=> ($actual_bid+$bidsteps > $available_points|| $startvalue > $available_points || $intTimeLeft == 0) ? 'disabled="disabled"' : '',
 			'NEXT_BID_AMOUNT'	=> $bidspinner,
-			'LATEST_BID_ID'		=> max($arrBids),
+			'LATEST_BID_ID'		=> ((is_array($arrBids) && count($arrBids)>0) ? max($arrBids): 0),
 			'NEW_BID_INFO'		=> sprintf($this->user->lang('gb_new_bid_info'), $this->controller_path.'Guildauction/'.$this->SID.'&auction='.$this->url_id),
 			'S_AUCTION_RUNNING' => ($intTimeLeft > 0),
 				
