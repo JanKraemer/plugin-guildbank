@@ -50,7 +50,8 @@ class Manage_BankDetails extends page_generic {
 		$mode		= $this->in->get('mode', 0);
 		$char		= $this->in->get('char', 0);
 		$func		= ($edit > 0 && ($mode == 0 && $this->in->get('item', 0) > 0) || ($mode == 1 && $this->in->get('transaction', 0) > 0)) ? 'update' : 'add';
-
+		$pool		= $this->in->get('dkppool', 0);
+		
 		// transactions
 		if($mode == 1){
 			$money		= $this->money->input();
@@ -64,7 +65,7 @@ class Manage_BankDetails extends page_generic {
 			$money		= $this->money->input(false, 'money2_{ID}');
 			$retu		= $this->pdh->put('guildbank_items', $func, array(
 			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'
-			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0.0), $money, $char, $this->in->get('sellable', 0)));
+					$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0.0), $money, $char, $this->in->get('sellable', 0),$pool));
 		}
 
 		if($retu) {
@@ -184,8 +185,8 @@ class Manage_BankDetails extends page_generic {
 
 		$this->jquery->dialog('add_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url.'&mode=1', 'width' => 600, 'height' => 450, 'onclose'=> $redirect_url));
 		$this->jquery->dialog('edit_transaction', $this->user->lang('gb_manage_bank_transa'), array('url' => $transactions_url."&mode=1&t='+id+'", 'width' => 600, 'height' => 450, 'onclose'=> $redirect_url, 'withid' => 'id'));
-		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 580, 'onclose'=> $redirect_url));
-		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 580, 'onclose'=> $redirect_url, 'withid' => 'id'));
+		$this->jquery->dialog('add_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url.'&mode=0', 'width' => 600, 'height' => 670, 'onclose'=> $redirect_url));
+		$this->jquery->dialog('edit_item', $this->user->lang('gb_ta_head_item'), array('url' => $transactions_url."&mode=0&i='+id+'", 'width' => 600, 'height' => 670, 'onclose'=> $redirect_url, 'withid' => 'id'));
 		$this->jquery->dialog('payout_item', $this->user->lang('gb_ta_head_payout'), array('url' => $payout_url."&payout=true", 'width' => 600, 'height' => 400, 'onclose'=> $redirect_url));
 
 		$this->confirm_delete($this->user->lang('confirm_delete_items'));
@@ -227,6 +228,9 @@ class Manage_BankDetails extends page_generic {
 		$transactionID	= $this->in->get('t', 0);
 		$mode_select	= $this->in->get('mode', 0);
 		$edit_charID	= $this->pdh->get('guildbank_transactions', 'char', array(0));
+		$dkppools		= $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
+		$dkppools[0] = " ";
+		$pool			= $this->in->get('dkppool', 0);
 		$edit_mode		= false;
 		$edit_charID	= 0;
 		$money			= 0;
@@ -238,6 +242,7 @@ class Manage_BankDetails extends page_generic {
 			$item_sellable		= $this->pdh->get('guildbank_items', 'sellable', array($itemID));
 			$edit_bankid		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
 			$money				= $this->pdh->get('guildbank_transactions', 'money_summ', array($edit_bankid));
+			$pool				= $this->pdh->get('guildbank_items', 'multidkppool', array($itemID));
 			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
 		}elseif($transactionID > 0){
 			$mode_select		= 1;
@@ -248,6 +253,7 @@ class Manage_BankDetails extends page_generic {
 
 		$rarity			= $this->pdh->get('guildbank_items', 'rarity', array($itemID, true));
 		$type			= $this->pdh->get('guildbank_items', 'type', array($itemID, true));
+		
 		$this->tpl->assign_vars(array(
 			'S_EDIT'		=> $edit_mode,
 			'EDITMODE'		=> ($edit_mode) ? '1' : '0',
@@ -257,12 +263,13 @@ class Manage_BankDetails extends page_generic {
 			'TAID'			=> $transactionID,
 			'MONEY_TRANS'	=> $this->money->editfields($money, 'money_{ID}', true),
 			'MONEY_ITEM'	=> $this->money->editfields($money, 'money2_{ID}'),
+			'DD_MULTIDKPPOOL'	=> (new hdropdown('dkppool', array('options' => $dkppools, 'value' => $pool)))->output(),
 			'DD_RARITY'		=> (new hdropdown('rarity', array('options' => $this->pdh->get('guildbank_items', 'itemrarity'), 'value' => (($itemID > 0) ? $rarity : ''))))->output(),
 			'DD_TYPE'		=> (new hdropdown('type', array('options' => $this->pdh->get('guildbank_items', 'itemtype'), 'value' => $type)))->output(),
 			'V_SUBJECT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'subject', array($transactionID)) : '',
 			'ITEM'			=> (new htext('name', array('value' => (($itemID > 0) ? $this->pdh->get('guildbank_items', 'name', array($itemID)) : ''), 'size' => '40', 'autocomplete' => $this->pdh->aget('item', 'name', 0, array($this->pdh->get('item', 'id_list'))))))->output(),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
-			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($itemID)) : 0,
+			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'itemdkp', array($itemID)) : 0,
 			'AUCTIONTIME'	=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'auctiontime', array($edit_bankid)) : 48,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
 			'MS_MEMBERS'	=> (new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)))->output(),

@@ -26,7 +26,7 @@ if (!defined('EQDKP_INC')){
 if (!class_exists('pdh_w_guildbank_items')){
 	class pdh_w_guildbank_items extends pdh_w_generic {
 
-		public function add($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'){
+		public function add($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $intPool=0, $strSubject='gb_item_added'){
 			$resQuery = $this->db->prepare("INSERT INTO __guildbank_items :p")->set(array(
 				'item_banker'		=> $strBanker,
 				'item_date'			=> $this->time->time,
@@ -35,7 +35,7 @@ if (!class_exists('pdh_w_guildbank_items')){
 				'item_type'			=> $strType,
 				'item_amount'		=> $intAmount,
 				'item_sellable'		=> $intSellable,
-
+				'item_multidkppool'	=> $intPool,
 			))->execute();
 			$id = $resQuery->insertId;
 			//($intID, $intBanker, $intChar, $intItem, $intDKP, $intValue, $strSubject)
@@ -45,7 +45,7 @@ if (!class_exists('pdh_w_guildbank_items')){
 			return false;
 		}
 
-		public function update($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject=''){
+		public function update($intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $intPool=0, $strSubject=''){
 			$resQuery = $this->db->prepare("UPDATE __guildbank_items :p WHERE item_id=?")->set(array(
 				'item_banker'		=> $strBanker,
 				'item_date'			=> $this->time->time,
@@ -54,7 +54,7 @@ if (!class_exists('pdh_w_guildbank_items')){
 				'item_type'			=> $strType,
 				'item_amount'		=> $intAmount,
 				'item_sellable'		=> $intSellable,
-
+				'item_multidkppool'	=> $intPool,
 			))->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'update_itemtransaction',	array($intID, $intMoney, $intDKP));
 			$this->pdh->enqueue_hook('guildbank_items_update');

@@ -84,6 +84,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 						'amount'		=> (int)$row['item_amount'],
 						'date'			=> (int)$row['item_date'],
 						'sellable'		=> (int)$row['item_sellable'],
+						'multidkppool'	=> (int)$row['item_multidkppool'],
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
 				}
@@ -118,6 +119,10 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_sellable($id){
 			return (isset($this->data[$id]['sellable']) && $this->data[$id]['sellable'] > 0) ? $this->data[$id]['sellable'] : 0;
+		}
+		
+		public function get_multidkppool($id){
+			return (isset($this->data[$id]['multidkppool']) && $this->data[$id]['multidkppool'] > 0) ? $this->data[$id]['multidkppool'] : 0;
 		}
 
 		public function get_html_date($id){
