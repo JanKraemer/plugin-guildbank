@@ -73,7 +73,6 @@ $guildbankSQL = array(
 				auction_startvalue float(10,2) DEFAULT 0,
 				auction_raidattendance int(11) default NULL,
 				auction_multidkppool int(11) default NULL,
-				auction_itempool int(11) default NULL,
 				auction_active tinyint(1) default 0,
 				PRIMARY KEY (auction_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
