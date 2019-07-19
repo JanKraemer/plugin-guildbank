@@ -86,7 +86,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 						'banker'		=> (int)$row['ta_banker'],
 						'char'			=> (int)$row['ta_char'],
 						'item'			=> (int)$row['ta_item'],
-						'dkp'			=> (int)$row['ta_dkp'],
+						'dkp'			=> (float)$row['ta_dkp'],
 						'value'			=> (int)$row['ta_value'],
 						'subject'		=> $row['ta_subject'],
 						'date'			=> (int)$row['ta_date'],
@@ -191,7 +191,7 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 		}*/
 
 		public function get_dkp($id){
-			return (isset($this->data[$id]) && $this->data[$id]['dkp'] > 0) ? $this->data[$id]['dkp'] : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['dkp'] > 0) ? runden($this->data[$id]['dkp']) : 0;
 		}
 
 		public function get_deletename($id){

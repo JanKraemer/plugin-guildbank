@@ -58,7 +58,7 @@ $guildbankSQL = array(
 				ta_char mediumint(8) default 0,
 				ta_item mediumint(8) default 0,
 				ta_value BIGINT(20) default 0,
-				ta_dkp int(20) default 0,
+				ta_dkp float(10,2) DEFAULT 0,
 				ta_date int(11) default NULL,
 				ta_subject varchar(255) default NULL,
 				PRIMARY KEY  (ta_id)
@@ -68,11 +68,12 @@ $guildbankSQL = array(
 				auction_item int(11) default NULL,
 				auction_startdate int(11) default NULL,
 				auction_duration int(11) default NULL,
-				auction_bidsteps int(11) default NULL,
+				auction_bidsteps float(10,2) DEFAULT 0,
 				auction_note varchar(255) default NULL,
-				auction_startvalue int(11) default NULL,
+				auction_startvalue float(10,2) DEFAULT 0,
 				auction_raidattendance int(11) default NULL,
 				auction_multidkppool int(11) default NULL,
+				auction_itempool int(11) default NULL,
 				auction_active tinyint(1) default 0,
 				PRIMARY KEY (auction_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
@@ -81,7 +82,7 @@ $guildbankSQL = array(
 				bid_auctionid int(11) default NULL,
 				bid_date int(11) default NULL,
 				bid_memberid int(11) default NULL,
-				bid_bidvalue int(11) default NULL,
+				bid_bidvalue float(10,2) DEFAULT 0,
 				PRIMARY KEY (bid_id)
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 		6 => "CREATE TABLE IF NOT EXISTS __guildbank_shop_ta (

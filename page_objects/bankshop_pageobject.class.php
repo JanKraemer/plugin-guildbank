@@ -71,7 +71,7 @@ class bankshop_pageobject extends pageobject {
 					// process the hook queue
 					$this->pdh->process_hook_queue();
 				}else{
-					$item_cost		= $this->in->get('costs', 0);
+					$item_cost		= $this->in->get('costs', 0.0);
 					// check if the meber has enough DKP
 					if($charDKP >= ($amount_buy*$item_cost)){
 						// perform the process

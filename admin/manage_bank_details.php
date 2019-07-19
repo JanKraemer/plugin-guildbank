@@ -64,7 +64,7 @@ class Manage_BankDetails extends page_generic {
 			$money		= $this->money->input(false, 'money2_{ID}');
 			$retu		= $this->pdh->put('guildbank_items', $func, array(
 			//$intID, $strBanker, $strName, $intRarity, $strType, $intAmount, $intDKP, $intMoney, $intChar, $intSellable=0, $strSubject='gb_item_added'
-			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0), $money, $char, $this->in->get('sellable', 0)));
+			$this->in->get('item', 0), $this->in->get('banker', 0), $this->in->get('name', ''), $this->in->get('rarity', 0), $this->in->get('type', ''), $this->in->get('amount', 0), $this->in->get('dkp', 0.0), $money, $char, $this->in->get('sellable', 0)));
 		}
 
 		if($retu) {
@@ -82,7 +82,7 @@ class Manage_BankDetails extends page_generic {
 		$buyer		= $this->in->get('char', 0);
 		$item		= $this->in->get('item', 0);
 		$amount		= $this->in->get('amount', 0);
-		$dkp		= -$this->in->get('dkp', 0);
+		$dkp		= -$this->in->get('dkp', 0.0);
 		$money		= $this->money->input();
 
 		if($buyer > 0 && $item > 0){
@@ -289,10 +289,11 @@ class Manage_BankDetails extends page_generic {
 			$edit_charID	= 0;
 		}
 		$money			= $this->pdh->get('guildbank_transactions', 'money_summ', array($bankerID));
+		
 		$this->tpl->assign_vars(array(
 			'MONEY'			=> $this->money->editfields($money),
 			'AMOUNT'		=> ($itemID > 0) ? $this->pdh->get('guildbank_items', 'amount', array($itemID)) : 0,
-			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($edit_bankid)) : 0,
+			'DKP'			=> ($itemID > 0) ? $this->pdh->get('guildbank_transactions', 'dkp', array($itemID)) : 0,
 			'BANKERID'		=> ($bankerID > 0) ? $bankerID : $this->pdh->get('guildbank_items', 'banker', array($itemID)),
 			'DD_ITEMS'		=> (new hdropdown('item', array('options' => $this->pdh->aget('guildbank_items', 'name', 0, array($this->pdh->get('guildbank_items', 'id_list', array($bankerID)))), 'value' => 0)))->output(),
 			'DD_CHARS'		=> (new hdropdown('char', array('options' => $this->pdh->aget('member', 'name', 0, array($this->pdh->get('member', 'id_list'))), 'value' => $edit_charID)))->output(),

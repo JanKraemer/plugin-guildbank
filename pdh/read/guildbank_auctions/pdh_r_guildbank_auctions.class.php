@@ -70,10 +70,10 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 					$this->data[(int)$row['auction_id']] = array(
 						'id'				=> (int)$row['auction_id'],
 						'item'				=> (int)$row['auction_item'],
-						'startvalue'		=> (int)$row['auction_startvalue'],
+						'startvalue'		=> (float)$row['auction_startvalue'],
 						'startdate'			=> (int)$row['auction_startdate'],
 						'duration'			=> (int)$row['auction_duration'],
-						'bidsteps'			=> (int)$row['auction_bidsteps'],
+						'bidsteps'			=> (float)$row['auction_bidsteps'],
 						'note'				=> $row['auction_note'],
 						'raidattendance'	=> (int)$row['auction_raidattendance'],
 						'multidkppool'		=> (int)$row['auction_multidkppool'],
@@ -223,11 +223,11 @@ if (!class_exists('pdh_r_guildbank_auctions')){
 		}
 
 		public function get_bidsteps($id){
-			return (isset($this->data[$id]) && $this->data[$id]['bidsteps']) ? $this->data[$id]['bidsteps'] : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['bidsteps']) ? runden($this->data[$id]['bidsteps']) : 0;
 		}
 
 		public function get_startvalue($id){
-			return (isset($this->data[$id]) && $this->data[$id]['startvalue']) ? $this->data[$id]['startvalue'] : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['startvalue']) ? runden($this->data[$id]['startvalue']) : 0;
 		}
 
 		public function get_raidattendance($id){

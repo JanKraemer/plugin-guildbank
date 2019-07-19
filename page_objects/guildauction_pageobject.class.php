@@ -62,7 +62,7 @@ class guildauction_pageobject extends pageobject {
 
 	public function perform_bid(){
 		$intMemberID	= $this->in->get('memberid', 0);
-		$intBidValue	= $this->in->get('bidvalue', 0);
+		$intBidValue	= runden($this->in->get('bidvalue', 0.0));
 		$intMDKPID		= $this->pdh->get('guildbank_auctions', 'multidkppool', array($this->url_id));
 		$intCurrDKP		= $this->pdh->get('points', 'current', array($intMemberID, $intMDKPID, 0, 0, false));
 		$intAttendance	= $this->pdh->get('guildbank_auctions', 'raidattendance', array($this->url_id));

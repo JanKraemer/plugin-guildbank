@@ -49,7 +49,7 @@ class Manage_Auction extends page_generic {
 				$retu[]		= $this->pdh->put('guildbank_auctions', $func, array(
 					//$intID, $intItemID, $intStartdate, $intDuration, $intBidsteps, $intStartvalue, $intAttendance, $strNote='', $boolActive=1
 					$auctionID, $itemid, $this->time->fromformat($this->in->get('startdate'), 1), $this->in->get('duration', 0),
-					$this->in->get('bidsteps', 0), $this->in->get('startvalue', 0), $this->in->get('raidattendance', 0), $this->in->get('multidkppool', 1)
+					$this->in->get('bidsteps', 0.0), $this->in->get('startvalue', 0.0), $this->in->get('raidattendance', 0), $this->in->get('multidkppool', 1)
 				));
 			}
 		}

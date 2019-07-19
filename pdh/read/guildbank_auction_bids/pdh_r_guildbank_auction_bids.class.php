@@ -68,7 +68,7 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 						'auctionid'		=> (int)$row['bid_auctionid'],
 						'date'			=> (int)$row['bid_date'],
 						'memberid'		=> (int)$row['bid_memberid'],
-						'bidvalue'		=> (int)$row['bid_bidvalue'],
+						'bidvalue'		=> (float)$row['bid_bidvalue'],
 					);
 					$this->charbids[(int)$row['bid_memberid']][(int)$row['bid_id']] = (int)$row['bid_auctionid'];
 				}
@@ -176,9 +176,9 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 		}
 
 		public function get_highest_value($auctionID){
-			$bidvalues	= $this->get_bidvalues_byauction($auctionID);			
+			$bidvalues	= $this->get_bidvalues_byauction($auctionID);
 			$max		= (is_array($bidvalues) && count($bidvalues) > 0) ? max($bidvalues) : 0;
-			return ((int)$max > 0) ? $max : 0;
+			return ((float)$max > 0) ? $max : 0;
 		}
 
 		public function get_auctionid($id){
@@ -211,7 +211,7 @@ if (!class_exists('pdh_r_guildbank_auction_bids')){
 		}
 
 		public function get_bidvalue($id){
-			return (isset($this->data[$id]) && $this->data[$id]['bidvalue']) ? $this->data[$id]['bidvalue'] : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['bidvalue']) ? runden($this->data[$id]['bidvalue']) : 0;
 		}
 	} //end class
 } //end if class not exists
