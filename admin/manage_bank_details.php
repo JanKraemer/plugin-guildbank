@@ -241,7 +241,7 @@ class Manage_BankDetails extends page_generic {
 			$edit_mode			= true;
 			$item_sellable		= $this->pdh->get('guildbank_items', 'sellable', array($itemID));
 			$edit_bankid		= $this->pdh->get('guildbank_items', 'banker', array($itemID));
-			$money				= $this->pdh->get('guildbank_transactions', 'money_summ', array($edit_bankid));
+			$money				= $this->pdh->get('guildbank_transactions', 'itemvalue', array($itemID));
 			$pool				= $this->pdh->get('guildbank_items', 'multidkppool', array($itemID));
 			$edit_charID		= $this->pdh->get('guildbank_transactions', 'char', array($this->pdh->get('guildbank_transactions', 'transaction_id', array($itemID))));
 		}elseif($transactionID > 0){
