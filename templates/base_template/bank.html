@@ -24,7 +24,13 @@
 				<!-- BEGIN banker_row -->
 				<tr>
 					<td align="right" nowrap="nowrap" >
-						<span class="coretip" data-coretip="{banker_row.TOOLTIP}">{banker_row.NAME} {banker_row.BANKCHAR}</span>
+						<span class="coretip" data-coretip="{banker_row.TOOLTIP}">
+							<!-- IF ALLOW_MANAGE -->
+							<a href="{ADMIN_LINK}&g={banker_row.ID}">{banker_row.NAME} {banker_row.BANKCHAR}</a>
+							<!-- ELSE -->
+							{banker_row.NAME} {banker_row.BANKCHAR}
+							<!-- ENDIF -->
+						</span>
 					</td>
 					<!-- IF SHOW_MONEY -->
 						<!-- BEGIN cmoney_row -->

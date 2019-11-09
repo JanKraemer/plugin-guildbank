@@ -67,6 +67,7 @@ class guildbank_pageobject extends pageobject {
 			$myTooltip	.= "".$this->user->lang('note').": ".addslashes($this->pdh->get('guildbank_banker', 'note', array($banker_id, true)));
 
 			$this->tpl->assign_block_vars('banker_row', array(
+				'ID'			=> $banker_id,
 				'NAME'			=> $this->pdh->get('guildbank_banker', 'name', array($banker_id)),
 				'TOOLTIP'		=> $myTooltip,
 				'BANKCHAR'		=> ($bankchar != "") ? "(".addslashes($bankchar).")" : '',
@@ -138,7 +139,9 @@ class guildbank_pageobject extends pageobject {
 			'MERGE_BANKERS'		=> ($this->config->get('merge_bankers',		'guildbank') == 1) ? true : false,
 			'SHOW_MONEY'		=> ($this->config->get('show_money',		'guildbank') == 1) ? true : false,
 			'SHOW_AUCTIONS'		=> $this->user->check_auth('u_guildbank_auction', false),
+			'ALLOW_MANAGE'		=> $this->user->check_auth('a_guildbank_manage', false),
 			'ROUTING_BANKER'	=> $this->routing->build('guildbank'),
+			'ADMIN_LINK'		=> $this->server_path.'plugins/guildbank/admin/manage_bank_details.php'.$this->SID,
 
 			// Table & pagination for items
 			'ITEMS_TABLE'		=> $hptt_items->get_html_table($this->in->get('isort'), $page_suffix_i, $this->in->get('istart', 0), $this->user->data['user_rlimit'], $footer_item),
