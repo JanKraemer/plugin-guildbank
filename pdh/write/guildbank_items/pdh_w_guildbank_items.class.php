@@ -90,4 +90,3 @@ if (!class_exists('pdh_w_guildbank_items')){
 		}
 	} //end class
 } //end if class not exists
-?>

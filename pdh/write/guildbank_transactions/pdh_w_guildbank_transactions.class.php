@@ -186,4 +186,3 @@ if (!class_exists('pdh_w_guildbank_transactions')){
 		}
 	} //end class
 } //end if class not exists
-?>

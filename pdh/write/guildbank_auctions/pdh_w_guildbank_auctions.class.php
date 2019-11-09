@@ -85,4 +85,3 @@ if (!class_exists('pdh_w_guildbank_auctions')){
 		}
 	} //end class
 } //end if class not exists
-?>
