@@ -38,5 +38,3 @@ $preset_lang = array(
 	'gb_bidhibidder'	=> 'Höchstbietender',
 	'gb_bidhivalue'		=> 'Höchstgebot'
 );
-
-?>

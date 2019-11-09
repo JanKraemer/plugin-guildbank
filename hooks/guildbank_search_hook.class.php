@@ -49,4 +49,3 @@ if (!class_exists('guildbank_search_hook')){
 		}
 	}
 }
-?>

@@ -115,5 +115,3 @@ class gb_auctions_portal extends portal_generic{
 		return $output;
 	}
 }
-
-?>

@@ -55,6 +55,3 @@ $module_lang = array(
 	"gb_idkp" => 'DKP',
 	"gb_ishop" => 'Itemshop Link',
 	);
-
-
-?>

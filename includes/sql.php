@@ -97,5 +97,3 @@ $guildbankSQL = array(
 			) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",
 	)
 );
-
-?>

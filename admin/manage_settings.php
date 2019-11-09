@@ -143,4 +143,3 @@ class guildbankSettings extends page_generic {
 
 }
 registry::register('guildbankSettings');
-?>

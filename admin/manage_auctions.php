@@ -162,4 +162,3 @@ class Manage_Auction extends page_generic {
 	}
 }
 registry::register('Manage_Auction');
-?>

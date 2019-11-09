@@ -52,5 +52,3 @@
 			'short_lang'	=> $this->user->lang(array('gb_currency', 'copper_s')),
 		)
   );
-
- ?>

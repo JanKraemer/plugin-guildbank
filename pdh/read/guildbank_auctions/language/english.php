@@ -55,6 +55,3 @@ $module_lang = array(
 	"gb_aalink" => 'Auction button',
 	"atime_left" => 'Verbleibende Zeit',
 	);
-
-
-?>

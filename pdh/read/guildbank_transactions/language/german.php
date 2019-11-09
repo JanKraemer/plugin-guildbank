@@ -44,5 +44,3 @@ $preset_lang = array(
 	'gb_tvalue'			=> 'Wert',
 	'gb_tdkp'			=> 'DKP',
 );
-
-?>

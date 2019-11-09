@@ -173,5 +173,3 @@ $systems_guildbank = array(
 		),
 	)
 );
-
-?>

@@ -122,4 +122,3 @@ if (!class_exists('pdh_r_guildbank_shop_ta')){
 		}
 	} //end class
 } //end if class not exists
-?>

@@ -316,4 +316,3 @@ class Manage_BankDetails extends page_generic {
 	}
 }
 registry::register('Manage_BankDetails');
-?>

@@ -48,6 +48,3 @@ $module_lang = array(
 	"gb_tvalue" => 'Value',
 	"gb_tdkp" => 'DKP',
 	);
-
-
-?>

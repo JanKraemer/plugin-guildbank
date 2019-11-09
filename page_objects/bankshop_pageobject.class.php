@@ -160,4 +160,3 @@ class bankshop_pageobject extends pageobject {
 		));
 	}
 }
-?>

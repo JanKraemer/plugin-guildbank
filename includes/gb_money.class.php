@@ -164,5 +164,3 @@ if(!class_exists('gb_money')) {
 		}
 	}
 }
-
-?>

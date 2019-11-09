@@ -42,6 +42,3 @@ $module_lang = array(
 	"gb_bidhibidder" => 'Highest bidder',
 	"gb_bidhivalue" => 'highest bidding',
 	);
-
-
-?>

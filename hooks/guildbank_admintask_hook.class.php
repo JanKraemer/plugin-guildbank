@@ -189,5 +189,3 @@ if (!class_exists('guildbank_admintask_hook')) {
 		}
 	}
 }
-
-?>

@@ -250,4 +250,3 @@ $lang = array(
 	'gb_auctions_maxbid' => 'Höchstgebot',
 	'gb_auctions_maxbidder' => 'Hochgstbieter',
 );
-?>

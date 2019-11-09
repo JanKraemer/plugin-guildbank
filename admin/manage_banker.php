@@ -160,4 +160,3 @@ class Manage_Banker extends page_generic {
 	}
 }
 registry::register('Manage_Banker');
-?>

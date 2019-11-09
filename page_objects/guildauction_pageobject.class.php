@@ -181,4 +181,3 @@ class guildauction_pageobject extends pageobject {
 		));
 	}
 }
-?>

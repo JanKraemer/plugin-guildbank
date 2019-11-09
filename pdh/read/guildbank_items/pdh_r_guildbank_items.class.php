@@ -265,4 +265,3 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 	} //end class
 } //end if class not exists
-?>

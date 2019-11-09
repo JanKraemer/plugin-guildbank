@@ -169,4 +169,3 @@ class guildbank_pageobject extends pageobject {
 		);
 	}
 }
-?>

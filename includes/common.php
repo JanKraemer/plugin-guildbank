@@ -29,4 +29,3 @@ if (!registry::register('plugin_manager')->check('guildbank', PLUGIN_INSTALLED) 
 	message_die(registry::register('user')->lang('guildbank_not_installed'));
 }
 require_once($eqdkp_root_path.'plugins/guildbank/includes/gb_money.class.php');
-?>

@@ -51,5 +51,3 @@ $preset_lang = array(
 	'gb_aalink'			=> 'Auktionsbutton',
 	'atime_left'		=> 'Verbleibende Zeit',
 );
-
-?>

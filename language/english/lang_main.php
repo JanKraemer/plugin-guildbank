@@ -223,5 +223,3 @@ $lang = array(
 		'gb_new_bid_info'				=> 'A new bid was submitted for this auction.<br /><br /><a href="%s">Click here to reload this page.</a>',
 		
 );
-
-?>
