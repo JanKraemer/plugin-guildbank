@@ -172,6 +172,7 @@ $lang = array(
 	"gb_f_help_use_autoadjust" => 'Should be entered automatic corrections for each sold item?',
 	"gb_f_default_event" => 'Default event for adjustments',
 	"gb_f_help_default_event" => 'If you want to use the auto adjustments, you need to set a default event',
+    'gb_filter_raidgroup'             => "Choose raidgroup",
 	"gb_filter_banker" => 'Choose banker',
 	'gb_f_allow_manualentry'		=> 'Allow manual bid typing',
 	'gb_f_help_allow_manualentry'	=> 'If activated, the bidder is allowed to enter own numbers in the bid field, otherwise the selection field could be used only.',

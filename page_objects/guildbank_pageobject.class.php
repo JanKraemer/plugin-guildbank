@@ -43,6 +43,7 @@ class guildbank_pageobject extends pageobject {
 	}
 
 	public function display(){
+	    $raidgrpID      = $this->in->get('raidgrp', 0);
 		$bankerID		= $this->in->get('banker', 0);
 		$rarityID		= $this->in->get('rarity', 0);
 		$typeID			= $this->in->get('type', '');
@@ -54,9 +55,9 @@ class guildbank_pageobject extends pageobject {
 		//caching parameter
 		$caching_parameter	= 'nofilter';
 		$filter_suffix		= '';
-		if($bankerID > 0 || $typeID > 0 || $rarityID != ''){
-			$caching_parameter	= 'banker'.$bankerID.'_type'.$typeID.'_rarity'.$rarityID;
-			$filter_suffix		= '&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID;
+		if($raidgrpID > 0 || $bankerID > 0 || $typeID > 0 || $rarityID != ''){
+			$caching_parameter	= 'raidgrp'.$raidgrpID.'banker'.$bankerID.'_type'.$typeID.'_rarity'.$rarityID;
+			$filter_suffix		= '&amp;raidgrp='.$raidgrpID.'&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID;
 		}
 
 		foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
@@ -94,14 +95,20 @@ class guildbank_pageobject extends pageobject {
 
 		$dd_type		= array_merge(array('' => '--'), $this->pdh->get('guildbank_items', 'itemtype'));
 		$dd_rarity		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemrarity'));
-		$dd_banker		= array_merge(array(0 => '--'), $this->pdh->aget('guildbank_banker', 'name', 0, array($this->pdh->get('guildbank_banker', 'id_list'))));
+        $dd_banker		= array(0 => '--');
+
+        foreach ($this->pdh->get('guildbank_banker', 'id_list') as $banker_id) {
+            $dd_banker[$banker_id] = $this->pdh->get('guildbank_banker', 'name',array($banker_id));
+        }
+
+        $dd_raidgroup = array(0 => '--');
 
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
 		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID, 0, $typeID, $rarityID));
 		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'i'.$caching_parameter, 'isort');
 		$page_suffix_i	= '&amp;istart='.$this->in->get('istart', 0);
-		$page_suffix_i	.= $filter_suffix.'#fragment-auctions';
+		$page_suffix_i	.= $filter_suffix.'#fragment-items';
 		$sort_suffix_i	= '&amp;isort='.$this->in->get('isort');
 		$item_count		= count($items_list);
 		$footer_item	= sprintf($this->user->lang('gb_footer_item'), $item_count, $this->user->data['user_rlimit']);
@@ -151,6 +158,7 @@ class guildbank_pageobject extends pageobject {
 			'TRANSA_TABLE'		=> $hptt_transa->get_html_table($this->in->get('tsort'), $page_suffix_t, $this->in->get('tstart', 0), $this->user->data['user_rlimit'], $footer_transa),
 			'PAGINATION_TRANSA'	=> generate_pagination($this->strPath.$this->SID.$sort_suffix_t, $ta_count, $this->user->data['user_rlimit'], $this->in->get('tstart', 0), 'tstart'),
 
+			'DD_RAIDGROUP'  => (new hdropdown('raidgrp', array('options' => $dd_raidgroup, 'value' => $raidgrpID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_BANKER'		=> (new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_RARITY'		=> (new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_TYPE'		=> (new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
