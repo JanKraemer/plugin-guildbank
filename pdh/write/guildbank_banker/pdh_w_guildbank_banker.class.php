@@ -30,6 +30,7 @@ if (!class_exists('pdh_w_guildbank_banker')){
 			$resQuery = $this->db->prepare("INSERT INTO __guildbank_banker :p")->set(array(
 				'banker_name'			=> $strName,
 				'banker_bankchar'		=> $intBankChar,
+				'banker_raid'           => $this->pdh->get('guildbank_raid_member', 'raidId',array($intBankChar)),
 				'banker_note'			=> $strNote
 			))->execute();
 
@@ -46,6 +47,7 @@ if (!class_exists('pdh_w_guildbank_banker')){
 			$resQuery = $this->db->prepare("UPDATE __guildbank_banker :p WHERE banker_id=?")->set(array(
 				'banker_name'			=> $strName,
 				'banker_bankchar'		=> $intBankChar,
+                'banker_raid'           => $this->pdh->get('guildbank_raid_member', 'raidId',array($intBankChar)),
 				'banker_note'			=> $strNote
 			))->execute($intID);
 			$this->pdh->put('guildbank_transactions', 'update_money', array($intID, $intMoney));

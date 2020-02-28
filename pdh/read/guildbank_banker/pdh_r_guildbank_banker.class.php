@@ -58,6 +58,7 @@ if (!class_exists('pdh_r_guildbank_banker')){
 					$this->data[(int)$row['banker_id']] = array(
 						'id'			=> (int)$row['banker_id'],
 						'name'			=> $row['banker_name'],
+						'banker_raid'   => (int)$row['banker_raid'],
 						'bankchar'		=> (int)$row['banker_bankchar'],
 						'note'			=> $row['banker_note'],
 					);

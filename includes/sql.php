@@ -49,6 +49,7 @@ $guildbankSQL = array(
 				banker_id mediumint(8) unsigned NOT NULL auto_increment,
 				banker_name varchar(255) default NULL,
 				banker_bankchar int(20) default 0,
+				banker_raid mediumint(8) default 0,
 				banker_note varchar(255) default NULL,
 				PRIMARY KEY (banker_id)
 				) DEFAULT CHARSET=utf8 COLLATE=utf8_bin;",

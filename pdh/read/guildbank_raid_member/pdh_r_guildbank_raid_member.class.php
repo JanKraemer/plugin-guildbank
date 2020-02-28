@@ -23,8 +23,8 @@ if (!defined('EQDKP_INC')){
     die('Do not access this file directly.');
 }
 
-if (!class_exists('pdh_r_guildbank_raids')){
-    class pdh_r_guildbank_raids extends pdh_r_generic{
+if (!class_exists('pdh_r_guildbank_raid_member')){
+    class pdh_r_guildbank_raid_member extends pdh_r_generic{
         private $data;
 
         public $hooks = array(
@@ -34,13 +34,13 @@ if (!class_exists('pdh_r_guildbank_raids')){
         );
 
         public function reset(){
-            $this->pdc->del('pdh_guildbank_raids_table');
+            $this->pdc->del('pdh_guildbank_raid_member_table');
             unset($this->data);
         }
 
         public function init(){
             // try to get from cache first
-            $this->data = $this->pdc->get('pdh_guildbank_raids_table');
+            $this->data = $this->pdc->get('pdh_guildbank_raid_member_table');
             if($this->data !== NULL){
                 return true;
             }
@@ -49,21 +49,21 @@ if (!class_exists('pdh_r_guildbank_raids')){
             $this->data = array();
 
             // read all guildbank_fields entries from db
-            $sql = 'SELECT * FROM `__groups_raid` ORDER BY groups_raid_id ASC;';
+            $sql = 'SELECT * FROM `__groups_raid_members` ORDER BY member_id ASC;';
             $result = $this->db->query($sql);
             if ($result){
                 // add row by row to local copy
                 while (($row = $result->fetchAssoc())){
-                    $this->data[(int)$row['groups_raid_id']] = array(
-                        'raid_id'		=> (int)$row['groups_raid_id'],
-                        'raid_name'			=> $row['groups_raid_name'],
+                    $this->data[(int)$row['member_id']] = array(
+                        'member_id'		=> (int)$row['member_id'],
+                        'group_id'		=> (int)$row['group_id'],
                     );
                 }
                 #$this->db->free_result($result);
             }
 
             // add data to cache
-            $this->pdc->put('pdh_guildbank_raids_table', $this->data, null);
+            $this->pdc->put('pdh_guildbank_raid_member_table', $this->data, null);
             return true;
         }
 
@@ -74,8 +74,8 @@ if (!class_exists('pdh_r_guildbank_raids')){
             return array();
         }
 
-        public function get_name($id){
-            return (isset($this->data[$id]) && $this->data[$id]['raid_name']) ? $this->data[$id]['raid_name'] : 'None';
+        public function get_raidId($id){
+            return (isset($this->data[$id]) && $this->data[$id]['group_id']) ? $this->data[$id]['group_id'] : '0';
         }
     } //end class
 } //end if class not exists

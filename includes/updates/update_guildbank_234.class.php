@@ -50,6 +50,7 @@ if (!class_exists('update_guildbank_234')){
 					3 => 'Change the column format',
 					4 => 'Change the column format',
 					5 => 'Add a column',
+					6 => 'Add a column',
 				),
 				'german' => array(
 					'update_guildbank_200' => 'Guild Banker 2.3.4 Update Paket',
@@ -59,6 +60,7 @@ if (!class_exists('update_guildbank_234')){
 						3 => 'Ändere das Spaltenformat',
 						4 => 'Ändere das Spaltenformat',
 						5 => 'Füge eine Spalte hinzu',
+						6 => 'Füge eine Spalte hinzu',
 				),
 			);
 
@@ -69,6 +71,7 @@ if (!class_exists('update_guildbank_234')){
 				3 => "ALTER TABLE `__guildbank_auctions` CHANGE COLUMN `auction_bidsteps` `auction_bidsteps` FLOAT(10,2) NULL DEFAULT NULL;",
 				4 => "ALTER TABLE `__guildbank_auctions` CHANGE COLUMN `auction_startvalue` `auction_startvalue` FLOAT(10,2) NULL DEFAULT NULL;",
 				5 => "ALTER TABLE `__guildbank_items` ADD COLUMN `item_multidkppool` INT(11) UNSIGNED NULL DEFAULT NULL;",
+				6 => "ALTER TABLE `__guildbank_banker` ADD COLUMN `banker_raid` mediumint(8) DEFAULT '0' AFTER `banker_bankchar`;"
 			);
 		}
 
