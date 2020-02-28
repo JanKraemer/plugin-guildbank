@@ -103,6 +103,10 @@ class guildbank_pageobject extends pageobject {
 
         $dd_raidgroup = array(0 => '--');
 
+        foreach ($this->pdh->get('guildbank_raids', 'id_list') as $raidId) {
+            $dd_raidgroup[$raidId] = $this->pdh->get('guildbank_raids', 'name',array($raidId));
+        }
+
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
 		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($bankerID, 0, $typeID, $rarityID));

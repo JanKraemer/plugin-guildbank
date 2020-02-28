@@ -64,6 +64,7 @@ class guildbank extends plugin_generic {
 		$this->add_pdh_read_module('guildbank_items');
 		$this->add_pdh_read_module('guildbank_transactions');
 		$this->add_pdh_read_module('guildbank_auctions');
+		$this->add_pdh_read_module('guildbank_raids');
 		$this->add_pdh_read_module('guildbank_auction_bids');
 		$this->add_pdh_read_module('guildbank_shop_ta');
 		$this->add_pdh_write_module('guildbank_banker');
