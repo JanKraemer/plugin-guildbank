@@ -86,6 +86,10 @@ if (!class_exists('pdh_r_guildbank_banker')){
 			return (isset($this->data[$id]) && $this->data[$id]['note']) ? $this->data[$id]['note'] : (($showdefault) ? $this->user->lang('gb_default_note'): '');
 		}
 
+		public function get_raid($id){
+            return (isset($this->data[$id]) && $this->data[$id]['banker_raid']) ? $this->data[$id]['banker_raid'] : 0;
+        }
+
 		public function get_refresh_date($id){
 			return $this->time->user_date(0);;
 		}

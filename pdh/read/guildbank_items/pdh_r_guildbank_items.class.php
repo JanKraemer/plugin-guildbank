@@ -54,21 +54,25 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function reset(){
 			$this->pdc->del('pdh_guildbank_items_table.items');
+			$this->pdc->del('pdh_guildbank_items_table.raid_items');
 			$this->pdc->del('pdh_guildbank_items_table.banker_items');
 			unset($this->data);
+			unset($this->raid_items);
 			unset($this->banker_items);
 		}
 
 		public function init(){
 			// try to get from cache first
 			$this->data			= $this->pdc->get('pdh_guildbank_items_table.items');
+            $this->raid_items   = $this->pdc->get('pdh_guildbank_items_table.raid_items');
 			$this->banker_items	= $this->pdc->get('pdh_guildbank_items_table.banker_items');
-			if($this->data !== NULL && $this->banker_items !== NULL){
+
+			if($this->data !== NULL && $this->banker_items !== NULL && $this->raid_items !== NULL){
 				return true;
 			}
 
 			// empty array as default
-			$this->data = $this->banker_items = array();
+			$this->data = $this->banker_items = $this->raid_items = array();
 
 			$sql = 'SELECT * FROM `__guildbank_items` ORDER BY item_id ASC;';
 			$result = $this->db->query($sql);
@@ -87,22 +91,26 @@ if (!class_exists('pdh_r_guildbank_items')){
 						'multidkppool'	=> (int)$row['item_multidkppool'],
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
+					$raidId = $this->pdh->get('guildbank_banker', 'raid',array((int)$row['item_banker']));
+					$this->raid_items[$raidId][(int)$row['item_id']] = $row['item_name'];
 				}
 			}
 
 			// add data to cache
 			$this->pdc->put('pdh_guildbank_items_table.items', $this->data, null);
+            $this->pdc->put('pdh_guildbank_items_table.raid_items', $this->raid_items, null);
 			$this->pdc->put('pdh_guildbank_items_table.banker_items', $this->banker_items, null);
 			return true;
 		}
 
-		public function get_id_list($bankerID = 0, $priority = 0, $type = '', $rarity = 0, $sellable = 0){
-			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $this->data;
+		public function get_id_list($raidID = 0, $bankerID = 0, $type = '', $rarity = 0){
+            $data	= ((int)$raidID > 0) ? $this->raid_items[$raidID] : $this->data;
+			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $data;
 			if (is_array($data)){
 				// filter the output
-				if($priority > 0 || $type != '' || $rarity > 0 || $sellable > 0){
+				if($type != '' || $rarity > 0 ){
 					foreach($data as $itemid=>$itemvalues) {
-						if(($type != '' && $this->get_type($itemid, true) != $type) || ($priority > 0 && $this->get_priority($itemid) != $priority) || ($rarity > 0 && $this->get_rarity($itemid, true) != $rarity) || ($sellable > 0 && $this->get_sellable($itemid) != '1')){
+						if(($type != '' && $this->get_type($itemid, true) != $type) || ($rarity > 0 && $this->get_rarity($itemid, true) != $rarity)){
 							unset($data[$itemid]);
 						}
 					}
@@ -120,7 +128,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public function get_sellable($id){
 			return (isset($this->data[$id]['sellable']) && $this->data[$id]['sellable'] > 0) ? $this->data[$id]['sellable'] : 0;
 		}
-		
+
 		public function get_multidkppool($id){
 			return (isset($this->data[$id]['multidkppool']) && $this->data[$id]['multidkppool'] > 0) ? $this->data[$id]['multidkppool'] : 0;
 		}

@@ -201,7 +201,7 @@ $lang = array(
 	'gb_f_help_allow_manualentry'	=> 'Wenn aktiviert, kann in das Bieten Feld ein eigener Wert eingetragen werden. Wenn ausgeschaltet, kann nur das Auswahlfeld verwendet werden.',
 		
 	//filter translations
-    'gb_filter_raidgroup'             => "Raidgruppe auswählen",
+    'gb_filter_raidgroup'             => "Raid auswählen",
 	'gb_filter_banker'				=> "Bankier auswählen",
 	'gb_filter_type'				=> "Gegenstandsart auswählen",
 	'gb_filter_rarity'				=> "Gegenstandslevel auswählen",
