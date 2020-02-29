@@ -98,7 +98,9 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return true;
 		}
 
-		public function get_id_list($raidID = 0, $bankerID = 0, $type = '', $rarity = 0){
+		public function get_id_list($raidID = 0, $bankerID = 0, $type = '', $rarity = 0, $kummuliert = 0){
+		    if($kummuliert > 0)
+		        return array();
             $data	= ((int)$raidID > 0) ? $this->raid_items[$raidID] : $this->data;
 			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $data;
 			if (is_array($data)){

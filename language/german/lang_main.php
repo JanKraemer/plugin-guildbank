@@ -206,6 +206,7 @@ $lang = array(
 	'gb_filter_banker'				=> "Bankier auswählen",
 	'gb_filter_type'				=> "Gegenstandsart auswählen",
 	'gb_filter_rarity'				=> "Gegenstandslevel auswählen",
+    'gb_filter_kummuliert'          => "Items zusammenfassen",
 
 	// filters
 	'gb_a_type'						=> array(
