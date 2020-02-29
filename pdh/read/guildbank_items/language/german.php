@@ -31,6 +31,7 @@ $module_lang = array(
 	'edit'				=> '',
 	'rarity'			=> 'Seltenheit',
 	'banker_name'		=> 'Bankier',
+    'raid_name'         => 'Raid',
 );
 
 $preset_lang = array(

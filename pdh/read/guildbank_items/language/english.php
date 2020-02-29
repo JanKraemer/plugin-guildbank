@@ -36,6 +36,7 @@ $module_lang = array(
 	"edit" => '',
 	"rarity" => 'Rarity',
 	"banker_name" => 'Banker',
+    "raid_name" => 'Raid',
 	);
 	$preset_lang = array(
 	"gb_idate" => 'Date',

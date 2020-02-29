@@ -43,10 +43,10 @@ if (!class_exists('pdh_r_guildbank_items')){
 			'gb_iamount'	=> array('amount',		array('%item_id%'), array()),
 			'gb_itype'		=> array('type',		array('%item_id%'), array()),
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
-			'gb_ivalue'		=> array('value',		array('%item_id%'), array()),
-			'gb_ivalue_a'	=> array('value_a',		array('%item_id%'), array()),
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
 			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
+            'gb_iraid'       => array('raid_name' , array('%item_id%'), array()),
+
 		);
 
 		public function reset(){
@@ -187,14 +187,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return '<a href="javascript:edit_item(\''.$id.'\');"><i class="fa fa-pencil fa-lg" title="'.$this->user->lang('edit').'"></i></a>';
 		}
 
-		public function get_value($id){
-			return $this->money->fields($this->pdh->get('guildbank_transactions', 'itemvalue', array($id)));
-		}
-
-		public function get_value_a($id){
-			return $this->money->fields($this->pdh->get('guildbank_transactions', 'itemvalue', array($id)));
-		}
-
 		public function get_banker($id){
 			return (isset($this->data[$id]) && $this->data[$id]['banker']) ? $this->data[$id]['banker'] : 0;
 		}
@@ -202,6 +194,14 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public function get_banker_name($id){
 			return $this->pdh->get('guildbank_banker', 'name', array($this->get_banker($id)));
 		}
+
+		public function get_raid($id){
+            return $this->pdh->get('guildbank_banker', 'raid', array($this->get_banker($id)));
+        }
+
+        public function get_raid_name($id){
+            return $this->pdh->get('guildbank_raids', 'name', array($this->get_raid($id)));
+        }
 
 		public function get_itt_itemname($id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
 			if(!isset($this->data[$id])) return false;

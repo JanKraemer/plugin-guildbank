@@ -39,6 +39,7 @@ $lang = array(
 	"gb_perm_shop" => 'Buy items',
 	"gb_mainmenu_guildbank" => 'Guild bank',
 	"gb_adminmenu_guildbank" => 'Guild bank',
+    "gb_raid" => 'Raid',
 	"gb_banker" => 'Banker',
 	"gb_shop" => 'Shop',
 	"gb_not_avail" => 'n.a.',

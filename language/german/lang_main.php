@@ -41,6 +41,7 @@ $lang = array(
 	'gb_adminmenu_guildbank'		=> "Gildenbank",
 
 	//guildbank
+    'gb_raid'                       => "Raid",
 	'gb_banker'						=> "Bankier",
 	'gb_shop'						=> "Itemshop",
 	'gb_not_avail'					=> "n.v.",
