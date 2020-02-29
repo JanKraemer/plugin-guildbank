@@ -60,7 +60,7 @@ class guildbank_pageobject extends pageobject {
 			$filter_suffix		= '&amp;raid='.$raidID.'&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID;
 		}
 
-		foreach($this->pdh->get('guildbank_banker', 'id_list') as $banker_id){
+		foreach($this->pdh->get('guildbank_banker', 'id_list', array($raidID)) as $banker_id){
 			$bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
 
 			// the tooltip
