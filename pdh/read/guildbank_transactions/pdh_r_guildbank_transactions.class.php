@@ -191,8 +191,11 @@ if (!class_exists('pdh_r_guildbank_transactions')){
 			return (isset($this->summ[$bankid]) && $this->summ[$bankid] > 0) ? $this->summ[$bankid] : 0;
 		}
 
-		public function get_money_summ_all($raidID){
-		    if($raidID > 0) {
+		public function get_money_summ_all($raidID, $bankerID){
+		    if($bankerID > 0){
+                return $this->get_money_summ($bankerID);
+            }
+		     elseif ($raidID > 0) {
 		        return (isset($this->raidsumm[$raidID]) && $this->raidsumm[$raidID] > 0) ? $this->raidsumm[$raidID] : 0;
             }
 			return array_sum($this->summ);

@@ -26,6 +26,7 @@ if (!defined('EQDKP_INC')){
 if (!class_exists('pdh_r_guildbank_raids')){
     class pdh_r_guildbank_raids extends pdh_r_generic{
         private $data;
+        private $banker;
 
         public $hooks = array(
         );
@@ -34,19 +35,22 @@ if (!class_exists('pdh_r_guildbank_raids')){
         );
 
         public function reset(){
-            $this->pdc->del('pdh_guildbank_raids_table');
+            $this->pdc->del('pdh_guildbank_raids_table.raid');
+            $this->pdc->del('pdh_guildbank_raids_table.banker');
             unset($this->data);
+            unset($this->banker);
         }
 
         public function init(){
             // try to get from cache first
-            $this->data = $this->pdc->get('pdh_guildbank_raids_table');
-            if($this->data !== NULL){
+            $this->data = $this->pdc->get('pdh_guildbank_raids_table.raid');
+            $this->banker = $this->pdc->get('pdh_guildbank_raids_table.banker');
+            if($this->data !== NULL && $this->banker !== NULL){
                 return true;
             }
 
             // empty array as default
-            $this->data = array();
+            $this->data = $this->banker = array();
 
             // read all guildbank_fields entries from db
             $sql = 'SELECT * FROM `__groups_raid` ORDER BY groups_raid_id ASC;';
@@ -58,18 +62,23 @@ if (!class_exists('pdh_r_guildbank_raids')){
                         'raid_id'		=> (int)$row['groups_raid_id'],
                         'raid_name'			=> $row['groups_raid_name'],
                     );
+                    foreach ($this->pdh->get('guildbank_banker', 'id_list', array((int)$row['groups_raid_id'])) as $banker_id) {
+                        $this->banker[$banker_id] = (int)$row['groups_raid_id'];
+                    }
                 }
                 #$this->db->free_result($result);
             }
 
             // add data to cache
-            $this->pdc->put('pdh_guildbank_raids_table', $this->data, null);
+            $this->pdc->put('pdh_guildbank_raids_table.raid', $this->data, null);
+            $this->pdc->put('pdh_guildbank_raids_table.banker', $this->banker, null);
             return true;
         }
 
-        public function get_id_list(){
-            if (is_array($this->data)){
-                return array_keys($this->data);
+        public function get_id_list($banker_id){
+            $data = ((int)$banker_id> 0) ? $this->banker[$banker_id] : $this->data;
+            if (is_array($data)){
+                return array_keys($data);
             }
             return array();
         }

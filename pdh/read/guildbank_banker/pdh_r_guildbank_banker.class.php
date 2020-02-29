@@ -77,9 +77,12 @@ if (!class_exists('pdh_r_guildbank_banker')){
 			return true;
 		}
 
-		public function get_id_list($raidID){
-            $data	= $raidID > 0 ? $this->raid_banker[$raidID] : $this->data;
-			if (is_array($data)){
+		public function get_id_list($raidID = 0, $bankerID = 0){
+            If($bankerID > 0){
+                return array($bankerID);
+            }
+            $data = $raidID > 0 ? $this->raid_banker[$raidID] : $this->data;
+            if (is_array($data)){
 				return array_keys($data);
 			}
 			return array();

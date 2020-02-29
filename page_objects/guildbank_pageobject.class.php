@@ -60,7 +60,7 @@ class guildbank_pageobject extends pageobject {
 			$filter_suffix		= '&amp;raid='.$raidID.'&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID;
 		}
 
-		foreach($this->pdh->get('guildbank_banker', 'id_list', array($raidID)) as $banker_id){
+		foreach($this->pdh->get('guildbank_banker', 'id_list', array($raidID, $bankerID)) as $banker_id){
 			$bankchar	= $this->pdh->get('guildbank_banker', 'bankchar', array($banker_id));
 
 			// the tooltip
@@ -88,7 +88,7 @@ class guildbank_pageobject extends pageobject {
 			$this->tpl->assign_block_vars('money_row', array(
 				'NAME'			=> $monName,
 				'IMAGE'			=> $this->money->image($monValue, true, '22'),
-				'VALUE'			=> $this->money->output($this->pdh->get('guildbank_transactions', 'money_summ_all'), $monValue),
+				'VALUE'			=> $this->money->output($this->pdh->get('guildbank_transactions', 'money_summ_all', array($raidID, $bankerID)), $monValue),
 				'LANGUAGE'		=> $monValue['language'],
 			));
 		}
@@ -103,7 +103,7 @@ class guildbank_pageobject extends pageobject {
 
         $dd_raidgroup = array(0 => '--');
 
-        foreach ($this->pdh->get('guildbank_raids', 'id_list') as $raid_Id) {
+        foreach ($this->pdh->get('guildbank_raids', 'id_list', array($bankerID)) as $raid_Id) {
             $dd_raidgroup[$raid_Id] = $this->pdh->get('guildbank_raids', 'name',array($raid_Id));
         }
 
