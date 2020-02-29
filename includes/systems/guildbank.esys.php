@@ -39,10 +39,7 @@ $systems_guildbank = array(
 				array('name' => 'gb_iname',		'sort' => true,		'th_add' => 'align="center width="100%"',	'td_add' => ''),
 				array('name' => 'gb_iamount',	'sort' => true,		'th_add' => 'align="center width="50px"',	'td_add' => ''),
 				array('name' => 'gb_itype',		'sort' => true,		'th_add' => 'align="center width="200px"',	'td_add' => ''),
-				array('name' => 'gb_ibanker',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
-				array('name' => 'gb_idkp',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
-				array('name' => 'gb_icost',		'sort' => true,		'th_add' => 'align="center"',				'td_add' => ''),
-				array('name' => 'gb_ishop',		'sort' => false,	'th_add' => 'align="center"',				'td_add' => '')
+				array('name' => 'gb_ibanker',	'sort' => true,		'th_add' => 'align="center"',				'td_add' => '')
 			)
 		),
 		'hptt_guildbank_transactions' => array(

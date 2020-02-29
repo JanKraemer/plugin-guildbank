@@ -28,14 +28,9 @@ $module_lang = array(
 	'name'				=> 'Gegenstand',
 	'amount'			=> 'Anzahl',
 	'type'				=> 'Typ',
-	'gb_icost'			=> 'Kosten',
 	'edit'				=> '',
-	'value'				=> 'Wert',
-	'gb_ivalue_a'		=> 'Wert',
 	'rarity'			=> 'Seltenheit',
 	'banker_name'		=> 'Bankier',
-	'dkp'				=> 'Kosten',
-	'shoplink'			=> '',
 );
 
 $preset_lang = array(
@@ -44,10 +39,6 @@ $preset_lang = array(
 	'gb_iamount'		=> 'Anzahl',
 	'gb_itype'			=> 'Typ',
 	'gb_iedit'			=> 'Bearbeiten',
-	'gb_ivalue'			=> 'Wert',
-	'gb_ivalue_a'		=> 'Wert (Adminbereich)',
 	'gb_irarity'		=> 'Seltenheit',
 	'gb_ibanker'		=> 'Bankier',
-	'gb_idkp'			=> 'DKP',
-	'gb_ishop'			=> 'Itemshop Link',
 );

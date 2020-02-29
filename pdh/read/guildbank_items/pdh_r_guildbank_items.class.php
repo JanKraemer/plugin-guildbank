@@ -44,12 +44,9 @@ if (!class_exists('pdh_r_guildbank_items')){
 			'gb_itype'		=> array('type',		array('%item_id%'), array()),
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
 			'gb_ivalue'		=> array('value',		array('%item_id%'), array()),
-			'gb_icost'		=> array('value',		array('%item_id%'), array()),
 			'gb_ivalue_a'	=> array('value_a',		array('%item_id%'), array()),
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
 			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
-			'gb_idkp'		=> array('dkp',			array('%item_id%'), array()),
-			'gb_ishop'		=> array('shoplink',	array('%item_id%'), array()),
 		);
 
 		public function reset(){
@@ -87,8 +84,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 						'rarity'		=> (int)$row['item_rarity'],
 						'amount'		=> (int)$row['item_amount'],
 						'date'			=> (int)$row['item_date'],
-						'sellable'		=> (int)$row['item_sellable'],
-						'multidkppool'	=> (int)$row['item_multidkppool'],
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
 					$raidId = $this->pdh->get('guildbank_banker', 'raid',array((int)$row['item_banker']));
@@ -123,14 +118,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_date($id){
 			return (isset($this->data[$id]) && $this->data[$id]['date'] > 0) ? $this->data[$id]['date'] : 0;
-		}
-
-		public function get_sellable($id){
-			return (isset($this->data[$id]['sellable']) && $this->data[$id]['sellable'] > 0) ? $this->data[$id]['sellable'] : 0;
-		}
-
-		public function get_multidkppool($id){
-			return (isset($this->data[$id]['multidkppool']) && $this->data[$id]['multidkppool'] > 0) ? $this->data[$id]['multidkppool'] : 0;
 		}
 
 		public function get_html_date($id){
@@ -208,10 +195,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return $this->money->fields($this->pdh->get('guildbank_transactions', 'itemvalue', array($id)));
 		}
 
-		public function get_dkp($id){
-			return $this->pdh->get('guildbank_transactions', 'itemdkp', array($id));
-		}
-
 		public function get_banker($id){
 			return (isset($this->data[$id]) && $this->data[$id]['banker']) ? $this->data[$id]['banker'] : 0;
 		}
@@ -242,12 +225,6 @@ if (!class_exists('pdh_r_guildbank_items')){
 
 		public function get_html_name($item_id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
 			return $this->get_itt_itemname($item_id, $lang, $direct, $onlyicon, $noicon, $in_span);
-		}
-
-		public function get_shoplink($id){
-			if($this->get_sellable($id) > 0 && $this->user->check_auth('u_guildbank_shop', false)){
-				return '<a href="javascript:open_shop(\''.$id.'\');"><i class="fa fa-shopping-cart fa-lg" title="'.$this->user->lang('gb_shop_icon_title').'"></i></a>';
-			}
 		}
 
 		public function get_search($search){

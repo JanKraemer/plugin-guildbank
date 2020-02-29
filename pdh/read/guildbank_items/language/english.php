@@ -33,14 +33,9 @@ $module_lang = array(
 	"name" => 'Item',
 	"amount" => 'Amount',
 	"type" => 'Type',
-	"gb_icost" => 'Cost',
 	"edit" => '',
-	"value" => 'Value',
-	"gb_ivalue_a" => 'Value',
 	"rarity" => 'Rarity',
 	"banker_name" => 'Banker',
-	"dkp" => 'DKP',
-	"shoplink" => '',
 	);
 	$preset_lang = array(
 	"gb_idate" => 'Date',
@@ -48,10 +43,6 @@ $module_lang = array(
 	"gb_iamount" => 'Amount',
 	"gb_itype" => 'Type',
 	"gb_iedit" => 'Edit',
-	"gb_ivalue" => 'Value',
-	"gb_ivalue_a" => 'Value (Admin area)',
 	"gb_irarity" => 'Rarity',
 	"gb_ibanker" => 'Banker',
-	"gb_idkp" => 'DKP',
-	"gb_ishop" => 'Itemshop Link',
 	);
