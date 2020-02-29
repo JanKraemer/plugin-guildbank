@@ -35,19 +35,23 @@ if (!class_exists('pdh_r_guildbank_banker')){
 		);
 
 		public function reset(){
-			$this->pdc->del('pdh_guildbank_banker_table');
+			$this->pdc->del('pdh_guildbank_banker_table.banker');
+			$this->pdc->del('pdh_guildbank_banker_table.raid_banker');
 			unset($this->data);
+			unset($this->raid_banker);
 		}
 
 		public function init(){
 			// try to get from cache first
-			$this->data = $this->pdc->get('pdh_guildbank_banker_table');
-			if($this->data !== NULL){
+			$this->data = $this->pdc->get('pdh_guildbank_banker_table.banker');
+            $this->raid_banker = $this->pdc->get('pdh_guildbank_banker_table.raid_banker');
+
+			if($this->data !== NULL && $this->raid_banker !== NULL){
 				return true;
 			}
 
 			// empty array as default
-			$this->data = array();
+			$this->data = $this->raid_banker = array();
 
 			// read all guildbank_fields entries from db
 			$sql = 'SELECT * FROM `__guildbank_banker` ORDER BY banker_id ASC;';
@@ -62,18 +66,21 @@ if (!class_exists('pdh_r_guildbank_banker')){
 						'bankchar'		=> (int)$row['banker_bankchar'],
 						'note'			=> $row['banker_note'],
 					);
+					$this->raid_banker[(int)$row['banker_raid']][(int)$row['banker_id']] = $row['banker_name'];
 				}
 				#$this->db->free_result($result);
 			}
 
 			// add data to cache
-			$this->pdc->put('pdh_guildbank_banker_table', $this->data, null);
+			$this->pdc->put('pdh_guildbank_banker_table.banker', $this->data, null);
+            $this->pdc->put('pdh_guildbank_banker_table.raid_banker', $this->raid_banker, null);
 			return true;
 		}
 
-		public function get_id_list(){
-			if (is_array($this->data)){
-				return array_keys($this->data);
+		public function get_id_list($raidID){
+            $data	= $raidID > 0 ? $this->raid_banker[$raidID] : $this->data;
+			if (is_array($data)){
+				return array_keys($data);
 			}
 			return array();
 		}

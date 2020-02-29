@@ -97,7 +97,7 @@ class guildbank_pageobject extends pageobject {
 		$dd_rarity		= array_merge(array(0 => '--'), $this->pdh->get('guildbank_items', 'itemrarity'));
         $dd_banker		= array(0 => '--');
 
-        foreach ($this->pdh->get('guildbank_banker', 'id_list') as $banker_id) {
+        foreach ($this->pdh->get('guildbank_banker', 'id_list', array($raidID)) as $banker_id) {
             $dd_banker[$banker_id] = $this->pdh->get('guildbank_banker', 'name',array($banker_id));
         }
 
