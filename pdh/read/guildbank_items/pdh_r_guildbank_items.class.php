@@ -48,7 +48,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
 			'gb_ibanker'	=> array('banker_name',	array('%item_id%', '%raid_id%', '%banker_id%', '%merge%'), array()),
-            'gb_iraid'      => array('raid_name' , array('%item_id%', '%raid_id%'), array()),
+            'gb_iraid'      => array('raid_name' , array('%item_id%', '%raid_id%', '%merge%'), array()),
 
 		);
 
@@ -95,20 +95,32 @@ if (!class_exists('pdh_r_guildbank_items')){
 					$raidID = $this->pdh->get('guildbank_banker', 'raid',array((int)$row['item_banker']));
 					$this->raid_items[$raidID][(int)$row['item_id']] = $row['item_name'];
 
-					$newItem = true;
+                    foreach (array(0, $raidID) as $raid_id) {
+                        $newItem = true;
+                        $banker_name = $this->pdh->get('guildbank_banker', 'name', array((int)$row['item_banker']));
+                        $raid_name = $this->pdh->get('guildbank_raids', 'name', array($raidID));
 
-					foreach ($this->raid_items_kum[$raidID] as $key => $item){
-					    if($item['name'] === $row['item_name']){
-                            $this->raid_items_kum[$raidID][$key]['amount'] += (int)$row['item_amount'];
-					        $newItem = false;
-					    }
-					}
+                        foreach ($this->raid_items_kum[$raid_id] as $key => $item) {
+                            if ($item['name'] === $row['item_name']) {
+                                $this->raid_items_kum[$raid_id][$key]['amount'] += (int)$row['item_amount'];
 
-					if($newItem){
-					    $this->raid_items_kum[$raidID][(int)$row['item_id']] = array(
-                            'name'			=> $row['item_name'],
-                            'amount'		=> (int)$row['item_amount'],
-                        );
+                                $epos = strpos($this->raid_items_kum[$raid_id][$key]['raid_name'], $raid_name);
+                                if($epos === false) {
+                                    $this->raid_items_kum[$raid_id][$key]['raid_name'] = $this->raid_items_kum[$raid_id][$key]['raid_name'] . ", " . $raid_name;
+                                }
+                                $this->raid_items_kum[$raid_id][$key]['banker_name'] = $this->raid_items_kum[$raid_id][$key]['banker_name'] . ", " . $banker_name;
+                                $newItem = false;
+                            }
+                        }
+
+                        if($newItem){
+                            $this->raid_items_kum[$raid_id][(int)$row['item_id']] = array(
+                                'name'			=> $row['item_name'],
+                                'banker_name'   => $banker_name,
+                                'raid_name'     => $raid_name,
+                                'amount'		=> (int)$row['item_amount'],
+                            );
+                        }
                     }
 				}
 			}
@@ -124,7 +136,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public function get_id_list($raidID = 0, $bankerID = 0, $type = '', $rarity = 0, $merge = 0){
             $data	= ((int)$raidID > 0) ? $this->raid_items[$raidID] : $this->data;
 			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $data;
-			$data   = ((int)$merge > 0 && (int)$raidID > 0) ? $this->raid_items_kum[$raidID] : $data;
+			$data   = ((int)$merge > 0) ? $this->raid_items_kum[$raidID] : $data;
 			if (is_array($data)){
 				// filter the output
 				if($type != '' || $rarity > 0 ){
@@ -149,7 +161,7 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_amount($id, $raidID = 0, $bankerID = 0, $merge = 0){
-            if($raidID > 0 && $bankerID == 0 && $merge > 0){
+            if($bankerID == 0 && $merge > 0){
                 return (isset($this->raid_items_kum[$raidID][$id]) && $this->raid_items_kum[$raidID][$id]['amount'] > 0) ? $this->raid_items_kum[$raidID][$id]['amount'] : 0;
             }
 			return (isset($this->data[$id]) && $this->data[$id]['amount'] > 0) ? $this->data[$id]['amount'] : 0;
@@ -219,8 +231,8 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		public function get_banker_name($id, $raidID = 0, $bankerID = 0, $merge = 0){
-		    if($raidID > 0 && $bankerID == 0 && $merge > 0){
-		        return '-';
+		    if($bankerID == 0 && $merge > 0){
+                return $this->raid_items_kum[$raidID][$id]['banker_name'];
             }
 			return $this->pdh->get('guildbank_banker', 'name', array($this->get_banker($id)));
 		}
@@ -229,9 +241,11 @@ if (!class_exists('pdh_r_guildbank_items')){
             return $this->pdh->get('guildbank_banker', 'raid', array($this->get_banker($id)));
         }
 
-        public function get_raid_name($id, $raidID = 0){
-		    $raid = ($raidID > 0) ? $raidID : $this->get_raid($id);
-            return $this->pdh->get('guildbank_raids', 'name', array($raid));
+        public function get_raid_name($id, $raidID = 0, $merge = 0){
+            if($raidID == 0 && $merge > 0){
+                return $this->raid_items_kum[$raidID][$id]['raid_name'];
+            }
+            return $this->pdh->get('guildbank_raids', 'name', array($this->get_raid($id)));
         }
 
 		public function get_itt_itemname($id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
