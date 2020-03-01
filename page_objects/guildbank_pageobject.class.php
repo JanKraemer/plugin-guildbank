@@ -47,22 +47,22 @@ class guildbank_pageobject extends pageobject {
 		$bankerID		= $this->in->get('banker', 0);
 		$rarityID		= $this->in->get('rarity', 0);
 		$typeID			= $this->in->get('type', '');
-		$kummuliert = $this->in->get('kummuliert', 0);
+		$merge = $this->in->get('merge', 0);
 		require_once($this->root_path.'plugins/guildbank/includes/systems/guildbank.esys.php');
 
 		//init infotooltip
 		infotooltip_js();
 
         if($raidID === 0) {
-            $kummuliert = 0;
+            $merge = 0;
         }
 
         //caching parameter
 		$caching_parameter	= 'nofilter';
 		$filter_suffix		= '';
-		if($raidID > 0 || $bankerID > 0 || $typeID > 0 || $rarityID != '' || $kummuliert > 0){
-			$caching_parameter	= 'raid'.$raidID.'_banker'.$bankerID.'_type'.$typeID.'_rarity'.$rarityID.'_kummuliert'.$kummuliert;
-			$filter_suffix		= '&amp;raid='.$raidID.'&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID.'&amp;kummuliert='.$kummuliert;
+		if($raidID > 0 || $bankerID > 0 || $typeID > 0 || $rarityID != '' || $merge > 0){
+			$caching_parameter	= 'raid'.$raidID.'_banker'.$bankerID.'_type'.$typeID.'_rarity'.$rarityID.'_merge'.$merge;
+			$filter_suffix		= '&amp;raid='.$raidID.'&amp;banker='.$bankerID.'&amp;type='.$typeID.'&amp;rarity='.$rarityID.'&amp;merge='.$merge;
 		}
 
 		foreach($this->pdh->get('guildbank_banker', 'id_list', array($raidID, $bankerID)) as $banker_id){
@@ -115,8 +115,8 @@ class guildbank_pageobject extends pageobject {
 
 		$guildbank_ids	= $guildbank_out = array();
 		// -- display entries ITEMS ------------------------------------------------
-		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($raidID, $bankerID, $typeID, $rarityID, $kummuliert));
-		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'i'.$caching_parameter, 'isort');
+		$items_list		= $this->pdh->get('guildbank_items', 'id_list', array($raidID, $bankerID, $typeID, $rarityID, $merge));
+		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%raid_id%' => $raidID, '%banker_id%' => $bankerID, '%merge%' => $merge, '%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'i'.$caching_parameter, 'isort');
 		$page_suffix_i	= '&amp;istart='.$this->in->get('istart', 0);
 		$page_suffix_i	.= $filter_suffix.'#fragment-items';
 		$sort_suffix_i	= '&amp;isort='.$this->in->get('isort');
@@ -172,7 +172,7 @@ class guildbank_pageobject extends pageobject {
 			'DD_BANKER'		=> (new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_RARITY'		=> (new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_TYPE'		=> (new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
-            'DD_KUMMULIERT' => (new hradio('kummuliert', array('disabled' => $this->disableMergeItems($raidID) ,'value' => $kummuliert, 'js' => 'onchange="javascript:form.submit();"')))->output(),
+            'DD_MERGE'      => (new hradio('merge', array('disabled' => $this->disableMergeItems($raidID) ,'value' => $kummuliert, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 
 			'AUCTIONCOUNT'	=> $this->pdh->get('guildbank_auctions', 'count_active_auction', array()),
 

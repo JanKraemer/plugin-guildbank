@@ -32,6 +32,9 @@ if (!class_exists('pdh_r_guildbank_items')){
 		}
 
 		private $data;
+		private $raid_items;
+		private $raid_items_kum;
+		private $banker_items;
 
 		public $hooks = array(
 			'guildbank_items_update'
@@ -40,21 +43,23 @@ if (!class_exists('pdh_r_guildbank_items')){
 		public $presets = array(
 			'gb_idate'		=> array('html_date',	array('%item_id%'), array()),
 			'gb_iname'		=> array('name',		array('%item_id%', '%itt_lang%', '%itt_direct%', '%onlyicon%', '%noicon%'), array()),
-			'gb_iamount'	=> array('amount',		array('%item_id%'), array()),
+			'gb_iamount'	=> array('amount',		array('%item_id%', '%raid_id%', '%banker_id%', '%merge%'), array()),
 			'gb_itype'		=> array('type',		array('%item_id%'), array()),
 			'gb_iedit'		=> array('edit',		array('%item_id%'), array()),
 			'gb_irarity'	=> array('rarity',		array('%item_id%'), array()),
-			'gb_ibanker'	=> array('banker_name',	array('%item_id%'), array()),
-            'gb_iraid'       => array('raid_name' , array('%item_id%'), array()),
+			'gb_ibanker'	=> array('banker_name',	array('%item_id%', '%raid_id%', '%banker_id%', '%merge%'), array()),
+            'gb_iraid'      => array('raid_name' , array('%item_id%', '%raid_id%'), array()),
 
 		);
 
 		public function reset(){
 			$this->pdc->del('pdh_guildbank_items_table.items');
 			$this->pdc->del('pdh_guildbank_items_table.raid_items');
+            $this->pdc->del('pdh_guildbank_items_table.raid_items_kum');
 			$this->pdc->del('pdh_guildbank_items_table.banker_items');
 			unset($this->data);
 			unset($this->raid_items);
+			unset($this->raid_items_kum);
 			unset($this->banker_items);
 		}
 
@@ -62,14 +67,15 @@ if (!class_exists('pdh_r_guildbank_items')){
 			// try to get from cache first
 			$this->data			= $this->pdc->get('pdh_guildbank_items_table.items');
             $this->raid_items   = $this->pdc->get('pdh_guildbank_items_table.raid_items');
+            $this->raid_items_kum   = $this->pdc->get('pdh_guildbank_items_table.raid_items_kum');
 			$this->banker_items	= $this->pdc->get('pdh_guildbank_items_table.banker_items');
 
-			if($this->data !== NULL && $this->banker_items !== NULL && $this->raid_items !== NULL){
+			if($this->data !== NULL && $this->banker_items !== NULL && $this->raid_items !== NULL && $this->raid_items_kum !== NULL){
 				return true;
 			}
 
 			// empty array as default
-			$this->data = $this->banker_items = $this->raid_items = array();
+			$this->data = $this->banker_items = $this->raid_items = $this->raid_items_kum = array();
 
 			$sql = 'SELECT * FROM `__guildbank_items` ORDER BY item_id ASC;';
 			$result = $this->db->query($sql);
@@ -86,23 +92,39 @@ if (!class_exists('pdh_r_guildbank_items')){
 						'date'			=> (int)$row['item_date'],
 					);
 					$this->banker_items[(int)$row['item_banker']][(int)$row['item_id']]	= $row['item_name'];
-					$raidId = $this->pdh->get('guildbank_banker', 'raid',array((int)$row['item_banker']));
-					$this->raid_items[$raidId][(int)$row['item_id']] = $row['item_name'];
+					$raidID = $this->pdh->get('guildbank_banker', 'raid',array((int)$row['item_banker']));
+					$this->raid_items[$raidID][(int)$row['item_id']] = $row['item_name'];
+
+					$newItem = true;
+
+					foreach ($this->raid_items_kum[$raidID] as $key => $item){
+					    if($item['name'] === $row['item_name']){
+                            $this->raid_items_kum[$raidID][$key]['amount'] += (int)$row['item_amount'];
+					        $newItem = false;
+					    }
+					}
+
+					if($newItem){
+					    $this->raid_items_kum[$raidID][(int)$row['item_id']] = array(
+                            'name'			=> $row['item_name'],
+                            'amount'		=> (int)$row['item_amount'],
+                        );
+                    }
 				}
 			}
 
 			// add data to cache
 			$this->pdc->put('pdh_guildbank_items_table.items', $this->data, null);
             $this->pdc->put('pdh_guildbank_items_table.raid_items', $this->raid_items, null);
+            $this->pdc->put('pdh_guildbank_items_table.raid_items_kum', $this->raid_items_kum, null);
 			$this->pdc->put('pdh_guildbank_items_table.banker_items', $this->banker_items, null);
 			return true;
 		}
 
-		public function get_id_list($raidID = 0, $bankerID = 0, $type = '', $rarity = 0, $kummuliert = 0){
-		    if($kummuliert > 0)
-		        return array();
+		public function get_id_list($raidID = 0, $bankerID = 0, $type = '', $rarity = 0, $merge = 0){
             $data	= ((int)$raidID > 0) ? $this->raid_items[$raidID] : $this->data;
 			$data	= ((int)$bankerID > 0) ? $this->banker_items[$bankerID] : $data;
+			$data   = ((int)$merge > 0 && (int)$raidID > 0) ? $this->raid_items_kum[$raidID] : $data;
 			if (is_array($data)){
 				// filter the output
 				if($type != '' || $rarity > 0 ){
@@ -126,7 +148,10 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return $this->time->user_date($this->get_date($id));
 		}
 
-		public function get_amount($id){
+		public function get_amount($id, $raidID = 0, $bankerID = 0, $merge = 0){
+            if($raidID > 0 && $bankerID == 0 && $merge > 0){
+                return (isset($this->raid_items_kum[$raidID][$id]) && $this->raid_items_kum[$raidID][$id]['amount'] > 0) ? $this->raid_items_kum[$raidID][$id]['amount'] : 0;
+            }
 			return (isset($this->data[$id]) && $this->data[$id]['amount'] > 0) ? $this->data[$id]['amount'] : 0;
 		}
 
@@ -193,7 +218,10 @@ if (!class_exists('pdh_r_guildbank_items')){
 			return (isset($this->data[$id]) && $this->data[$id]['banker']) ? $this->data[$id]['banker'] : 0;
 		}
 
-		public function get_banker_name($id){
+		public function get_banker_name($id, $raidID = 0, $bankerID = 0, $merge = 0){
+		    if($raidID > 0 && $bankerID == 0 && $merge > 0){
+		        return '-';
+            }
 			return $this->pdh->get('guildbank_banker', 'name', array($this->get_banker($id)));
 		}
 
@@ -201,8 +229,9 @@ if (!class_exists('pdh_r_guildbank_items')){
             return $this->pdh->get('guildbank_banker', 'raid', array($this->get_banker($id)));
         }
 
-        public function get_raid_name($id){
-            return $this->pdh->get('guildbank_raids', 'name', array($this->get_raid($id)));
+        public function get_raid_name($id, $raidID = 0){
+		    $raid = ($raidID > 0) ? $raidID : $this->get_raid($id);
+            return $this->pdh->get('guildbank_raids', 'name', array($raid));
         }
 
 		public function get_itt_itemname($id, $lang=false, $direct=0, $onlyicon=0, $noicon=false, $in_span=false) {
