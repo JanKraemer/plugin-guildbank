@@ -183,10 +183,10 @@ $lang = array(
     "gb_a_type" => array(
 	"quest" => 'Quest',
 	"weapon" => 'Weapon',
-	"reagent" => 'Reagent',
+	"container" => 'Conainers',
 	"builder" => 'Crafting',
 	"armor" => 'Armor',
-	"key" => 'Key',
+	"recipe" => 'Recipes',
 	"useable" => 'Usables',
 	"misc" => 'Others',
 	),

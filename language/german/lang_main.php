@@ -212,10 +212,10 @@ $lang = array(
 	'gb_a_type'						=> array(
 		'quest'		=> "Quest",
 		'weapon'	=> "Waffe",
-		'reagent'	=> "Reagenz",
+		'container' => "Behälter",
 		'builder'	=> "Handwerkswaren",
 		'armor'		=> "Rüstung",
-		'key'		=> "Schlüssel",
+		'recipe'    => "Rezepte",
 		'useable'	=> "Verbrauchbar",
 		'misc'		=> "Verschiedenes"
 	),
