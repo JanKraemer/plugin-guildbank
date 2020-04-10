@@ -119,7 +119,7 @@ class guildbank_pageobject extends pageobject {
 		$hptt_items		= $this->get_hptt($systems_guildbank['pages']['hptt_guildbank_items'], $items_list, $items_list, array('%raid_id%' => $raidID, '%banker_id%' => $bankerID, '%merge%' => $merge, '%itt_lang%' => false, '%itt_direct%' => 0, '%onlyicon%' => 0, '%noicon%' => 0), 'i'.$caching_parameter, 'isort');
 		$page_suffix_i	= '&amp;istart='.$this->in->get('istart', 0);
 		$page_suffix_i	.= $filter_suffix.'#fragment-items';
-		$sort_suffix_i	= '&amp;isort='.$this->in->get('isort');
+		$sort_suffix_i	= $filter_suffix.'&amp;isort='.$this->in->get('isort');
 		$item_count		= count($items_list);
 		$footer_item	= sprintf($this->user->lang('gb_footer_item'), $item_count, $this->user->data['user_rlimit']);
 
@@ -172,7 +172,7 @@ class guildbank_pageobject extends pageobject {
 			'DD_BANKER'		=> (new hdropdown('banker', array('options' => $dd_banker, 'value' => $bankerID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_RARITY'		=> (new hdropdown('rarity', array('options' => $dd_rarity, 'value' => $rarityID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 			'DD_TYPE'		=> (new hdropdown('type', array('options' => $dd_type, 'value' => $typeID, 'js' => 'onchange="javascript:form.submit();"')))->output(),
-            'DD_MERGE'      => (new hradio('merge', array('disabled' => $this->disableMergeItems($raidID) ,'value' => $kummuliert, 'js' => 'onchange="javascript:form.submit();"')))->output(),
+            'DD_MERGE'      => (new hradio('merge', array('value' => $merge, 'js' => 'onchange="javascript:form.submit();"')))->output(),
 
 			'AUCTIONCOUNT'	=> $this->pdh->get('guildbank_auctions', 'count_active_auction', array()),
 
